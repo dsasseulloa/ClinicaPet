@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  projetov2:
+    image: ${DOCKER_REGISTRY-}projetov2
+    build:
+      context: .\Projetov2
+      dockerfile: Dockerfile
