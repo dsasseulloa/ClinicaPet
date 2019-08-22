@@ -54,6 +54,7 @@ namespace Projeto.Models
 
         public ICollection<Animal> Animals { get; set; }
         public Funcionario Funcionarios { get; set; }
+     
 
 
     }

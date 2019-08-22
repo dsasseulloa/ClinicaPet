@@ -47,14 +47,11 @@
                                     <th>ClienteID</th>
                                     <th>Nome</th>
                                     <th>Sexo</th>
+                                    <th>CPF</th>
                                     <th>Contato</th>
-                                    <th>Cidade</th>
-                                    <th>CEP</th>
-                                    <th>Endereço</th>
-                                    <th>Contato2</th>
-                                    <th>Editar</th>
-                                    <th>Deletar</th>
-                                    <th>a</th>
+                                    <th>Email</th>
+                                    <th>Data de Cadastro</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
 
@@ -92,7 +89,7 @@
 
                 "language": {
                     "lengthMenu": "Exibe _MENU_ Registros por página",
-                    "search": "Procurar",
+                    "search": "Pesquisar por Nome",
                     "paginate": { "previous": "Retorna", "next": "Avança" },
                     "zeroRecords": "Nada foi encontrado",
                     "info": "Exibindo página _PAGE_ de _PAGES_",
@@ -118,41 +115,55 @@
                         "visible": false,
                         "searchable": false
                     },
+                        {
+                            "targets": [2],
+                            "searchable": false,
+                            "orderable": false
+                        },
+                        {
+                            "targets": [3],
+                            "searchable": false,
+                            "orderable": false
+                        },
                     {
-                        "targets": [7],
+                        "targets": [4],
                         "searchable": false,
                         "orderable": false
                     },
                     {
-                        "targets": [8],
+                        "targets": [5],
                         "searchable": false,
                         "orderable": false
-                    },
-                    {
-                        "targets": [9],
-                        "searchable": false,
-                        "orderable": false
-                    }],
+                        },
+                        {
+                            "targets": [7],
+                            "searchable": false,
+                            "orderable": false
+                        }
+
+  ],
 
                 "columns": [
-                    { "data": "ClienteID", "name": "ClienteID", "autoWidth": true },
+                    {
+                        "data": "ClienteID",
+                        "name": "ClienteID",
+                        "autoWidth": true
+                    },
                     { "data": "Nome", "name": "Nome", "autoWidth": true },
                     { "data": "Sexo", "title": "Sexo", "name": "Sexo", "autoWidth": true },
+                    { "data": "CPFouRG", "name": "CPFouRG", "autoWidth": true },
                     { "data": "Contato", "name": "Contato", "autoWidth": true },
-                    { "data": "Cidade", "name": "Cidade", "autoWidth": true },
-                    { "data": "CEP", "name": "CEP", "autoWidth": true },
-                    { "data": "Endereço", "name": "Endereço", "autoWidth": true },
-                    { "data": "Contato2", "name": "Contato2", "title": "Status", "autoWidth": true, },
+                    { "data": "Email", "name": "Email", "autoWidth": true },
                     {
-                        "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/Cliente/Edit/' + full.ClienteID + '">Editar</a>'; }
+                        "data": "DataCadastro",
+                        "name": "DataCadastro",
+                        "autoWidth": true,
+                        render: function (d) {
+                            return moment(d).format("DD:MM:YYYY HH:mm:ss");
                     },
-                    {
-                        data: null, render: function (data, type, row) {
-                            return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.ClienteID + "'); >Deletar</a>";
-                        }
-                    },
+
                     {"render": function (data, type, full, meta) {
-                        return '<a href="@Url.Action("Edit","Clientes")?id=' + full.ClienteID + '" class="editAsset">Edit</a> | <a href="@Url.Action("Details", "Clientes")?id=' + full.ClienteID + '">Details</a> | <a href="@Url.Action("Delete", "Clientes")?id=' + full.ClienteID + '">Delete</a>';
+                        return '<a href="@Url.Action("Edit","Clientes")?id=' + full.ClienteID + '" class="btn btn-primary">Edit</a> | <a href="@Url.Action("Details", "Clientes")?id=' + full.ClienteID + '" class="btn btn-info">Details</a> | <a href="#" onclick="DeleteData(' + full.ClienteID + ')"class="btn btn-danger">Delete</a>';
                                 }   }
                 ]
             });
@@ -161,7 +172,7 @@
 
 
     function DeleteData(ClienteID) {
-        if (confirm("Tem certeza que quer deletar este cadastro? ...?")) {
+        if (confirm("Tem certeza que quer deletar este cadastro ?")) {
             Delete(ClienteID);
         }
         else {
@@ -174,12 +185,12 @@
         var url = '@Url.Content("~/")' + "Clientes/DeleteCustomer";
             $.post(url, { ID: ClienteID }, function (data) {
             if (data == "Deleted") {
-                alert("Deletar Cliente");
+                alert("Cadastro Deletado!");
                 oTable = $('#demoGrid').DataTable();
                 oTable.draw();
             }
             else {
-                alert("Something Went Wrong!");
+                alert("Algo deu Errado!");
             }
         });
     }
