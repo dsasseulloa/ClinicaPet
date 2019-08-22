@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Projeto.Models.Acesso>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Serviços</h3>
+                </div>
+                <div class="row fileupload-buttonbar">
+                    <div class="col-lg-8">
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="@Url.Action("Create", "Acessos")" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>
+                                <strong>Cadastrar Acessos</strong>
+                            </span>
+                            </a>
+
+                    </div>
+                    <br>
+                    <div class="box-body">
+
+
+
+                        <table class="table table-hover">
+
+                            
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Funcionario.Nome)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Usuario)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Senha)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Ativo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Perfil)
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Usuario)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Senha, new { @class = "form-control", placeholder = "Password", @type = "password" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Ativo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Perfil)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", "Acessos", new { id = item.FuncionarioID })" class="btn btn-success btn-xs">
+
+                                                <span>
+                                                    <strong>Editar</strong>
+                                                </span>
+                                            </a>
+                                            <a href="@Url.Action("Details", "Acessos", new { id = item.FuncionarioID })" class="btn btn-primary btn-xs">
+
+                                                <span>
+                                                    <strong>Detalhes</strong>
+                                                </span>
+                                            </a>
+                                            &nbsp;
+                                            @*<a href="@Url.Action("Delete", "Acessos", new { id = item.FuncionarioID })" class="btn btn-danger btn-xs">
+
+                                            <span>
+                                                <strong>Deletar</strong>
+                                            </span>
+                                        </a>*@
+
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div></div>
+</section>

@@ -1,0 +1,60 @@
+﻿@model Projeto.Models.Servicos
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Servicos/_ViewServicosIndex.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Servicos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Preco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-lgcol-lg-10">
+                &nbsp;&nbsp;&nbsp;
+
+
+                <button class="btn btn-theme04" value="Delete" type="submit">Deletar</button>
+
+                <a href="@Url.Action("Index", "Servicos")" class="btn btn-theme">
+                    <span>
+                        <strong>Voltar</strong>
+                    </span>
+                </a>
+            </div>
+        </div>
+    }
+</div>

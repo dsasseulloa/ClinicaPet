@@ -23,20 +23,12 @@ namespace Projeto.Models
         [Display(Name = "Tipo do Perfil")]
        
         public string Perfil { get; set; }
-        [Display(Name = "Data de Cadastro")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? DataCadastro { get; set; }
+
 
 
         public virtual Funcionario Funcionario { get; set; }
 
-        public Acesso()
-        {
 
-            this.DataCadastro = DateTime.Now;
-
-        }
     }
     public enum Ativo
     {

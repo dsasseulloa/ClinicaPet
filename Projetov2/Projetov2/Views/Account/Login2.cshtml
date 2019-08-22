@@ -1,0 +1,112 @@
+﻿
+@model Projeto.Models.Acesso
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <title>Projeto PET</title>
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--external css-->
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/style-responsive.css" rel="stylesheet">
+
+    <link href="~/Content/Projetoestilo.css" rel="stylesheet" />
+    <!-- =======================================================
+      Template Name: Dashio
+      Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+      Author: TemplateMag.com
+      License: https://templatemag.com/license/
+    ======================================================= -->
+</head>
+
+<body>
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+    new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken();
+
+
+        <div id="login-page">
+            <div class="container">
+                <div class="form-login">
+                    <h2 class="form-login-heading">Acesso</h2>
+                    <div class="login-wrap">
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon
+                        glyphicon-user"></i>
+                            </span>
+                            @Html.EditorFor(model => model.Usuario, new
+                            {
+                                htmlAttributes =  new
+                                 {
+                                     @class = "form-control input-lg",
+                                     placeholder = "Usuario",
+                                     autofocus = true
+                                 }
+                            })
+                            @Html.ValidationMessageFor(model => model.Usuario, "",
+                            new { @class = "text-danger" })
+                        </div>
+
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-lock"></i>
+                            </span>
+                            @Html.EditorFor(model => model.Senha, new
+                            {
+                                htmlAttributes = new { @class = "form-control input-lg", placeholder = "Senha", type = "password" }
+                            })
+                            <span>
+                                @Html.ValidationMessageFor(model => model.Senha, "",
+                                new { @class = "text-danger" })
+                            </span>
+                        </div>
+
+                        <button class="btn btn-theme btn-block" value="Acessar"><i class="fa fa-lock"></i> Acessar</button>
+
+
+                    </div>
+
+                    <p> @Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- js placed at the end of the document so the pages load faster -->
+        <script src="~/lib/jquery/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+        <!--BACKSTRETCH-->
+        <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+        <script type="text/javascript" src="~/lib/jquery.backstretch.min.js"></script>
+        <script>
+            $.backstretch("img/login-bg.jpg", {
+                speed: 500
+            });
+        </script>
+        <script src="~/scripts/jquery-1.10.2.js"></script>
+        <script src="~/scripts/bootstrap.min.js"></script>
+    }
+</body>
+

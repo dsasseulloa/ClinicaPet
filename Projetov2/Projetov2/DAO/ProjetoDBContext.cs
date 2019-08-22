@@ -25,17 +25,6 @@ namespace Projeto.DAO
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            //modelBuilder.Entity<Animal>()
-            //        .HasMany(l => l.Clientes)
-            //        .WithMany(a => a.Animals)
-            //        .Map(x =>
-            //        {
-            //            x.MapLeftKey("LivroId");
-            //            x.MapRightKey("AutorId");
-            //            x.ToTable("LivroAutor");
-            //        });
-            //base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<Servicos>()
                 .HasMany(c => c.Animals).WithMany(i => i.Servicos)
                 .Map(t => t.MapLeftKey("ServicoID")
@@ -44,16 +33,11 @@ namespace Projeto.DAO
 
         }
 
-
         public ProjetoDBContext()
         {
             Database.SetInitializer(new ProjetoInitializer());
+            //this.Configuration.LazyLoadingEnabled = false;
         }
 
-        /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-         {
-             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Projeto;Integrated Security=True");
-             }
-        */
     }
 }

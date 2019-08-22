@@ -1,0 +1,78 @@
+﻿@model Projeto.Models.Acesso
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Acessos/_ViewFormAcesso.cshtml";
+}
+
+<h4>Editar Acesso</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.FuncionarioID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Usuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Usuario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Usuario, "", new { @class = "text-danger" })
+                <span class="text-danger">@ViewBag.ErrorMessage</span>
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Ativo, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Perfil, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (Model.Usuario == "admin@admin.com")
+                {
+
+                    <p>Administrador</p>
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.Perfil, new List<SelectListItem>
+    { new SelectListItem { Text = "Funcionario", Value = "Funcionario"},
+    new SelectListItem { Text = "Administrador", Value = "Administrador"}
+    }, "Selecionar Perfil", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Perfil, "", new { @class = "text-danger" })
+                    
+
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button class="btn btn-theme" value="Save" type="submit">Salvar</button>
+
+                <a href="@Url.Action("Index", "Acessos")" class="btn btn-theme04">
+                    <span>
+                        <strong>Cancelar</strong>
+                    </span>
+                </a>
+            </div>
+        </div>
+        </div>
+        }

@@ -8,6 +8,7 @@ using System.Web;
 
 namespace Projeto.Models
 {
+    
     public class Cliente
     {
         public Cliente()
@@ -51,8 +52,8 @@ namespace Projeto.Models
         public DateTime? DataCadastro { get; set; }
 
 
-        public virtual ICollection<Animal> Animals { get; set; }
-        public virtual Funcionario Funcionarios { get; set; }
+        public ICollection<Animal> Animals { get; set; }
+        public Funcionario Funcionarios { get; set; }
 
 
     }

@@ -7,7 +7,8 @@ using Projeto.Models;
 namespace Projeto.DAO
 {
     public class ProjetoInitializer : System.Data.Entity.DropCreateDatabaseAlways<ProjetoDBContext>
-        {
+    //DropCreateDatabaseIfModelChanges
+    {
         protected override void Seed(ProjetoDBContext context)
         {
             var funcionarios = new List<Funcionario>
@@ -33,7 +34,7 @@ namespace Projeto.DAO
 
             var clientes = new List<Cliente>
             {
-                new Cliente{Nome="Carlos",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678901"},
+                new Cliente{Nome="Carlos",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678901"},
                 new Cliente{Nome="Joaquina",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678902"},
                 new Cliente{Nome="Sabrina",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678903"},
                 new Cliente{Nome="Roberto",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678904"},

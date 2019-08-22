@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Linq.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -9,67 +10,82 @@ using System.Web.Mvc;
 using PagedList;
 using Projeto.DAO;
 using Projeto.Models;
+using DataTables;
+using System.Threading.Tasks;
 
 namespace Projeto.Controllers
 {
+    [Authorize(Roles = "Administrador, Funcionario")]
     public class ClientesController : Controller
     {
         private ProjetoDBContext db = new ProjetoDBContext();
 
         // GET: Clientes
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        [HttpGet]
+        public ActionResult Index()
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewBag.Date2SortParm = sortOrder == "Date2" ? "date_desc2" : "Date2";
-
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-
-            var clientes = from s in db.Clientes
-                           select s;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                clientes = clientes.Where(s => s.Nome.Contains(searchString)
-                                       || s.Nome.Contains(searchString));
-            }
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    clientes = clientes.OrderByDescending(s => s.Nome);
-                    break;
-                case "Date":
-                    clientes = clientes.OrderBy(s => s.DataNascimento);
-                    break;
-                case "date_desc":
-                    clientes = clientes.OrderByDescending(s => s.DataNascimento);
-                    break;
-                case "Date2":
-                    clientes = clientes.OrderBy(s => s.DataCadastro);
-                    break;
-                case "date_desc2":
-                    clientes = clientes.OrderByDescending(s => s.DataCadastro);
-                    break;
-                default:
-                    clientes = clientes.OrderBy(s => s.DataCadastro);
-                    break;
-            }
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-            return View(clientes.ToPagedList(pageNumber, pageSize));
+            return View();
         }
 
-            // GET: Clientes/Details/5
-            public ActionResult Details(int? id)
+        [HttpGet]
+        public ActionResult GetClientes()
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+            {
+                var listaClientes = db.Clientes.ToList();
+
+                return Json(new { data = listaClientes }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult LoadData()
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+                try
+            {
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
+
+
+                //Paging Size (10,20,50,100)    
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+
+                // Getting all Customer data    
+                var clienteData = (from tempcustomer in db.Clientes
+                                    select tempcustomer);
+
+                //Sorting    
+                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                {
+                    clienteData = clienteData.OrderBy(sortColumn + " " + sortColumnDir);
+                }
+                //Search    
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    clienteData = clienteData.Where(m => m.Nome.Contains (searchValue));
+                }
+
+                //total number of rows count     
+                recordsTotal = clienteData.Count();
+                //Paging     
+                var data = clienteData.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data    
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        // GET: Clientes/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -82,12 +98,12 @@ namespace Projeto.Controllers
             }
             return View(cliente);
         }
-
-        // GET: Clientes/Create
+        //GET: Clientes/Create
         public ActionResult Create()
         {
             return View();
         }
+
 
         // POST: Clientes/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
@@ -100,13 +116,12 @@ namespace Projeto.Controllers
             {
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+             return RedirectToAction("Index");
             }
 
             return View(cliente);
         }
 
-        // GET: Clientes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -121,9 +136,7 @@ namespace Projeto.Controllers
             return View(cliente);
         }
 
-        // POST: Clientes/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ClienteID,Nome,Sexo,DataNascimento,CPFouRG,Contato,Contato2,Endereço,Bairro,Cidade,Estado,CEP,Email,ReturnDate")] Cliente cliente)
@@ -136,7 +149,6 @@ namespace Projeto.Controllers
             }
             return View(cliente);
         }
-
         // GET: Clientes/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -150,6 +162,20 @@ namespace Projeto.Controllers
                 return HttpNotFound();
             }
             return View(cliente);
+        }
+        [HttpPost]
+        public JsonResult DeleteCustomer(int? ID)
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+            {
+                var cliente = db.Clientes.Find(ID);
+                if (ID == null)
+                    return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
+                db.Clientes.Remove(cliente);
+                db.SaveChanges();
+
+                return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
+            }
         }
 
         // POST: Clientes/Delete/5

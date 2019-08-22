@@ -1,0 +1,74 @@
+﻿@model Projeto.Models.Acesso
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Acessos/_ViewFormAcesso.cshtml";
+}
+
+<h3>Detalhes</h3>
+<div class="form-horizontal">
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Funcionario.Nome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Funcionario.Nome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Usuario)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Usuario)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Senha)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Senha)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Ativo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Perfil)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Perfil)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="form-group">
+        <div class="col-lgcol-lg-10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("EditAcesso", "Acessos", new { id = Model.FuncionarioID })" class="btn btn-theme">
+                <i class="fa fa-pencil"></i>
+                <span>
+                    <strong>Editar</strong>
+                </span>
+            </a>
+
+
+            <a href="@Url.Action("Index", "Acessos")" class="btn btn-theme04">
+                <span>
+                    <strong>Voltar</strong>
+                </span>
+            </a>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Projeto.Models.Funcionario>
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Funcionarios</h3>
+                </div>
+                <div class="row fileupload-buttonbar">
+                    <div class="col-lg-8">
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="@Url.Action("Create", "Funcionarios")" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>
+                                <strong>Cadastrar Funcionario</strong>
+                            </span>
+                        </a>
+
+
+                    </div>
+                </div>
+                <br>
+                <div class="box-body">
+
+
+
+                    <table class="table table-hover">
+                        <tr>
+                            <th>
+                                Nome
+                            </th>
+                            <th>
+                                Cargo
+                            </th>
+                            <th>
+                                Salario
+                            </th>
+                            <th>
+                                Contato
+                            </th>
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Data de Admissão
+                            </th>
+
+                            <th>Ações</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cargo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Salario)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Contato)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataAdmissao)
+                                </td>
+
+
+                                <td>
+                                    <a href="@Url.Action("Edit", "Funcionarios", new { id = item.FuncionarioID })" class="btn btn-primary btn-xs">
+
+                                        <span>
+                                            <strong>Editar</strong>
+                                        </span>
+                                    </a>
+                                    <a href="@Url.Action("Details", "Funcionarios", new { id = item.FuncionarioID })" class="btn btn-info btn-xs">
+
+                                        <span>
+                                            <strong>Detalhes</strong>
+                                        </span>
+                                    </a>
+
+                                    <a href="@Url.Action("EditAcesso", "Acessos", new { id = item.FuncionarioID })" class="btn btn-success btn-xs">
+
+                                        <span>
+                                            <strong>Acesso</strong>
+                                        </span>
+                                    </a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a href="@Url.Action("Delete", "Funcionarios", new { id = item.FuncionarioID })" class="btn btn-danger btn-xs">
+
+                                        <span>
+                                            <strong>Deletar</strong>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</section>

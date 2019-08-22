@@ -46,12 +46,6 @@ namespace Projeto.Models
         public virtual ICollection<Cliente> Clientes { get; set; }
         public virtual Acesso Acesso { get; set; }
 
-        public Funcionario()
-        {
-
-            this.DataCadastro = DateTime.Now;
-
-        }
     }
 
 }

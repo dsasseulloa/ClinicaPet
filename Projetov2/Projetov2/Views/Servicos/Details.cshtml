@@ -1,0 +1,56 @@
+﻿@model Projeto.Models.Servicos
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Servicos/_ViewServicosIndex.cshtml";
+}
+
+
+<div>
+    <h4>Detalhes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Preco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+    </dl>
+</div>
+<div class="form-group">
+    <div class="col-lgcol-lg-10">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="@Url.Action("Edit", "Servicos", new { id = Model.ServicoID })" class="btn btn-theme">
+            <i class="fa fa-pencil"></i>
+            <span>
+                <strong>Editar</strong>
+            </span>
+        </a>
+
+
+        <a href="@Url.Action("Index", "Servicos")" class="btn btn-theme04">
+            <span>
+                <strong>Voltar</strong>
+            </span>
+        </a>
+    </div>
+</div>

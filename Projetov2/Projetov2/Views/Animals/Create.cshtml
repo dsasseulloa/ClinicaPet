@@ -1,0 +1,256 @@
+﻿@model Projeto.Models.Animal
+
+@{
+    ViewBag.Title = "Create";
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h4 class="mb"><i class="fa fa-angle-right"></i> Cadastrar Animal</h4>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <form>
+
+                        <div class="form-group col-md-12">
+                            @Html.LabelFor(model => model.Nome)
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome Completo" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group row">
+                            <div class=col-md-12>
+
+                                <div class="form-group col-md-3">
+
+                                    @Html.LabelFor(model => model.Sexo, htmlAttributes: new { @class = "control-label col-md-2" })
+
+
+                                    @Html.DropDownListFor(model => model.Sexo, new List<SelectListItem>
+    { new SelectListItem { Text = "Macho", Value = "Macho"},
+    new SelectListItem { Text = "Fêmea", Value = "Fêmea"}
+    }, "Selecionar sexo", new { @class = "form-control" })
+
+                                    @Html.ValidationMessageFor(model => model.Sexo, "", new { @class = "text-danger" })
+
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(model => model.Raca)
+                                    @Html.EditorFor(model => model.Raca, new { htmlAttributes = new { @class = "form-control", placeholder = "Raça" } })
+                                    @Html.ValidationMessageFor(model => model.Raca, "", new { @class = "text-danger" })
+                                </div>
+
+
+
+
+
+
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.Nascimento, htmlAttributes: new { @class = "control-label col-md-10" })
+                                    @Html.EditorFor(model => model.Nascimento, "", new { htmlAttributes = new { @class = "form-control", @id = "reservation" } })
+                                    @Html.ValidationMessageFor(model => model.Nascimento, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(model => model.Idade)
+                                    @Html.EditorFor(model => model.Idade, new { htmlAttributes = new { @class = "form-control", placeholder = "Idade" } })
+                                    @Html.ValidationMessageFor(model => model.Idade, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-2">
+
+                                    @Html.LabelFor(model => model.Sangue, htmlAttributes: new { @class = "control-label col-md-10" })
+                                    @Html.EnumDropDownListFor(model => model.Sangue, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Sangue, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group row">
+                            <div class=col-md-12>
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(model => model.Entrada, htmlAttributes: new { @class = "control-label col-md-10" })
+                                    @Html.EditorFor(model => model.Entrada, new { htmlAttributes = new { @class = "form-control", placeholder = "__/__/____" } })
+                                    @Html.ValidationMessageFor(model => model.Entrada, "", new { @class = "text-danger" })
+                                </div>
+
+
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(model => model.Saida, htmlAttributes: new { @class = "control-label col-md-10" })
+                                    @Html.EditorFor(model => model.Saida, new { htmlAttributes = new { @class = "form-control", placeholder = "__/__/____" } })
+                                    @Html.ValidationMessageFor(model => model.Saida, "", new { @class = "text-danger" })
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.ClienteID, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.DropDownList("ClienteID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ClienteID, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+                        <div class="form-group col-md-2">
+                            @Html.LabelFor(model => model.Preco, htmlAttributes: new { @class = "control-label col-md-10" })
+                            @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control", @id = "valor", placeholder = "Preço" } })
+                            @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group row">
+                            <div class=col-md-12>
+
+                                <div class="form-group col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+
+                                                @Html.LabelFor(model => model.Motivo)
+                                                @Html.TextAreaFor(model => model.Motivo, new { @class = "form-control", @cols = "10", @rows = "4", @style = "width:100%;" })
+
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Motivo, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+
+                                                @Html.LabelFor(model => model.Observaçoes)
+                                                @Html.TextAreaFor(model => model.Observaçoes, new { @class = "form-control", @cols = "10", @rows = "4", @style = "width:100%;" })
+
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Observaçoes, "", new { @class = "text-danger" })
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-xs-12">
+
+                            <div class="form-group col-md-2">
+                                <div class="box-body">
+                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                                        Selecionar Tratamentos
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="modal-default">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title">Tratamentos</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+
+                                            <table class="table table-borderless">
+                                                <tr>
+                                                    @{
+                                                        int cnt = 0;
+                                                        List<Projeto.Models.ViewModel.ServicoAssignedData> servicos = ViewBag.Servicos;
+
+                                                        foreach (var servico in servicos)
+                                                        {
+                                                            if (cnt++ % 3 == 0)
+                                                            {
+                                                            @:</tr><tr>
+                                                            }
+                                                            @:<td>
+                                                                <input type="checkbox"
+                                                                       name="selectedServicos"
+                                                                       value="@servico.ServicoID"
+                                                                       @(Html.Raw(servico.Assigned ? "checked=\"checked\"" : "")) />
+                                                                @servico.ServicoID @:  @servico.Nome
+                                                            @:</td>
+                                                        }
+                                                    @:</tr>
+                                                    }
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Salvar</button>
+
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+
+
+                            <div class="form-group col-md-4">
+
+                                <div class="form-row">
+
+                                    <div class="form-group">
+                                        <div class="row mt">
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                <button class="btn btn-theme" value="Create" type="submit">Salvar</button>
+
+                                                <a href="@Url.Action("Index", "Animals")" class="btn btn-theme04">
+                                                    <span>
+                                                        <strong>Cancelar</strong>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </form>
+
+                        <form class="form-horizontal style-form" method="get">
+                            <div class="form-group">
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+        </div></div>
+
+
+    </section>  
+      
+    }
+<div id="modal" class="modal fade" role="dialog" />
+
+
+
+

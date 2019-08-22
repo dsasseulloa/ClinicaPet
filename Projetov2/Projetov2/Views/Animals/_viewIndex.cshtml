@@ -1,0 +1,47 @@
+﻿
+
+@{
+    ViewBag.Title = "_ViewVizualizaçao";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section id="main-content">
+    <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Animais</h3>
+
+
+        <div class="row fileupload-buttonbar">
+            <div class="col-lg-8">
+
+                <a href="@Url.Action("Create", "Animals")" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>
+                        <strong>Cadastrar Animal</strong>
+                    </span>
+                </a>
+                <a href="@Url.Action("Index", "Clientes")" class="btn btn-success">
+
+                    <span>
+                        <strong>Verificar Clientes</strong>
+                    </span>
+                </a>
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content-panel">
+
+
+                    @RenderBody()
+
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<!--footer end-->
+</section>

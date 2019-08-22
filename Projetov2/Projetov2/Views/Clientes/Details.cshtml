@@ -1,122 +1,136 @@
 ﻿@model Projeto.Models.Cliente
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
+<section class="content">
+    <div class="row">
 
-<div>
-    <h4>Cliente</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h4 class="mb"><i class="fa fa-angle-right"></i> Detalhes do Cliente</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Nome)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Nome)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Sexo)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Sexo)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Sexo)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Sexo)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DataNascimento)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataNascimento)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.DataNascimento)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CPFouRG)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CPFouRG)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CPFouRG)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.CPFouRG)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contato)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Contato)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contato)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Contato)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contato2)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Contato2)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contato2)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Contato2)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Endereço)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Endereço)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Endereço)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Endereço)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Bairro)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Bairro)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Bairro)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Bairro)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cidade)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Cidade)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cidade)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Cidade)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Estado)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Estado)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CEP)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CEP)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CEP)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.CEP)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Email)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnDate)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DataCadastro)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReturnDate)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.DataCadastro)
+                        </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ClienteID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                    </dl>
+
+
+                  
+                    <a href="@Url.Action("Index", "Clientes")" class="btn btn-theme04">
+                        <span>
+                            <strong>Voltar</strong>
+                        </span>
+
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
