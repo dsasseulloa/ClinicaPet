@@ -9,7 +9,7 @@ namespace Projeto.Models
 {
     public class Animal
     {
-   
+
         [Key]
         public int AnimalID { get; set; }
 
@@ -27,33 +27,30 @@ namespace Projeto.Models
         [Display(Name = "Observações")]
         [StringLength(300, MinimumLength = 3, ErrorMessage = "Favor inserir menos de 300 caracteres.")]
         public string Observaçoes { get; set; }
-        [Display(Name ="Tipo Sanguíneo")]
+        [Display(Name = "Tipo Sanguíneo")]
         public Sangue? Sangue { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Data de Nascimento")]
-        public DateTime Nascimento { get; set; }
         [Range(0, 50)]
         public int? Idade { get; set; }
-        [Display(Name ="Data de Entrada")]
+        [Display(Name = "Data de Entrada")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Entrada { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name ="Data de Saída")]
+        [Display(Name = "Data de Saída")]
         public DateTime? Saida { get; set; }
         [Display(Name = "Data de Cadastro")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataCadastro { get; set; }
-
+        [Display(Name = "Tipo de Animal")]
+        public Tipo? Tipo { get; set; }
 
         public virtual Funcionario Funcionarios { get; set; }
 
         public int? ClienteID { get; set; }
         public virtual Cliente Clientes { get; set; }
-     
+
 
         private ICollection<Servicos> _servicos;
         public virtual ICollection<Servicos> Servicos
@@ -70,7 +67,7 @@ namespace Projeto.Models
 
         public Animal()
         {
-          
+
             this.DataCadastro = DateTime.Now;
 
         }
@@ -86,7 +83,7 @@ namespace Projeto.Models
         apositivo = 0,
         [Display(Name = "A-")]
         [Description("A-")]
-        anegativo =1,
+        anegativo = 1,
         [Display(Name = "B+")]
         [Description("B+")]
         bpositivo = 2,
@@ -106,5 +103,17 @@ namespace Projeto.Models
         [Description("O-")]
         onegativo = 7,
 
+    }
+    public enum Tipo
+    {
+        [Display(Name = "Outro")]
+        [Description("Outro")]
+        Outro = 0,
+        [Display(Name = "Cachorro")]
+        [Description("Outro")]
+        Cachorro = 1,
+        [Display(Name = "Gato")]
+        [Description("Outro")]
+        Gato = 2,
     }
 }

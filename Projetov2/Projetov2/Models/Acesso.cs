@@ -19,7 +19,7 @@ namespace Projeto.Models
         [DataType(DataType.Password)]
         public string Senha { get; set; }
 
-        public Ativo Ativo { get; set; }
+        public Ativo? Ativo { get; set; }
         [Display(Name = "Tipo do Perfil")]
        
         public string Perfil { get; set; }

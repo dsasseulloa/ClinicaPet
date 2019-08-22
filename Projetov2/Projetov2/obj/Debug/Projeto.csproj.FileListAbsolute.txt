@@ -229,3 +229,9 @@ C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2\obj\Debug\Projeto.pdb
 C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2\bin\System.Linq.Dynamic.dll
 C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2\bin\DataTables.AspNet.Core.dll
 C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2\bin\DataTables.AspNet.Mvc5.dll
+C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2\bin\DataTables.AspNet.Core.dll
+C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2\bin\DataTables.AspNet.Mvc5.dll
+C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2\bin\System.Linq.Dynamic.dll
+C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2\bin\Chart.Mvc.dll
+C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2\bin\Chart.Mvc.pdb
+C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2\bin\Chart.Mvc.xml

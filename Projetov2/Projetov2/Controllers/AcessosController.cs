@@ -12,7 +12,7 @@ using Projeto.Models;
 
 namespace Projeto.Controllers
 {
-   
+    [Authorize(Roles = "Administrador")]
     public class AcessosController : Controller
     {
         private ProjetoDBContext db = new ProjetoDBContext();
@@ -154,30 +154,7 @@ namespace Projeto.Controllers
         }
 
         // GET: Acessos/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Acesso acesso = db.Acessos.Find(id);
-            if (acesso == null)
-            {
-                return HttpNotFound();
-            }
-            return View(acesso);
-        }
 
-        // POST: Acessos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Acesso acesso = db.Acessos.Find(id);
-            db.Acessos.Remove(acesso);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

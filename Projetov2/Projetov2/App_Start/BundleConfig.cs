@@ -25,13 +25,14 @@ namespace Projetov2
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/admilte2/bootstrap/dist/css/bootstrap.css",
                       "~/admilte2/css/AdminLTE.css",
-                      "~/admilte2/css/skins/skin-blue.css",
+                      "~/admilte2/css/skins/skin-black.css",
                       "~/admilte2/datatables.net-bs/css/dataTables.bootstrap.css"
 
                       ));
             bundles.Add(new ScriptBundle("~/admin-lte/js").Include(
              "~/admilte2/js/adminlte.js",
-              "~/admilte2/plugins/fastclick/fastclick.js"));
+              "~/admilte2/plugins/fastclick/fastclick.js",
+              "~/Scripts/Chart.js"));
         }
     }
 }

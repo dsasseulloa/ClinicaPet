@@ -12,8 +12,8 @@ using Projeto.Models;
 
 namespace Projeto.Controllers
 {
-   
 
+    [Authorize(Roles = "Administrador")]
     public class FuncionariosController : Controller
     {
         private ProjetoDBContext db = new ProjetoDBContext();

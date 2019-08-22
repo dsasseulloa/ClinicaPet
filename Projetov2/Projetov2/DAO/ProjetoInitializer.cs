@@ -13,10 +13,11 @@ namespace Projeto.DAO
         {
             var funcionarios = new List<Funcionario>
             {
-                new Funcionario{Nome="Jose",Salario=1000,DataAdmissao=DateTime.Parse("2000-01-01"),DataNascimento=DateTime.Parse("1980-01-01")},
-                new Funcionario{Nome="Maria",Salario=1000,DataAdmissao=DateTime.Parse("2000-01-01"),DataNascimento=DateTime.Parse("1980-01-01")},
-                new Funcionario{Nome="Gabriel",Salario=1000,DataAdmissao=DateTime.Parse("2000-01-01"),DataNascimento=DateTime.Parse("1980-01-01")},
-                new Funcionario{Nome="Joana",Salario=1000,DataAdmissao=DateTime.Parse("2000-01-01"),DataNascimento=DateTime.Parse("1980-01-01")}
+                new Funcionario{Nome="Carolina Sasse",Sexo="Feminino",Cargo=Cargo.Administrador,Salario=0,Contato="47988374041",Email="carolinasasse@gmail.com",DataAdmissao=DateTime.Parse("2017-01-01"),DataNascimento=DateTime.Parse("1980-01-01")},
+                new Funcionario{Nome="Maria Costa",Sexo="Feminino",Cargo=Cargo.Nutricionista,Salario=2300,DataAdmissao=DateTime.Parse("2019-08-09"),DataNascimento=DateTime.Parse("1987-03-07")},
+                new Funcionario{Nome="Manuela Lima Azevedo",Sexo="Feminino",Cargo=Cargo.Fisioterapeuta,Salario=2700,DataAdmissao=DateTime.Parse("2017-01-10"),DataNascimento=DateTime.Parse("1982-01-01")},
+                new Funcionario{Nome="Sophia Goncalves ",Sexo="Feminino",Cargo=Cargo.Assistente,Salario=1900,DataAdmissao=DateTime.Parse("2018-08-02"),DataNascimento=DateTime.Parse("1994-01-01")},
+                new Funcionario{Nome="Gabriel Rocha Barros",Sexo="Masculino",Cargo=Cargo.Motorista,Salario=1900,DataAdmissao=DateTime.Parse("2017-03-07"),DataNascimento=DateTime.Parse("1991-01-01")}
             };
             funcionarios.ForEach(s => context.Funcionarios.Add(s));
             context.SaveChanges();
@@ -34,18 +35,18 @@ namespace Projeto.DAO
 
             var clientes = new List<Cliente>
             {
-                new Cliente{Nome="Carlos",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678901"},
-                new Cliente{Nome="Joaquina",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678902"},
-                new Cliente{Nome="Sabrina",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678903"},
-                new Cliente{Nome="Roberto",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678904"},
-                  new Cliente{Nome="Carlos2",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678905"},
-                new Cliente{Nome="Joaquina2",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678906"},
-                new Cliente{Nome="Sabrina2",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678907"},
-                new Cliente{Nome="Roberto2",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678908"},
-                  new Cliente{Nome="Carlos3",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678909"},
-                new Cliente{Nome="Joaquina3",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678910"},
-                new Cliente{Nome="Sabrina3",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678911"},
-                new Cliente{Nome="Roberto3",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678912"}
+                new Cliente{Nome="Carlos Joaquim",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678901"},
+                new Cliente{Nome="Gabriela Ferreira Pereira",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678902"},
+                new Cliente{Nome="Isabelle Silva Almeida",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678903"},
+                new Cliente{Nome="Lucas Martins Pereira",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678904"},
+                  new Cliente{Nome="Eduardo Melo Correia",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678905"},
+                new Cliente{Nome="Bruna Cavalcanti Gomes",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678906"},
+                new Cliente{Nome="Julieta Gomes Araujo",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678907"},
+                new Cliente{Nome="Matheus Lima Fernandes",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678908"},
+                  new Cliente{Nome="Murilo Goncalves Barros",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678909"},
+                new Cliente{Nome="Kauan Correia Castro",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678910"},
+                new Cliente{Nome="Beatrice Ribeiro Cardoso",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678911"},
+                new Cliente{Nome="Otávio Cardoso Araujo",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678912"}
             };
             clientes.ForEach(s => context.Clientes.Add(s));
             context.SaveChanges();
@@ -79,8 +80,11 @@ namespace Projeto.DAO
             var animais = new List<Animal>
             {
               
-                new Animal{AnimalID=2,Nome="pet 2",Sexo="Macho",Sangue=Sangue.apositivo,Nascimento=DateTime.Parse("1980-01-01"),Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
-                new Animal{AnimalID=3,Nome="pet 3",Sexo="Macho",Sangue=Sangue.apositivo,Nascimento=DateTime.Parse("1980-01-01"),Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 }
+                new Animal{AnimalID=1,Nome="Toby",Sexo="Macho",Tipo=Tipo.Cachorro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
+                new Animal{AnimalID=2,Nome="Rex",Sexo="Macho",Tipo=Tipo.Outro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
+                 new Animal{AnimalID=3,Nome="Bela",Sexo="Fêmea",Tipo=Tipo.Cachorro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
+                new Animal{AnimalID=4,Nome="Mel",Sexo="Macho",Tipo=Tipo.Cachorro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
+                new Animal{AnimalID=5,Nome="Julie",Sexo="Fêmea",Tipo=Tipo.Gato,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
             };
             animais.ForEach(s => context.Animals.Add(s));
             context.SaveChanges();

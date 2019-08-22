@@ -124,7 +124,7 @@ namespace Projeto.Controllers
    .Where(i => i.AnimalID == id)
    .Single();
             if (TryUpdateModel(AnimalAtualizar, "",
-       new string[] { "Nome", }))
+       new string[] { "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco" }))
             {
                 try
                 {
@@ -138,7 +138,7 @@ namespace Projeto.Controllers
                 catch (RetryLimitExceededException /* dex */)
                 {
                     //Log the error (uncomment dex variable name and add a line here to write a log.
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    ModelState.AddModelError("", "Problema para Salvar");
                 }
             }
             PopulateAssignedCourseData(AnimalAtualizar);

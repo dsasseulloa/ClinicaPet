@@ -3,21 +3,16 @@
     ViewBag.Title = "_ViewFormAcessos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
 
-<section id="main-content">
-    <section class="wrapper">
+                    @RenderBody()
 
-        <div class="row mt">
-            <div class="col-lg-12">
-                <div class="form-panel">
-                    <div class="form">
-
-                            @RenderBody()
-
-                    </div>
                 </div>
             </div>
         </div>
-
-    </section>
+    </div>
 </section>
