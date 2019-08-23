@@ -6,8 +6,9 @@ using System.Data.Entity;
 using Projeto.Models;
 namespace Projeto.DAO
 {
-    public class ProjetoInitializer : System.Data.Entity.DropCreateDatabaseAlways<ProjetoDBContext>
+    public class ProjetoInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<ProjetoDBContext>
     //DropCreateDatabaseIfModelChanges
+    //DropCreateDatabaseAlways
     {
         protected override void Seed(ProjetoDBContext context)
         {

@@ -1,5 +1,6 @@
 ﻿@model Projeto.Models.Animal
 
+
 @{
     ViewBag.Title = "Create";
 
@@ -66,50 +67,15 @@
 
                                         <label class="control-label col-md-6" for="Nome">Sangue</label>
                                         @Html.EnumDropDownListFor(model => model.Sangue, htmlAttributes: new { @class = "form-control" })
-                                        @*@if (Model.Tipo == 0)
+                                        
+                                            @Html.DropDownListFor(model => model.TipoSangue, new List<SelectListItem>
+{ new SelectListItem { Text = "AB", Value = "AB"},
+new SelectListItem { Text = "A", Value = "A"},
+new SelectListItem { Text = "B", Value = "B"}
+}, "Selecionar Tipo Sanguineo", new { @class = "form-control" })
 
-                                                                {
-                                                                    @Html.DropDownListFor(model => model.TipoSangue, new List<SelectListItem>
-                        { new SelectListItem { Text = "AB", Value = "AB"},
-                        new SelectListItem { Text = "A", Value = "A"},
-                        new SelectListItem { Text = "B", Value = "B"}
-                        }, "Selecionar Tipo Sanguineo", new { @class = "form-control" })
-
-                                                                }
-                                                                else
-                                                                {
-                                                                    <p>teste</p>
-                                                                }
-                                                            @if (Model.Tipo == Projeto.Models.Tipo.Gato)
-
-                                                            {
-                                                                @Html.DropDownListFor(model => model.TipoSangue, new List<SelectListItem>
-                    { new SelectListItem { Text = "AB", Value = "AB"},
-                    new SelectListItem { Text = "A", Value = "A"},
-                    new SelectListItem { Text = "B", Value = "B"}
-                    }, "Selecionar Tipo Sanguineo", new { @class = "form-control" })
-
-                                                            }
-                                                            else
-                                                            {
-                                                                <p>teste</p>
-                                                            }
-
-                                                            @if (Model.Tipo == Projeto.Models.Tipo.Cachorro)
-
-                                                            {
-                                                                @Html.DropDownListFor(model => model.TipoSangue, new List<SelectListItem>
-                    { new SelectListItem { Text = "ABAA", Value = "AB"},
-                    new SelectListItem { Text = "A", Value = "A"},
-                    new SelectListItem { Text = "B", Value = "B"}
-                    }, "Selecionar Tipo Sanguineo", new { @class = "form-control" })
-
-                                                            }
-                                                            else
-                                                            {
-                                                                <p>teste</p>
-                                                            }
-                                                            }*@
+          
+                                        
                                         @Html.ValidationMessageFor(model => model.TipoSangue, "", new { @class = "text-danger" })
 
                                     </div>
@@ -262,7 +228,7 @@
 
 
 
-                            
+
                                 <div class="form-group col-md-4">
 
                                     <div class="form-row">
