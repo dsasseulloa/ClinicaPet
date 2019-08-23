@@ -103,13 +103,27 @@ namespace Projeto.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Funcionarios.Add(funcionario);
-                
-                db.SaveChanges();
+                try
+                {
+                    db.Funcionarios.Add(funcionario);
 
-                var criadorid = funcionario.FuncionarioID;
-                var ids = criadorid;
-                return RedirectToAction("Createbyid", "Acessos", new { @id = ids });
+                    db.SaveChanges();
+
+                    var criadorid = funcionario.FuncionarioID;
+                    var ids = criadorid;
+                    return RedirectToAction("Createbyid", "Acessos", new { @id = ids });
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateException exception)
+                {
+                    ViewBag.ErrorMessageCPF = "Este CPF já está sendo utilizado por outro cliente";
+                    if (exception.InnerException.Message.Contains("CPFouRG")) // Cannot insert duplicate key row in object error
+                    {
+                        return View(funcionario);
+                    }
+
+                }
+
+                return View(funcionario);
             }
 
             ViewBag.FuncionarioID = new SelectList(db.Acessos, "FuncionarioID", "Usuario", funcionario.FuncionarioID);

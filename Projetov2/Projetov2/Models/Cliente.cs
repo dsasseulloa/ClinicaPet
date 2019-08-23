@@ -13,7 +13,7 @@ namespace Projeto.Models
     {
         public Cliente()
         {
-            Animals = new HashSet<Animal>();
+            //Animals = new HashSet<Animal>();
             this.DataCadastro = DateTime.Now;
 
         }
@@ -23,17 +23,20 @@ namespace Projeto.Models
         [Required(ErrorMessage = "Campo Nome do Cliente é Obrigatório ")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Nome precisa ter entre 3 e 50 Caracteres")]
         public string Nome { get; set; }
+        [Required(ErrorMessage = "Campo Sexo é Obrigatório ")]
         public string Sexo { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
-        
-        //[Index(IsUnique = true)]
+
+        [Index(IsUnique = true)]
+        [StringLength(50)]
         [Display(Name = "CPF")]
         [Required(ErrorMessage ="Campo CPF é obrigatório")]
-        [RegularExpression(@"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})", ErrorMessage = "Por favor insira 11 dígitos no formato:12345678901")]
+        //[RegularExpression(@"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})", ErrorMessage = "Por favor insira 11 dígitos no formato:12345678901")]
         public string CPFouRG { get; set; }
+        [Required(ErrorMessage = "Campo de Contato é Obrigatório ")]
         public string Contato { get; set; }
         public string Contato2 { get; set; }
         public string Endereço { get; set; }

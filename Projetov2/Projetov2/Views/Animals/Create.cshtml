@@ -20,7 +20,7 @@
                         <form>
 
                             <div class="form-group col-md-12">
-                                @Html.LabelFor(model => model.Nome)
+                                <label class="control-label col-md-6" for="Nome">Nome do Pet*</label>
                                 @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome Completo" } })
                                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
                             </div>
@@ -29,7 +29,7 @@
 
                                     <div class="form-group col-md-3">
 
-                                        @Html.LabelFor(model => model.Sexo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2" for="Sexo">Sexo*</label>
 
 
                                         @Html.DropDownListFor(model => model.Sexo, new List<SelectListItem>
@@ -64,11 +64,58 @@
 
                                     <div class="form-group col-md-2">
 
-                                        @Html.LabelFor(model => model.Sangue, htmlAttributes: new { @class = "control-label col-md-10" })
+                                        <label class="control-label col-md-6" for="Nome">Sangue</label>
                                         @Html.EnumDropDownListFor(model => model.Sangue, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Sangue, "", new { @class = "text-danger" })
+                                        @*@if (Model.Tipo == 0)
+
+                                                                {
+                                                                    @Html.DropDownListFor(model => model.TipoSangue, new List<SelectListItem>
+                        { new SelectListItem { Text = "AB", Value = "AB"},
+                        new SelectListItem { Text = "A", Value = "A"},
+                        new SelectListItem { Text = "B", Value = "B"}
+                        }, "Selecionar Tipo Sanguineo", new { @class = "form-control" })
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p>teste</p>
+                                                                }
+                                                            @if (Model.Tipo == Projeto.Models.Tipo.Gato)
+
+                                                            {
+                                                                @Html.DropDownListFor(model => model.TipoSangue, new List<SelectListItem>
+                    { new SelectListItem { Text = "AB", Value = "AB"},
+                    new SelectListItem { Text = "A", Value = "A"},
+                    new SelectListItem { Text = "B", Value = "B"}
+                    }, "Selecionar Tipo Sanguineo", new { @class = "form-control" })
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>teste</p>
+                                                            }
+
+                                                            @if (Model.Tipo == Projeto.Models.Tipo.Cachorro)
+
+                                                            {
+                                                                @Html.DropDownListFor(model => model.TipoSangue, new List<SelectListItem>
+                    { new SelectListItem { Text = "ABAA", Value = "AB"},
+                    new SelectListItem { Text = "A", Value = "A"},
+                    new SelectListItem { Text = "B", Value = "B"}
+                    }, "Selecionar Tipo Sanguineo", new { @class = "form-control" })
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>teste</p>
+                                                            }
+                                                            }*@
+                                        @Html.ValidationMessageFor(model => model.TipoSangue, "", new { @class = "text-danger" })
 
                                     </div>
+
+
+
                                 </div>
                             </div>
 
@@ -77,8 +124,8 @@
                             <div class="form-group row">
                                 <div class=col-md-12>
                                     <div class="form-group col-md-2">
-                                        @Html.LabelFor(model => model.Entrada, htmlAttributes: new { @class = "control-label col-md-10" })
-                                        @Html.EditorFor(model => model.Entrada, new { htmlAttributes = new { @class = "form-control", placeholder = "__/__/____" } })
+                                        <label class="control-label col-md-10" for="Entrada">Data de Entrada*</label>
+                                        @Html.EditorFor(model => model.Entrada, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Entrada, "", new { @class = "text-danger" })
                                     </div>
 
@@ -92,6 +139,12 @@
 
                                 </div>
                             </div>
+
+
+
+
+
+
                             <div class="form-group col-md-3">
                                 @Html.LabelFor(model => model.ClienteID, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
 
@@ -102,9 +155,9 @@
 
 
 
-                            <div class="form-group col-md-2">
-                                @Html.LabelFor(model => model.Preco, htmlAttributes: new { @class = "control-label col-md-10" })
-                                @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control", @id = "valor", placeholder = "Preço" } })
+                            <div class="form-group col-md-3">
+                                <label class="control-label col-md-10" for="Preco">Preço dos serviços*</label>
+                                @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control", placeholder = "Preço" } })
                                 @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
                             </div>
 
@@ -145,19 +198,16 @@
                                 </div>
                             </div>
 
+                            <div class="form-group col-md-12">
 
 
 
-                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                                    Selecionar Tratamentos
+                                </button>
 
-                                <div class="form-group col-md-2">
-                                    <div class="box-body">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-                                            Selecionar Tratamentos
-                                        </button>
-                                    </div>
 
-                                </div>
+
                             </div>
 
                             <div class="modal fade" id="modal-default">
@@ -210,6 +260,9 @@
                                 <!-- /.modal -->
 
 
+
+
+                            
                                 <div class="form-group col-md-4">
 
                                     <div class="form-row">

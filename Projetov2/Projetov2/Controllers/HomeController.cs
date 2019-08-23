@@ -36,7 +36,13 @@ namespace Projeto.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        public ActionResult GetData()
+        {
+            Servicos servicos = new Servicos();
+            var data = new[] { new Servicos() { ServicoID = 1, Nome = servicos.Nome }, new Servicos() { ServicoID = 2, Nome = servicos.Nome } };
 
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult DataFromDataBase()
         {

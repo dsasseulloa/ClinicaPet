@@ -308,7 +308,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
-                <b>Version</b> 2.4.13
+                <b>Versão</b> 2.4.13
             </div>
             <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> Todos direitos reservados.
         </footer>
@@ -329,7 +329,7 @@
     
         <!-- We would add slider scripts here -->
         <!-- jQuery UI 1.11.4 -->
-        <script src="~/admilte2/jquery-ui/jquery-ui.min.js"></script>
+        
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button);
@@ -354,7 +354,7 @@
 
         <script src="~/admilte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
         <!-- Slimscroll -->
-        <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+       
         <script src="~/Plugins/iCheck/icheck.min.js"></script>
 
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -368,6 +368,9 @@
         <script>
             $(document).ready(function () {
                 $("#telefone").inputmask("mask", { "mask": "(99)99999-9999" });
+                var lang = window.navigator.userLanguage || window.navigator.language;
+                lang = lang.substring(0, 2);
+                $("#telefone2").inputmask("mask", { "mask": "(99)9999-9999" });
                 var lang = window.navigator.userLanguage || window.navigator.language;
                 lang = lang.substring(0, 2);
                 $("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });

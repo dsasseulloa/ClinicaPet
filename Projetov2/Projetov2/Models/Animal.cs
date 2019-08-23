@@ -15,8 +15,9 @@ namespace Projeto.Models
 
         [Display(Name = "Nome do Animal")]
         [Required(ErrorMessage = "Campo Nome do Pet é Obrigatório ")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Nome precisa ter entre 3 e 50 Caracteres")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Nome precisa ter entre 2 e 50 caracteres")]
         public string Nome { get; set; }
+        [Required(ErrorMessage = "Campo Sexo é Obrigatório ")]
         public string Sexo { get; set; }
         [Display(Name = "Raça")]
         [DisplayFormat(NullDisplayText = "SRD", ApplyFormatInEditMode = true)]
@@ -29,6 +30,8 @@ namespace Projeto.Models
         public string Observaçoes { get; set; }
         [Display(Name = "Tipo Sanguíneo")]
         public Sangue? Sangue { get; set; }
+        [DisplayFormat(NullDisplayText = "SRD", ApplyFormatInEditMode = true)]
+        public string TipoSangue { get; set; }
         [Range(0, 50)]
         public int? Idade { get; set; }
         [Display(Name = "Data de Entrada")]
@@ -44,6 +47,7 @@ namespace Projeto.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataCadastro { get; set; }
         [Display(Name = "Tipo de Animal")]
+        [DisplayFormat(NullDisplayText = "Outro", ApplyFormatInEditMode = true)]
         public Tipo? Tipo { get; set; }
 
         public virtual Funcionario Funcionarios { get; set; }

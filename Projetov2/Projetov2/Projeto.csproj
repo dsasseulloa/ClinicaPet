@@ -149,6 +149,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AcessosController.cs" />
     <Compile Include="Controllers\AnimalsController.cs" />
+    <Compile Include="Controllers\Clientes1Controller.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\FuncionariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Models\Dashview.cs" />
     <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Models\Roles.cs" />
+    <Compile Include="Models\ValidacaoCpfAttribute.cs" />
     <Compile Include="Models\ViewModel\ServicoAssigned.cs" />
     <Compile Include="Models\Servicos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -3085,6 +3087,7 @@
     <Content Include="Plugins\input-mask\jquery.inputmask.phone.extensions.js" />
     <Content Include="Plugins\input-mask\jquery.inputmask.regex.extensions.js" />
     <Content Include="Plugins\input-mask\phone-codes\readme.txt" />
+    <Content Include="ScriptsProjeto\CustomValidation.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\Chart.js" />
@@ -3618,6 +3621,7 @@
     <Content Include="Views\Account\Login2.cshtml" />
     <Content Include="Plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Plugins\input-mask\phone-codes\phone-codes.json" />
+    <Content Include="Views\Acessos\Editold .cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -3677,6 +3681,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Clientes1\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

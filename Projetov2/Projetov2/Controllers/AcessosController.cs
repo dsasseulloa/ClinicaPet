@@ -115,6 +115,9 @@ namespace Projeto.Controllers
             {
                 return HttpNotFound();
             }
+            Funcionario funcionario = db.Funcionarios.Find(id);
+            var funf = funcionario.Nome;
+            ViewBag.funcioNome = funf;
             ViewBag.FuncionarioID = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", acesso.FuncionarioID);
             return View(acesso);
         }
@@ -137,10 +140,13 @@ namespace Projeto.Controllers
                 }
                 catch (System.Data.Entity.Infrastructure.DbUpdateException exception)
                 {
-                    ViewBag.ErrorMessage = "kewk";
+                    ViewBag.ErrorMessage = "Nome já em uso";
                     if (exception.InnerException.Message.Contains("Usuario")) // Cannot insert duplicate key row in object error
                     {
-
+                        Funcionario funcionario = db.Funcionarios.Find(id);
+                        var funf = funcionario.Nome;
+                        ViewBag.funcioNome = funf;
+                        
                         // handle duplicate key error
                         return RedirectToAction("Edit", "Acessos", new { @id = id });
                     }
@@ -203,7 +209,7 @@ namespace Projeto.Controllers
                     Funcionario funcionario = db.Funcionarios.Find(id);
                     var funf = funcionario.Nome;
                     ViewBag.funcioNome = funf;
-                    ViewBag.ErrorMessage = "kewk";
+                    ViewBag.ErrorMessage = "Nome já em uso";
                     if (exception.InnerException.Message.Contains("Usuario")) // Cannot insert duplicate key row in object error
                     {
 

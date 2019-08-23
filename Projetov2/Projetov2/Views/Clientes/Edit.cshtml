@@ -18,6 +18,7 @@
                     <div class="box-header">
                         <h4 class="mb"><i class="fa fa-angle-right"></i> Editar Cliente</h4>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ClienteID)
                         <form>
 
                             <div class="form-group col-md-12">
@@ -146,5 +147,9 @@
 
 
 
+
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
 
 }

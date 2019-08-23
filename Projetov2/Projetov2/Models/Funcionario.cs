@@ -15,15 +15,21 @@ namespace Projeto.Models
         [Key]
         public int FuncionarioID { get; set; }
         [Display(Name = "Nome Completo")]
-        [Required(ErrorMessage = "Nome deve ser preenchido!")]
+        [Required(ErrorMessage = "Campo Nome do Cliente é Obrigatório ")]
         public string Nome { get; set; }
+        [Required(ErrorMessage = "Campo Sexo é Obrigatório ")]
         public string Sexo { get; set; }
+        [Index(IsUnique = true)]
+        [StringLength(50)]
+        [Display(Name = "CPF")]
+        [Required(ErrorMessage = "Campo CPF é obrigatório")]
         public string CPFouRG { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
         [DataType(DataType.Currency)]
         public decimal? Salario { get; set; }
+        [Required(ErrorMessage = "Campo de Contato é Obrigatório ")]
         public string Contato { get; set; }
         public string Contato2 { get; set; }
         public string Endereço { get; set; }

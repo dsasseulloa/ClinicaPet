@@ -110,17 +110,30 @@ namespace Projeto.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClienteID,Nome,Sexo,DataNascimento,CPFouRG,Contato,Contato2,Endereço,Bairro,Cidade,Estado,CEP,Email,ReturnDate")] Cliente cliente)
+        public ActionResult Create([Bind(Include = "ClienteID,Nome,Sexo,DataNascimento,CPFouRG,Contato,Contato2,Endereço,Bairro,Cidade,Estado,CEP,Email,DataCadastro")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                db.Clientes.Add(cliente);
-                db.SaveChanges();
-             return RedirectToAction("Index");
-            }
+                try
+                {
+                    db.Clientes.Add(cliente);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateException exception)
+                {
+                    ViewBag.ErrorMessageCPF = "Este CPF já está sendo utilizado por outro cliente";
+                    if (exception.InnerException.Message.Contains("CPFouRG")) // Cannot insert duplicate key row in object error
+                    {
+                        return View(cliente);
+                    }
 
+                }
+            }
             return View(cliente);
         }
+
+
 
         public ActionResult Edit(int? id)
         {
@@ -139,7 +152,7 @@ namespace Projeto.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClienteID,Nome,Sexo,DataNascimento,CPFouRG,Contato,Contato2,Endereço,Bairro,Cidade,Estado,CEP,Email,ReturnDate")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "ClienteID,Nome,Sexo,DataNascimento,CPFouRG,Contato,Contato2,Endereço,Bairro,Cidade,Estado,CEP,Email,DataCadastro")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
