@@ -323,8 +323,10 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/admin-lte/js")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/inputmask")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
-    @section scripts {
+    
         <!-- We would add slider scripts here -->
         <!-- jQuery UI 1.11.4 -->
         <script src="~/admilte2/jquery-ui/jquery-ui.min.js"></script>
@@ -332,13 +334,7 @@
         <script>
             $.widget.bridge('uibutton', $.ui.button);
         </script>
-        @*<!-- AdminLTE App -->
-            <script src="~/admin-lte/js/adminlte.min.js"></script>
-            <!-- jQuery 3 -->
-            <script src="~/admilte2/jquery/dist/jquery.min.js"></script>
-            <!-- Bootstrap 3.3.7 -->
-            <script src="~/admilte2/bootstrap/dist/js/bootstrap.min.js"></script>*@
-        <!-- Morris.js charts -->
+
 
         <script src="~/Scripts/morris.js/morris.min.js"></script>
         <script src="~/Scripts/raphael/raphael.min.js"></script>
@@ -385,6 +381,6 @@
 
 
         </script>
-    }
+    
 </body>
 

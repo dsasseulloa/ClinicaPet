@@ -78,6 +78,8 @@
 
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
     <script>
 
 
@@ -160,6 +162,7 @@
                         "autoWidth": true,
                         render: function (d) {
                             return moment(d).format("DD:MM:YYYY HH:mm:ss");
+                        }
                     },
 
                     {"render": function (data, type, full, meta) {

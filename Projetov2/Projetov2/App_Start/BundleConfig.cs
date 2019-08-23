@@ -33,6 +33,18 @@ namespace Projetov2
              "~/admilte2/js/adminlte.js",
               "~/admilte2/plugins/fastclick/fastclick.js",
               "~/Scripts/Chart.js"));
+            bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
+//~/Scripts/inputmask/dependencyLibs/inputmask.dependencyLib.js",  //if not using jquery
+"~/Scripts/inputmask/inputmask.js",
+"~/Scripts/inputmask/jquery.inputmask.js",
+"~/Scripts/inputmask/inputmask.extensions.js",
+"~/Scripts/inputmask/inputmask.date.extensions.js",
+//and other extensions you want to include
+"~/Scripts/inputmask/inputmask.numeric.extensions.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+        "~/Plugins/jQueryUI/jquery-ui.js",
+        "~/Scripts/jquery-ui-i18n.js"));
         }
     }
 }
