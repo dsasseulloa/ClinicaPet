@@ -14,7 +14,7 @@ namespace Projeto.Models
         public int FuncionarioID { get; set; }
         [Required(ErrorMessage = "Por favor Insira um nome de Usuario")]
         [Index(IsUnique = true)]
-        [StringLength(50)]
+        [StringLength(20, ErrorMessage = "Insira menos de 20 caracteres")]
         public string Usuario { get; set; }
         [DataType(DataType.Password)]
         public string Senha { get; set; }

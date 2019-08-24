@@ -14,12 +14,12 @@
     <h3>Cadastrar Acesso</h3>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+    @Html.HiddenFor(model => model.FuncionarioID)
     <div class="form-group">
         @Html.LabelFor(model => model.Funcionario.Nome, "Funcionário", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <form class="form-control">
-            @ViewBag.funcioNome
+                @ViewBag.funcioNome
             </form>
         </div>
     </div>

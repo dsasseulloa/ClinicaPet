@@ -52,7 +52,7 @@ namespace Projeto.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FuncionarioID,Username,Senha,Ativo,Perfil")] Acesso acesso)
+        public ActionResult Create([Bind(Include = "FuncionarioID,Usuario,Senha,Ativo,Perfil")] Acesso acesso)
         {
             if (ModelState.IsValid)
             {
@@ -90,15 +90,19 @@ namespace Projeto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Createbyid( int id, Acesso acesso, Funcionario funcionario)
         {
+            acesso.FuncionarioID = id;
+            Funcionario funcionariox = db.Funcionarios.Find(id);
+            var funf = funcionariox.Nome;
+            ViewBag.funcioNome = funf;
             if (ModelState.IsValid)
             {
 
-                acesso.FuncionarioID = id;
                 
                 db.Acessos.Add(acesso);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Funcionarios");
             }
+         
             ViewBag.FuncionarioID = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", acesso.FuncionarioID);
             return View(acesso); // model here is the class which is passed to the Create method
         }
