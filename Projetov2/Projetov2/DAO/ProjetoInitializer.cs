@@ -56,21 +56,21 @@ namespace Projeto.DAO
             var Servicos = new List<Servicos>
             {
                 new Servicos{Nome="Acupuntura",Preco=100,Descricao="Tratamento de Acupuntura"},
-                new Servicos{Nome="Eletroacupuntura",Preco=100,Descricao="Tratamento de Eletroacupuntura"},
+                new Servicos{Nome="Eletroacupuntura",Preco=200,Descricao="Tratamento de Eletroacupuntura"},
                 new Servicos{Nome="Moxabustao",Preco=100,Descricao="Tratamento de Moxabustao"},
                 new Servicos{Nome="Ozonioterapia",Preco=100,Descricao="Tratamento de Ozonioterapia"},
                 new Servicos{Nome="Hidroterapia",Preco=100,Descricao="Tratamento de Hidroterapia"},
-                new Servicos{Nome="Eletroterapia",Preco=100,Descricao="Tratamento de Eletroterapia"},
+                new Servicos{Nome="Eletroterapia",Preco=300,Descricao="Tratamento de Eletroterapia"},
                 new Servicos{Nome="Magnetoterapia",Preco=100,Descricao="Tratamento de Magnetoterapia"},
                 new Servicos{Nome="Laserterapia",Preco=100,Descricao="Tratamento de Laserterapia"},
                 new Servicos{Nome="Cinesioterapia",Preco=100,Descricao="Tratamento de Cinesioterapia"},
-                new Servicos{Nome="Fototerapia",Preco=100,Descricao="Tratamento de Fototerapia"},
-                new Servicos{Nome="Termografia",Preco=100,Descricao="Tratamento de Termografia"},
+                new Servicos{Nome="Fototerapia",Preco=230,Descricao="Tratamento de Fototerapia"},
+                new Servicos{Nome="Termografia",Preco=150,Descricao="Tratamento de Termografia"},
                 new Servicos{Nome="Shockwave",Preco=100,Descricao="Tratamento de Shockwave"},
-                new Servicos{Nome="Dieta Natural",Preco=100,Descricao="Tratamento de Dieta Natural"},
+                new Servicos{Nome="Dieta Natural",Preco=250,Descricao="Tratamento de Dieta Natural"},
                 new Servicos{Nome="Homeopatia",Preco=100,Descricao="Tratamento de Homeopatia"},
                 new Servicos{Nome="Reiki",Preco=100,Descricao="Tratamento de Reiki"},
-                new Servicos{Nome="Florais",Preco=100,Descricao="Tratamento de Florais"},
+                new Servicos{Nome="Florais",Preco=200,Descricao="Tratamento de Florais"},
                 new Servicos{Nome="Outro",Preco=100,Descricao="Outro"},
             };
             Servicos.ForEach(s => context.Servicos.Add(s));

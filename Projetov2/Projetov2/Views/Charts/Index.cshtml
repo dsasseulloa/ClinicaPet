@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    #chart_container{
+        width:400px;height:400px;border:1px;padding:1px;border-radius:4px;
+    }
+    </style>
+
+
+
+<div id="chart_container">
+    <canvas id="bar_chart"></canvas>
+</div>
+
+
+
+@section Scripts{
+    <script></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script>
+    var repArray = @Html.Raw(Json.Encode(ViewBag.REP));
+        var precos = @Html.Raw(Json.Encode(ViewBag.PRECOS));
+
+        var ctx = $("#bar_chart");
+        var barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: precos,
+                datasets: [{
+                    label: "Bar Chart example",
+                    data: repArray,
+                    BackgroundColor: ["rgba(100,220,220,1)", "rgba(150,220,220,1)", "rgba(220,220,220,1)"],
+                    BorderColor: ["rgba(100,220,220,0.5)", "rgba(150,220,220,0.5)", "rgba(220,220,220,0.5)"],
+                    borderWidth:1
+                }]
+            },
+
+
+            options: {
+                maintainAspectRatio: false,
+                scales: { xAxes: [{ ticks: { beginAtZero: true } }] },
+                legend: { display: false },
+
+            },
+
+            });
+    </script>
+}

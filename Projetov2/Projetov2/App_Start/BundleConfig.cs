@@ -43,8 +43,8 @@ namespace Projetov2
 "~/Scripts/inputmask/inputmask.numeric.extensions.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-        "~/Plugins/jQueryUI/jquery-ui.js",
-        "~/Scripts/jquery-ui-i18n.js"));
+        "~/Plugins/jQueryUI/jquery-ui.js"
+       ));
         }
     }
 }

@@ -183,9 +183,18 @@ namespace Projeto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Funcionario funcionario = db.Funcionarios.Find(id);
-            db.Funcionarios.Remove(funcionario);
-            db.SaveChanges();
+            
+            
+            using (var db = new ProjetoDBContext())
+            {
+                
+                Funcionario funcionario = db.Funcionarios.Find(id);
+                db.Funcionarios.Remove(funcionario);
+                Acesso acesso = db.Acessos.Find(id);
+                db.Acessos.Remove(acesso);
+                db.SaveChanges();
+            }
+        
             return RedirectToAction("Index");
         }
 

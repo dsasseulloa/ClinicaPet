@@ -24,7 +24,8 @@ namespace Projeto.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             //ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
             //ViewBag.Date2SortParm = sortOrder == "Date2" ? "date_desc2" : "Date2";
-
+            Animal a = new Animal();
+            
             if (searchString != null)
             {
                 page = 1;

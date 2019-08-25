@@ -76,6 +76,7 @@ namespace Projeto.Controllers
             {
                 Funcionario funcionario = db.Funcionarios.Find(id);
                 var funf = funcionario.Nome;
+                
                 ViewBag.funcioNome = funf;
                 return View(acesso);
             }
@@ -88,20 +89,24 @@ namespace Projeto.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Createbyid( int id, Acesso acesso, Funcionario funcionario)
+        public ActionResult Createbyid([Bind(Include = "FuncionarioID,Usuario,Senha,Ativo,Perfil")] Acesso acesso, int id)
         {
-            acesso.FuncionarioID = id;
-            Funcionario funcionariox = db.Funcionarios.Find(id);
-            var funf = funcionariox.Nome;
+            Funcionario funcionario = db.Funcionarios.Find(id);
+            funcionario.FuncionarioID = id;
+            acesso.FuncionarioID = funcionario.FuncionarioID;
+            var fanf = funcionario.FuncionarioID;
+           
+            var funf = funcionario.Nome;
             ViewBag.funcioNome = funf;
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            
 
                 
                 db.Acessos.Add(acesso);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Funcionarios");
-            }
+            
+
          
             ViewBag.FuncionarioID = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", acesso.FuncionarioID);
             return View(acesso); // model here is the class which is passed to the Create method
@@ -214,10 +219,10 @@ namespace Projeto.Controllers
                     var funf = funcionario.Nome;
                     ViewBag.funcioNome = funf;
                     ViewBag.ErrorMessage = "Nome já em uso";
-                    if (exception.InnerException.Message.Contains("Usuario")) // Cannot insert duplicate key row in object error
+                    if (exception.InnerException.Message.Contains("Usuario")) 
                     {
 
-                        // handle duplicate key error
+                        
                         return RedirectToAction("EditAcesso", "Acessos", new { @id = id });
 
                     }

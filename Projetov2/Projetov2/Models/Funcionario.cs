@@ -49,9 +49,9 @@ namespace Projeto.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataCadastro { get; set; }
 
-        public virtual ICollection<Animal> Animals { get; set; }
-        public virtual ICollection<Cliente> Clientes { get; set; }
-        public virtual Acesso Acesso { get; set; }
+        public ICollection<Animal> Animals { get; set; }
+        public ICollection<Cliente> Clientes { get; set; }
+        public Acesso Acesso { get; set; }
 
     }
     public enum Cargo

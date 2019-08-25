@@ -18,7 +18,7 @@ namespace Projeto.Models
         public decimal Preco { get; set; }
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
-        [Display(Name = "Data de Cadastro")]
+        [Display(Name = "Data do Cadastro")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataCadastro { get; set; }
