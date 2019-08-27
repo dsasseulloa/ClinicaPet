@@ -36,18 +36,18 @@ namespace Projeto.DAO
 
             var clientes = new List<Cliente>
             {
-                new Cliente{Nome="Carlos Joaquim",Contato="47988359573",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="779.320.603-70"},
-                new Cliente{Nome="Gabriela Ferreira Pereira",Contato="47988358361",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678902"},
-                new Cliente{Nome="Isabelle Silva Almeida",Contato="47988358450",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678903"},
-                new Cliente{Nome="Lucas Martins Pereira",Contato="47988351832",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678904"},
-                  new Cliente{Nome="Eduardo Melo Correia",Contato="47988357382",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678905"},
-                new Cliente{Nome="Bruna Cavalcanti Gomes",Contato="47988351274",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678906"},
-                new Cliente{Nome="Julieta Gomes Araujo",Contato="47988351290",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678907"},
-                new Cliente{Nome="Matheus Lima Fernandes",Contato="47988313950",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678908"},
-                  new Cliente{Nome="Murilo Goncalves Barros",Contato="47982352740",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678909"},
-                new Cliente{Nome="Kauan Correia Castro",Contato="47988318670",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678910"},
-                new Cliente{Nome="Beatrice Ribeiro Cardoso",Contato="47988351693",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678911"},
-                new Cliente{Nome="Otávio Cardoso Araujo",Contato="47988351092",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678912"}
+                new Cliente{Nome="Carlos Joaquim",Contato="47988359573",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="779.320.603-70",Dob=DateTime.Parse("01-10-1980")},
+                new Cliente{Nome="Gabriela Ferreira Pereira",Contato="47988358361",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678902",Dob=DateTime.Parse("01-08-1980")},
+                new Cliente{Nome="Isabelle Silva Almeida",Contato="47988358450",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678903",Dob=DateTime.Parse("01-08-1980")},
+                new Cliente{Nome="Lucas Martins Pereira",Contato="47988351832",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678904",Dob=DateTime.Parse("01-08-1980")},
+                  new Cliente{Nome="Eduardo Melo Correia",Contato="47988357382",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678905",Dob=DateTime.Parse("01-10-1980")},
+                new Cliente{Nome="Bruna Cavalcanti Gomes",Contato="47988351274",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678906",Dob=DateTime.Parse("01-12-1980")},
+                new Cliente{Nome="Julieta Gomes Araujo",Contato="47988351290",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678907",Dob=DateTime.Parse("01-12-1980")},
+                new Cliente{Nome="Matheus Lima Fernandes",Contato="47988313950",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678908",Dob=DateTime.Parse("01-12-1980")},
+                  new Cliente{Nome="Murilo Goncalves Barros",Contato="47982352740",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678909",Dob=DateTime.Parse("01-12-1980")},
+                new Cliente{Nome="Kauan Correia Castro",Contato="47988318670",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678910",Dob=DateTime.Parse("01-12-1980")},
+                new Cliente{Nome="Beatrice Ribeiro Cardoso",Contato="47988351693",Sexo="Feminino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678911",Dob=DateTime.Parse("01-12-1980")},
+                new Cliente{Nome="Otávio Cardoso Araujo",Contato="47988351092",Sexo="Masculino",DataNascimento=DateTime.Parse("01-12-1980"),CPFouRG="12345678912",Dob=DateTime.Parse("01-12-1980")}
             };
             clientes.ForEach(s => context.Clientes.Add(s));
             context.SaveChanges();

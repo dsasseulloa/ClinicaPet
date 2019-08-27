@@ -13,7 +13,7 @@ using Projeto.Models.ViewModel;
 
 namespace Projeto.Controllers
 {
-    [Authorize(Roles = "Administrador, Funcionario")]
+    //[Authorize(Roles = "Administrador, Funcionario")]
     public class AnimalsController : Controller
     {
         private ProjetoDBContext db = new ProjetoDBContext();

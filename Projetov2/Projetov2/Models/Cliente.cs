@@ -15,7 +15,6 @@ namespace Projeto.Models
         {
             //Animals = new HashSet<Animal>();
             this.DataCadastro = DateTime.Now;
-
         }
         [Key]
         public int ClienteID { get; set; }
@@ -53,7 +52,8 @@ namespace Projeto.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataCadastro { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Dob { get; set; }
 
         public ICollection<Animal> Animals { get; set; }
         public Funcionario Funcionarios { get; set; }

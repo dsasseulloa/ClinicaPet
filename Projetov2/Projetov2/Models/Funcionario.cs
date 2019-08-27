@@ -28,7 +28,7 @@ namespace Projeto.Models
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
         [DataType(DataType.Currency)]
-        public decimal? Salario { get; set; }
+        public decimal Salario { get; set; }
         [Required(ErrorMessage = "Campo de Contato é Obrigatório ")]
         public string Contato { get; set; }
         public string Contato2 { get; set; }
@@ -44,10 +44,19 @@ namespace Projeto.Models
         [DataType(DataType.Date)]
         [Display(Name = "Data de Admissão")]
         public DateTime DataAdmissao { get; set; }
+        
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DiaPagamento { get; set; } = DateTime.Now;
+
+
         [Display(Name = "Data de Cadastro")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataCadastro { get; set; }
+
+
 
         public ICollection<Animal> Animals { get; set; }
         public ICollection<Cliente> Clientes { get; set; }

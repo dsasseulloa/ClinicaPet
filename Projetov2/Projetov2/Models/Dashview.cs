@@ -13,5 +13,8 @@ namespace Projeto.Models
         public int animais_count { get; set; }
         public int funcionarios_count { get; set; }
         public int servicos_count { get; set; }
+
+        public int contagemServicos { get; set; }
+        public int contagemAnimais { get; set; }
     }
 }

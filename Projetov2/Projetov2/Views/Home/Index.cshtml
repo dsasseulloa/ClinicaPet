@@ -1,5 +1,7 @@
 ﻿
 @{
+    /**/
+
     ViewBag.Title = "Index";
 }
 <style>
@@ -72,9 +74,9 @@
         <!-- small box -->
         <div class="small-box bg-red">
             <div class="inner">
-                <h3>0</h3>
+                <h3>@ViewBag.Precoss</h3>
 
-                <p>-</p>
+                <p>Lucro</p>
             </div>
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -339,8 +341,11 @@
         <div id="chart_container">
             <canvas id="bar_chart"></canvas>
         </div>
+        @ViewBag.Servicox
 
 
+
+        <img src="http://chart.apis.google.com/chart?chxt=x,y&cht=bvs&chd=t:60,70,85,65,40&chco=76A4FB&chls=2.0&chs=180x150&chxl=0:|Jan|Fev|Mar|Abr|Mai" alt="Macoratti .net" />
 
     </section>
     <!-- right col -->
@@ -348,23 +353,26 @@
 <!-- /.row (main row) -->
 <!-- /.content -->
 
+@ViewBag.Servicox
+
 <script src="~/Scripts/Chart.min.js"></script>
 
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
 
 <script>
-    var repArray = @Html.Raw(Json.Encode(ViewBag.REP));
-        var precos = @Html.Raw(Json.Encode(ViewBag.PRECOS));
+    var repArray = @Html.Raw(Json.Encode(ViewBag.Animais));
+    var precos = @Html.Raw(Json.Encode(ViewBag.PRECOS));
+    var servicos = @Html.Raw(Json.Encode(ViewBag.Servicox));
 
         var ctx = $("#bar_chart");
         var barChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: precos,
+                labels: servicos,
                 datasets: [{
                     label: "Bar Chart example",
-                    data: repArray,
+                    data: servicos,
                     BackgroundColor: ["rgba(100,220,220,1)", "rgba(150,220,220,1)", "rgba(220,220,220,1)"],
                     BorderColor: ["rgb(100,220,220)", "rgb(150,220,220)", "rgb(220,220,220)"],
                     borderWidth:1

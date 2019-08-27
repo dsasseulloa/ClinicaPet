@@ -291,17 +291,18 @@
 
 
 <script>
-    var repArray = @Html.Raw(Json.Encode(ViewBag.REP));
-        var precos = @Html.Raw(Json.Encode(ViewBag.PRECOS));
+    var repArray = @Html.Raw(Json.Encode(ViewBag.Count));
+    var precos = @Html.Raw(Json.Encode(ViewBag.Count));
+
 
         var ctx = $("#bar_chart");
         var barChart = new Chart(ctx, {
-            type: 'doughnut',
+            type: 'line',
             data: {
-                labels: precos,
+                labels: repArray, 
                 datasets: [{
                     label: "Bar Chart example",
-                    data: repArray,
+                    data: precos,
                     BackgroundColor: ["rgba(100,220,220,1)", "rgba(150,220,220,1)", "rgba(220,220,220,1)"],
                     BorderColor: ["rgb(100,220,220)", "rgb(150,220,220)", "rgb(220,220,220)"],
                     borderWidth:1

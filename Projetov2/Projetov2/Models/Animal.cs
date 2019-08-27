@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -49,7 +50,7 @@ namespace Projeto.Models
         [Display(Name = "Tipo de Animal")]
         [DisplayFormat(NullDisplayText = "Outro", ApplyFormatInEditMode = true)]
         public Tipo? Tipo { get; set; }
-
+        public int Contagem { get;set; }
         public virtual Funcionario Funcionarios { get; set; }
 
         public int? ClienteID { get; set; }
@@ -77,6 +78,7 @@ namespace Projeto.Models
         }
 
         [DataType(DataType.Currency)]
+        
         public decimal Preco { get; set; } //a ligar a serviços
 
     }

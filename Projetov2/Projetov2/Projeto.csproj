@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.60.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.60.6\lib\net451\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="DataTables.AspNet.Core, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DataTables.AspNet.Core.2.0.2\lib\net45\DataTables.AspNet.Core.dll</HintPath>
     </Reference>
@@ -160,6 +163,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Acesso.cs" />
     <Compile Include="Models\Animal.cs" />
+    <Compile Include="Models\AnimaleServico.cs" />
+    <Compile Include="Models\BarChartModel.cs" />
+    <Compile Include="Models\BarChartViewModel.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Dashview.cs" />
     <Compile Include="Models\Funcionario.cs" />
@@ -3622,6 +3628,8 @@
     <Content Include="Views\Acessos\Editold .cshtml" />
     <Content Include="Views\Charts\Index.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Home\GetEmployeesForRoles.cshtml" />
+    <Content Include="Views\Home\Novochart.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
