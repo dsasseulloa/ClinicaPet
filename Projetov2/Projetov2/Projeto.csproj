@@ -3630,6 +3630,7 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\GetEmployeesForRoles.cshtml" />
     <Content Include="Views\Home\Novochart.cshtml" />
+    <Content Include="Views\Home\encontrarservicos.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

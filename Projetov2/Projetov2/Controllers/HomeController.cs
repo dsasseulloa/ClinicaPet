@@ -67,33 +67,51 @@ namespace Projeto.Controllers
             //    //                    .FirstOrDefault<Animal>();
             //    List<int> reparticoex = new List<int>();
             //    string[] selectedServicos;
-
-            Animal animal = new Animal();
+            var AnimaisCadastrados = dashboard.animais_count;
+            
             Servicos servicus = new Servicos();
             var animallist = db.Animals.ToList();
             var allServicos = db.Servicos.ToList();
-            var Servicos = new List<Servicos>();
+            //var Servicos = new List<Servicos>();
             //var a = db.Servicos.Where(s => s.Animals.Any(c => c.AnimalID == i));
-            var ServicosAnimal = new HashSet<int>(animal.Servicos.Select(c => c.ServicoID));
-            var newlist = ServicosAnimal.ToList();
-            var animalsA = db.Animals.Include(a => a.Clientes).Include(a => a.Servicos);
+            //var ServicosAnimal = new HashSet<int>(animal.Servicos.Select(c => c.ServicoID));
+            //var newlist = ServicosAnimal.ToList();
+            //var animalsA = db.Animals.Include(a => a.Clientes).Include(a => a.Servicos);
             var AnimaleServicos = new HashSet<int>();
-            for (int i = 0; i < dashboard.animais_count; i++)
+            //int[] contador = new int[AnimaisCadastrados];
+            List<int> listacontagem = new List<int>();
+            for (int i = 1; i < AnimaisCadastrados+1; i++) 
             {
                 
-
+                Animal animal = db.Animals
+                .Include(j => j.Servicos)
+                .Where(j => j.AnimalID == i)
+                .Single();
+                PopulateAssignedCourseData(animal);
+                var ServicosAnimal = new HashSet<int>(animal.Servicos.Select(c => c.ServicoID));
                 foreach (var servico in allServicos)
                 {
-                    int dataItemMale = db.Animals.Where(s => s.Servicos.Any(c=>c.ServicoID != 0) && s.AnimalID != 0).Count();
-                    AnimaleServicos.Add(dataItemMale);
+                    int item = db.Animals.Where(s => s.Servicos.Any(c=>c.ServicoID != 0) && s.AnimalID != 0).Count();
+                    if(ServicosAnimal.Contains(servico.ServicoID))
+                    AnimaleServicos.Add(item);
                 }
-            newlist.AddRange(AnimaleServicos.ToList()); 
-                //ServicosAnimal.Add(allServicos.Count(c => c.ServicoID == i));
+
+
+                listacontagem.AddRange(AnimaleServicos.ToList());    
                
                
             }
- 
-            ViewBag.Servicox = newlist;
+            ViewBag.lista1 = listacontagem.ToList();
+            ViewBag.Listaanimais = animallist;
+
+
+
+            //var _departments = from d in db.Animals
+            //                   from r in db.Servicos
+            //                   where d.AnimalID == 2
+            //                   select d;
+
+            //ViewBag.Servicox = newlist;
             ViewBag.Animais = dashboard.animais_count;
             //ViewBag.AA = reparticoex.ToList();
 
@@ -119,6 +137,132 @@ namespace Projeto.Controllers
             }
             return RedirectToAction("Login", "Account");
         }
+
+
+        private void PopulateAssignedCourseData(Animal animal)
+        {
+
+
+
+                var allServicos = db.Servicos;
+            var ServicosAnimal = new HashSet<int>(animal.Servicos.Select(c => c.ServicoID));
+            var viewModel = new List<ServicoAssignedData>();
+            foreach (var servico in allServicos)
+            {
+                viewModel.Add(new ServicoAssignedData
+                {
+                    ServicoID = servico.ServicoID,
+                    Nome = servico.Nome,
+                    Assigned = ServicosAnimal.Contains(servico.ServicoID)
+                });
+            }
+            ViewBag.Servicos = viewModel;
+        }
+
+
+        public ActionResult encontrarservicos()
+        {
+            Dashview dashboard = new Dashview();
+            ViewBag.Animais = dashboard.animais_count;
+            dashboard.animais_count = db.Animals.Count();
+            var AnimaisCadastrados = dashboard.animais_count;
+            var animallist = db.Animals.ToList();
+            ViewBag.Listaanimais = AnimaisCadastrados;
+            Animal animal = new Animal();
+            var listahash = new HashSet<int>();
+
+
+            dashboard.funcionarios_count = db.Funcionarios.Count();
+            dashboard.servicos_count = db.Servicos.Count();
+            
+            var allServicos = db.Servicos;
+            List<string> listastrings = new List<string>();
+            for (int i = 1; i < AnimaisCadastrados + 1; i++)
+            {
+
+                animal = db.Animals
+               .Include(j => j.Servicos)
+               .Where(j => j.AnimalID == i)
+               .Single();
+
+                //    var ServicosAnimal = new HashSet<int>(animal.Servicos.Select(c => c.ServicoID));
+                //    var viewModel = new List<ServicoAssignedData>();
+                //    foreach (var servicx in allServicos)
+                //    {
+
+                //        viewModel.Add(new ServicoAssignedData
+                //        {
+                //            ServicoID = servicx.ServicoID,
+                //            Assigned = ServicosAnimal.Contains(servicx.ServicoID)
+                //        });
+                  
+                //        ViewBag.Servicos = viewModel;
+                //}
+                //listahash.Add(ViewBag.Servicos);
+
+            }
+            List<int> contador1 = new List<int>();
+            List<int> contador2 = new List<int>();
+            List<string> serviconosanimais = new List<string>();
+            for (int i = 1; i < AnimaisCadastrados + 1; i++)
+            {
+                int[] contador = new int[i];
+                
+                animal = db.Animals
+               .Include(j => j.Servicos)
+               .Where(j => j.AnimalID == i)
+               .Single();
+
+                foreach(var servico in animal.Servicos)
+                {
+                    serviconosanimais.Add(servico.Nome);
+                    contador1.Add(1);
+                }
+                ViewBag.teste1 = serviconosanimais;
+                ViewBag.Teste2 = contador1;
+                ViewBag.Teste2 = contador1.Count();
+                //GetAnimalForServicos(contador);
+                ViewBag.A = serviconosanimais.ToList();
+
+
+            }
+            var result =
+serviconosanimais
+.Zip(contador1, (f, q) => new { f, q })
+.GroupBy(x => x.f, x => x.q)
+.Select(x => new { serviconosanimais = x.Key, contador1 = x.Sum() })
+.ToArray();
+
+            var totalefruit = result.Select(x => x.serviconosanimais).ToArray();
+            var totalquantity = result.Select(x => x.contador1).ToArray();
+
+            Array.Reverse(totalefruit);
+            Array.Reverse(totalquantity);
+
+            totalefruit = totalefruit.OrderByDescending(c => c).ToArray();
+            totalquantity = totalquantity.OrderByDescending(c => c).ToArray();
+
+            ViewBag.totalservicos = totalefruit;
+            ViewBag.totalquantity = totalquantity;
+
+
+            return View();
+            }
+        
+
+
+        public IQueryable<Servicos> GetAnimalForServicos(int[] animalid)
+        {
+
+            List<string> listastrings = new List<string>();
+            var employees = db.Animals
+                                     .Where(r => animalid.Contains(r.AnimalID))
+                                     .SelectMany(x => x.Servicos)
+                                     .Distinct();
+
+            return employees;
+        }
+
 
         public ActionResult Novochart()
         {
