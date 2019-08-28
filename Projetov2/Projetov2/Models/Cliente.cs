@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlTypes;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace Projeto.Models
 {
-    
+
     public class Cliente
     {
         public Cliente()
@@ -28,14 +29,14 @@ namespace Projeto.Models
         //[DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         //[Display(Name = "Data de Nascimento")]
         [Display(Name = "Data de Nascimento")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
-    [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime DataNascimento { get; set; }
 
         [Index(IsUnique = true)]
         [StringLength(14)]
         [Display(Name = "CPF")]
-        [Required(ErrorMessage ="Campo CPF é obrigatório")]
+        [Required(ErrorMessage = "Campo CPF é obrigatório")]
         //[RegularExpression(@"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})", ErrorMessage = "Por favor insira 11 dígitos no formato:12345678901")]
         public string CPFouRG { get; set; }
         [Required(ErrorMessage = "Campo de Contato é Obrigatório ")]
@@ -53,16 +54,15 @@ namespace Projeto.Models
         //[DataType(DataType.Date)]
 
         [Display(Name = "Data de Cadastro")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime? DataCadastro { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-    
+
 
         public ICollection<Animal> Animals { get; set; }
         public Funcionario Funcionarios { get; set; }
-     
 
 
     }
 }
+

@@ -184,7 +184,9 @@ namespace Projeto.Controllers
         {
             using (ProjetoDBContext db = new ProjetoDBContext())
             {
+
                 var cliente = db.Clientes.Find(ID);
+             
                 if (ID == null)
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
                 db.Clientes.Remove(cliente);

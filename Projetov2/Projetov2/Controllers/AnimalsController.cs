@@ -58,7 +58,7 @@ namespace Projeto.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco")] Animal animal, string[] selectedServicos)
+        public ActionResult Create([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco,Pagamento")] Animal animal, string[] selectedServicos)
         {
             if (selectedServicos != null)
             {
@@ -112,7 +112,7 @@ namespace Projeto.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco")] Animal animal, int? id, string[] selectedServicos)
+        public ActionResult Edit([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco,Pagamento")] Animal animal, int? id, string[] selectedServicos)
         {
             if (id == null)
             {
@@ -124,7 +124,7 @@ namespace Projeto.Controllers
    .Where(i => i.AnimalID == id)
    .Single();
             if (TryUpdateModel(AnimalAtualizar, "",
-       new string[] { "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco" }))
+       new string[] { "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco,Pagamento" }))
             {
                 try
                 {

@@ -49,7 +49,6 @@
                                     <th>Sexo</th>
                                     <th>CPF</th>
                                     <th>Contato</th>
-                                    <th>Email</th>
                                     <th>Data de Cadastro</th>
                                     <th>Ações</th>
                                 </tr>
@@ -132,13 +131,9 @@
                         "searchable": false,
                         "orderable": false
                     },
-                    {
-                        "targets": [5],
-                        "searchable": false,
-                        "orderable": false
-                        },
+                    
                         {
-                            "targets": [7],
+                            "targets": [6],
                             "searchable": false,
                             "orderable": false
                         }
@@ -155,7 +150,7 @@
                     { "data": "Sexo", "title": "Sexo", "name": "Sexo", "autoWidth": true },
                     { "data": "CPFouRG", "name": "CPFouRG", "autoWidth": true },
                     { "data": "Contato", "name": "Contato", "autoWidth": true },
-                    { "data": "Email", "name": "Email", "autoWidth": true },
+                    
                     {
                         "data": "DataCadastro",
                         "name": "DataCadastro",
@@ -175,7 +170,7 @@
 
 
     function DeleteData(ClienteID) {
-        if (confirm("Tem certeza que quer deletar este cadastro ?")) {
+        if (confirm("Tem certeza que quer deletar este cadastro? Ao deletar você excluirá todos os registros de ANIMAIS atrelados a este cliente")) {
             Delete(ClienteID);
         }
         else {

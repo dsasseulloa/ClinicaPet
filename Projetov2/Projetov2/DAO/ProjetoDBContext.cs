@@ -34,6 +34,11 @@ namespace Projeto.DAO
                     .MapRightKey("AnimalID")
                     .ToTable("AnimaleServicos"));
 
+            modelBuilder.Entity<Cliente>()
+    .HasMany<Animal>(c => c.Animals)
+    .WithOptional(x => x.Clientes)
+    .WillCascadeOnDelete(true);
+
         }
 
         public ProjetoDBContext()
