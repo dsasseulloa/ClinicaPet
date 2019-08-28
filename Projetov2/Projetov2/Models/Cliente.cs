@@ -24,9 +24,12 @@ namespace Projeto.Models
         public string Nome { get; set; }
         [Required(ErrorMessage = "Campo Sexo é Obrigatório ")]
         public string Sexo { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        //[Display(Name = "Data de Nascimento")]
         [Display(Name = "Data de Nascimento")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+    [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime DataNascimento { get; set; }
 
         [Index(IsUnique = true)]

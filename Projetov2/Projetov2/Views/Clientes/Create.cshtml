@@ -18,7 +18,7 @@
                     <div class="box-header">
                         <h4 class="mb"><i class="fa fa-angle-right"></i> Cadastrar Cliente</h4>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                       
+
                         <form>
 
                             <div class="form-group col-md-12">
@@ -91,47 +91,48 @@
                                         @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control", @id = "cep" } })
                                         @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
                                     </div>
-                                    </div></div>
+                                </div>
+                            </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
-                                            @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { @class = "form-control", placeholder = "Cidade" } })
-                                            @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { @class = "form-control", placeholder = "Cidade" } })
+                                    @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control", placeholder = "Bairro" } })
+                                    @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                    @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control", placeholder = "Estado" } })
+                                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <div class="row mt">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <button class="btn btn-theme" value="Create" type="submit">Salvar</button>
+
+                                            <a href="@Url.Action("Index", "Clientes")" class="btn btn-theme04">
+                                                <span>
+                                                    <strong>Cancelar</strong>
+                                                </span>
+
+                                            </a>
+
+
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
-                                            @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control", placeholder = "Bairro" } })
-                                            @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                            @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control", placeholder = "Estado" } })
-                                            @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
-                                        </div>
-
-
                                     </div>
-
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <div class="row mt">
-                                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                                    <button class="btn btn-theme" value="Create" type="submit">Salvar</button>
-
-                                                    <a href="@Url.Action("Index", "Clientes")" class="btn btn-theme04">
-                                                        <span>
-                                                            <strong>Cancelar</strong>
-                                                        </span>
-
-                                                    </a>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
+                            </div>
 
                         </form>
 
@@ -154,7 +155,7 @@
 }
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
-  
+    @Scripts.Render("~/bundles/validations_pt-br")
 }
 
 

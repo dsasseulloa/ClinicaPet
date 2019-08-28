@@ -12,7 +12,14 @@ namespace Projetov2
                         "~/admilte2/jquery/dist/jquery.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*" 
+                        ));
+
+            bundles.Add(
+               new ScriptBundle("~/bundles/validations_pt-br")
+                   .Include(
+                       "~/ScriptsProjeto/jquery.validate.custom.pt-br*",
+                       "~/ScriptsProjeto/ValidacaoData"));
 
             // Use a versão em desenvolvimento do Modernizr para desenvolver e aprender. Em seguida, quando estiver
             // pronto para a produção, utilize a ferramenta de build em https://modernizr.com para escolher somente os testes que precisa.
@@ -34,12 +41,10 @@ namespace Projetov2
               "~/admilte2/plugins/fastclick/fastclick.js",
               "~/Scripts/Chart.js"));
             bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
-//~/Scripts/inputmask/dependencyLibs/inputmask.dependencyLib.js",  //if not using jquery
 "~/Scripts/inputmask/inputmask.js",
 "~/Scripts/inputmask/jquery.inputmask.js",
 "~/Scripts/inputmask/inputmask.extensions.js",
 "~/Scripts/inputmask/inputmask.date.extensions.js",
-//and other extensions you want to include
 "~/Scripts/inputmask/inputmask.numeric.extensions.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(

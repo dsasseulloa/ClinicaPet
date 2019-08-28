@@ -155,6 +155,7 @@
     <Compile Include="Controllers\FuncionariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServicosController.cs" />
+    <Compile Include="DAO\DecimalModelBinder.cs" />
     <Compile Include="DAO\ProjetoInitializer.cs" />
     <Compile Include="DAO\ProjetoDBContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -1104,6 +1105,7 @@
     <Content Include="admilte2\js\demo.js" />
     <Content Include="admilte2\js\pages\dashboard.js" />
     <Content Include="admilte2\js\pages\dashboard2.js" />
+    <Content Include="admilte2\js\TodoList.js" />
     <Content Include="admilte2\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="admilte2\plugins\bootstrap-slider\slider.css" />
     <Content Include="admilte2\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -3092,6 +3094,8 @@
     <Content Include="Plugins\input-mask\jquery.inputmask.regex.extensions.js" />
     <Content Include="Plugins\input-mask\phone-codes\readme.txt" />
     <Content Include="ScriptsProjeto\CustomValidation.js" />
+    <Content Include="ScriptsProjeto\jquery.validate.custom.pt-br.js" />
+    <Content Include="ScriptsProjeto\ValidacaoData.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\Chart.js" />
