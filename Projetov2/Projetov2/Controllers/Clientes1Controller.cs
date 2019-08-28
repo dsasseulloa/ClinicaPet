@@ -47,7 +47,7 @@ namespace Projeto.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClienteID,Nome,Sexo,DataNascimento,CPFouRG,Contato,Contato2,Endereço,Bairro,Cidade,Estado,CEP,Email,DataCadastro")] Cliente cliente)
+        public ActionResult Create([Bind(Include = "ClienteID,Nome,Sexo,DataNascimento,CPFouRG,Contato,Contato2,Endereço,Bairro,Cidade,Estado,CEP,Email,DataCadastro,Dob")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace Projeto.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClienteID,Nome,Sexo,DataNascimento,CPFouRG,Contato,Contato2,Endereço,Bairro,Cidade,Estado,CEP,Email,DataCadastro")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "ClienteID,Nome,Sexo,DataNascimento,CPFouRG,Contato,Contato2,Endereço,Bairro,Cidade,Estado,CEP,Email,DataCadastro,Dob")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {

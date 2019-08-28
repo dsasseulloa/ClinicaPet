@@ -20,7 +20,7 @@ namespace Projeto.Models
         public int ClienteID { get; set; }
         [Display(Name = "Nome do Cliente")]
         [Required(ErrorMessage = "Campo Nome do Cliente é Obrigatório ")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Nome precisa ter entre 3 e 50 Caracteres")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Nome precisa ter entre 3 e 50 Caracteres")]
         public string Nome { get; set; }
         [Required(ErrorMessage = "Campo Sexo é Obrigatório ")]
         public string Sexo { get; set; }
@@ -30,12 +30,13 @@ namespace Projeto.Models
         public DateTime DataNascimento { get; set; }
 
         [Index(IsUnique = true)]
-        [StringLength(50)]
+        [StringLength(14)]
         [Display(Name = "CPF")]
         [Required(ErrorMessage ="Campo CPF é obrigatório")]
         //[RegularExpression(@"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})", ErrorMessage = "Por favor insira 11 dígitos no formato:12345678901")]
         public string CPFouRG { get; set; }
         [Required(ErrorMessage = "Campo de Contato é Obrigatório ")]
+        [DataType(DataType.PhoneNumber)]
         public string Contato { get; set; }
         public string Contato2 { get; set; }
         public string Endereço { get; set; }
@@ -53,7 +54,7 @@ namespace Projeto.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataCadastro { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Dob { get; set; }
+    
 
         public ICollection<Animal> Animals { get; set; }
         public Funcionario Funcionarios { get; set; }

@@ -122,13 +122,16 @@ namespace Projeto.Controllers
                 }
                 catch (System.Data.Entity.Infrastructure.DbUpdateException exception)
                 {
-                    ViewBag.ErrorMessageCPF = "Este CPF já está sendo utilizado por outro cliente";
+                    
                     if (exception.InnerException.Message.Contains("CPFouRG")) // Cannot insert duplicate key row in object error
                     {
+                        ViewBag.ErrorMessageCPF = "Este CPF já está sendo utilizado por outro cliente";
                         return View(cliente);
                     }
 
                 }
+
+
             }
             return View(cliente);
         }

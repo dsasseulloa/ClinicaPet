@@ -74,7 +74,7 @@
         <!-- small box -->
         <div class="small-box bg-red">
             <div class="inner">
-                <h3>@ViewBag.Precoss</h3>
+                <h3>@ViewBag.Precos</h3>
 
                 <p>Lucro</p>
             </div>
@@ -98,12 +98,20 @@
                 <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
 
                 <li><a href="#sales-chart" data-toggle="tab">Donut</a></li>
+                <li><a href="#salesa-chart" data-toggle="tab">Tratamentos</a></li>
                 <li class="pull-left header"><i class="fa fa-inbox"></i> Estatísticas</li>
             </ul>
             <div class="tab-content no-padding">
                 <!-- Morris chart - Sales -->
                 <div class="chart tab-pane" id="revenue-chart" style="position: relative; height: 300px;"></div>
                 <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
+                <div class="chart tab-pane" id="salesa-chart" style="position: relative; height: 600px;">
+                    <div id="chart_container">
+                        <canvas id="bar-chart-horizontal" width="800" height="600"></canvas>
+                    </div>
+                </div>
+
+
 
             </div>
         </div>
@@ -339,9 +347,9 @@
 
 
         <div id="chart_container">
-            <canvas id="bar_chart"></canvas>
+            <canvas id="doughnut-chart" width="800" height="450"></canvas>
         </div>
-        @ViewBag.Servicox
+       
 
 
     </section>
@@ -358,30 +366,72 @@
 
 
 <script>
-    var repArray = @Html.Raw(Json.Encode(ViewBag.Animais));
-    var precos = @Html.Raw(Json.Encode(ViewBag.PRECOS));
-    var servicos = @Html.Raw(Json.Encode(ViewBag.Servicox));
-    var listacontagem = @Html.Raw(Json.Encode(ViewBag.lista1));
+    var repArray = @Html.Raw(Json.Encode(ViewBag.totalservicos));
+     var listanimais = @Html.Raw(Json.Encode(ViewBag.totalquantity));
     @*var Listaanimais = @Html.Raw(Json.Encode(ViewBag.Listaanimais));*@
-    
+
+
         var ctx = $("#bar_chart");
         var barChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'doughnut',
             data: {
-                labels: listacontagem,
+                labels: repArray,
                 datasets: [{
-                    label: "Bar Chart example",
-                    data: listacontagem,
-                    BackgroundColor: ["rgba(100,220,220,1)", "rgba(150,220,220,1)", "rgba(220,220,220,1)"],
-                    BorderColor: ["rgb(100,220,220)", "rgb(150,220,220)", "rgb(220,220,220)"],
-                    borderWidth:1
+                    label: "Tratamentos mais utilizados",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: listanimais
                 }]
             },
             options: {
+                title: {
+                    display: true,
+                    text: 'Tratamentos mais procurados pelos clientes'
+                },
                 maintainAspectRatio: false,
-                scales: { xAxes: [{ ticks: { beginAtZero: true } }] }
+                
             }
             });
+
+    new Chart(document.getElementById("doughnut-chart"), {
+        type: 'doughnut',
+        data: {
+            labels: repArray,
+            datasets: [
+                {
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: listanimais
+                }
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Tratamentos mais procurados'
+            }
+        }
+    });
+
+    new Chart(document.getElementById("bar-chart-horizontal"), {
+        type: 'horizontalBar',
+        data: {
+            labels: repArray,
+            datasets: [
+                {
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: listanimais
+                }
+            ]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Tratamentos mais procurados'
+            }
+        }
+    });
 </script>
 
 @*<script>

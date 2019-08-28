@@ -41,7 +41,7 @@ namespace Projeto.Models
         public DateTime Entrada { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Data de Saída")]
+        [Display(Name = "Previsão de Saída")]
         public DateTime? Saida { get; set; }
         [Display(Name = "Data de Cadastro")]
         [DataType(DataType.Date)]
@@ -77,8 +77,7 @@ namespace Projeto.Models
 
         }
 
-        [DataType(DataType.Currency)]
-        
+        [DataType(DataType.Currency)]  
         public decimal Preco { get; set; } //a ligar a serviços
 
     }
