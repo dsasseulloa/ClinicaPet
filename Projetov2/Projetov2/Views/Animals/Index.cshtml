@@ -1,19 +1,20 @@
 ﻿@model IEnumerable<Projeto.Models.Animal>
-@using Projeto.App_Start
 
 @{
-    ViewBag.Title = "Index";
 
+
+    ViewBag.Title = "Index";
 }
 
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
-
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Animais</h3>
                 </div>
+
+
                 <div class="row fileupload-buttonbar">
                     <div class="col-lg-8">
                         &nbsp;&nbsp;&nbsp;
@@ -22,7 +23,11 @@
                             <span>
                                 <strong>Cadastrar Animal</strong>
                             </span>
+
                         </a>
+
+
+
                         <a href="@Url.Action("Index", "Animals")" class="btn btn-success">
 
                             <span>
@@ -33,125 +38,140 @@
                     </div>
                 </div>
                 <br>
+
                 <div class="box-body">
 
-
-
-                    <table class="table table-hover">
-                        <tr>
-                            <th>
-                                Cliente
-                            </th>
-
-                            <th>
-                                @Html.DisplayNameFor(model => model.Nome)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Sexo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Raca)
-                            </th>
-
-                            <th>
-                                @Html.DisplayNameFor(model => model.Sangue)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Tipo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Idade)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Entrada)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Saida)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Preco)
-                            </th>
-                            <th>
-                                Servicos
-                            </th>
-                            <th>Ações</th>
-                        </tr>
-
-                        @foreach (var item in Model)
-                        {
+                    <table id="demoGrid" class="table table-bordered table-striped table-hover">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Clientes.Nome)
-                                </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Sexo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Raca)
-                                </td>
-
-                                <td>
-                                    @item.Sangue.DisplayName()
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Tipo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Idade)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Entrada)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Saida)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Preco)
-                                </td>
-                                <td>
-                                    @{
-                                        foreach (var servicos in item.Servicos)
-                                        {
-                                            @servicos.Nome <br />
-                                        }
-                                    }
-                                </td>
-                                <td>
-
-                                    <a href="@Url.Action("Edit", "Animals", new { id = item.AnimalID })" class="btn btn-primary btn-xs">
-
-                                        <span>
-                                            <strong>Editar</strong>
-                                        </span>
-                                    </a>
-                                    <a href="@Url.Action("Details", "Animals", new { id = item.AnimalID })" class="btn btn-info btn-xs">
-
-                                        <span>
-                                            <strong>Detalhes</strong>
-                                        </span>
-                                    </a>
-
-                                    &nbsp;&nbsp;&nbsp;
-                                    <a href="@Url.Action("Delete", "Animals", new { id = item.AnimalID })" class="btn btn-danger btn-xs">
-
-                                        <span>
-                                            <strong>Deletar</strong>
-                                        </span>
-                                    </a>
-                                </td>
+                                <th>Nome</th>
+                                <th>Sexo</th>
+                                <th>Tipo</th>
+                                <th>Ações</th>
+                                <th>Nome cliente</th>
                             </tr>
-                        }
+                        </thead>
 
                     </table>
+
                 </div>
-                <!-- /.box -->
+                <!-- /.box-body -->
             </div>
-                    <!-- /.col -->
-                </div>
+            <!-- /.box -->
         </div>
-                <!-- /.row -->
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
 </section>
+
+<div id="modal" class="modal fade" role="dialog" />
+
+@section Scripts{
+    <!-- JS -->
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script>
+
+
+
+
+
+             $(document).ready(function () {
+            $("#demoGrid").DataTable({
+
+                "language": {
+                    "lengthMenu": "Exibe _MENU_ Registros por página",
+                    "search": "Pesquisar por Nome",
+                    "paginate": { "previous": "Retorna", "next": "Avança" },
+                    "zeroRecords": "Nada foi encontrado",
+                    "info": "Exibindo página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Sem registros",
+                    "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+                },
+
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 10,
+
+                "ajax": {
+                    "url": "/Animals/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+
+                "columnDefs":
+                    [{
+                        "targets": [1],
+                        "searchable": false,
+                        "orderable": false
+                    },
+                    
+                        {
+                            "targets": [2],
+                            "searchable": false,
+                            "orderable": false
+                        }, {
+                            "targets": [3],
+                            "searchable": false,
+                            "orderable": false
+                        }, 
+
+  ],
+
+                "columns": [
+                    
+                    { "data": "Nome", "name": "Nome", "autoWidth": true },
+                    { "data": "Sexo", "title": "Sexo", "autoWidth": true },
+                    { "data": "Tipo", "title": "Tipo", "autoWidth": true },
+                   
+                    
+
+                    {"render": function (data, type, full, meta) {
+                        return '<a href="@Url.Action("Edit","Animals")?id=' + full.AnimalID + '" class="btn btn-primary">Editar</a> | <a href="@Url.Action("Details", "Animals")?id=' + full.AnimalID + '" class="btn btn-info">Detalhes</a> | <a href="#" onclick="DeleteData(' + full.AnimalID + ')"class="btn btn-danger">Deletar</a>';
+                    }
+                    },
+                    { "data": "ClienteNome", "title": "Cliente", "autoWidth": true }
+
+                ]
+            });
+        });
+
+
+
+
+    function DeleteData(AnimalID) {
+        if (confirm("Tem certeza que quer deletar este cadastro? ")) {
+            Delete(AnimalID);
+        }
+        else {
+            return false;
+        }
+    }
+
+
+        function Delete(AnimalID) {
+        var url = '@Url.Content("~/")' + "Animals/DeleteCustomer";
+            $.post(url, { ID: AnimalID }, function (data) {
+            if (data == "Deleted") {
+                alert("Cadastro Deletado!");
+                oTable = $('#demoGrid').DataTable();
+                oTable.draw();
+            }
+            else {
+                alert("Algo deu Errado!");
+            }
+        });
+    }
+    </script>
+
+}   

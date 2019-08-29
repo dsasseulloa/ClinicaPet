@@ -1,0 +1,331 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq.Dynamic;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using PagedList;
+using Projeto.DAO;
+using Projeto.Models;
+using DataTables;
+using System.Threading.Tasks;
+using System.Data.Entity.Infrastructure;
+using Projeto.Models.ViewModel;
+
+namespace Projeto.Controllers
+{
+    [Authorize(Roles = "Administrador, Funcionario")]
+    public class AnimalsController : Controller
+    {
+        private ProjetoDBContext db = new ProjetoDBContext();
+
+        // GET: Animal
+        [HttpGet]
+        public ActionResult Index()
+        {
+            var animals = db.Animals.Include(a => a.Clientes).Include(a => a.Servicos);
+            return View(animals.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult GetAnimals()
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+            {
+                var listaAnimais = db.Animals.ToList();
+
+                return Json(new { data = listaAnimais }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult LoadData()
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+                try
+            {
+                    
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
+
+
+                //Paging Size (10,20,50,100)    
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+
+                    // Getting all Customer data    
+                    var animalData = (from tempcustomer in db.Animals
+                                       select tempcustomer);
+                    //var animalData = db.Animals;
+
+                    //Sorting    
+                      if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                    {
+                    animalData  = animalData.OrderBy(sortColumn + " " + sortColumnDir);
+                }
+                //Search    
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                        animalData = animalData.Where(m => m.Nome.Contains (searchValue));
+                }
+
+                    //total number of rows count     
+                     recordsTotal = animalData.Count();
+                    //Paging     
+                     var data = animalData.Skip(skip).Take(pageSize).ToList();
+                    //Returning Json Data    
+
+                   
+                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+                }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        // GET: Animal/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Animal animal = db.Animals.Find(id);
+            if (animal == null)
+            {
+                return HttpNotFound();
+            }
+            return View(animal);
+        }
+        //GET: Animal/Create
+        public ActionResult Create()
+        {
+            var animal = new Animal();
+            animal.Servicos = new List<Servicos>();
+
+            ViewBag.ClienteID = new SelectList(db.Clientes, "ClienteID", "Nome");
+            ViewBag.ClienteNome = new SelectList(db.Clientes, "Nome", "Nome");
+            PopulateAssignedCourseData(animal);
+            return View();
+        }
+
+        // POST: Animals/Create
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteNome,Preco,Pagamento")] Animal animal, string[] selectedServicos)
+        {
+            if (selectedServicos != null)
+            {
+                animal.Servicos = new List<Servicos>();
+                foreach (var servico in selectedServicos)
+                {
+                    var servicoToAdd = db.Servicos.Find(int.Parse(servico));
+                    animal.Servicos.Add(servicoToAdd);
+
+                }
+            }
+            if (ModelState.IsValid)
+            {
+
+                db.Animals.Add(animal);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.ClienteNome = new SelectList(db.Clientes, "ClienteID", "Nome", animal.ClienteNome);
+            ViewBag.ClienteNome = new SelectList(db.Clientes, "Nome", "Nome");
+            PopulateAssignedCourseData(animal);
+            return View(animal);
+        }
+
+
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Animal animal = db.Animals.Find(id);
+
+            Animal animal = db.Animals
+
+        .Include(i => i.Servicos)
+        .Where(i => i.AnimalID == id)
+        .Single();
+            PopulateAssignedCourseData(animal);
+            if (animal == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ClienteID = new SelectList(db.Clientes, "ClienteID", "Nome", animal.ClienteID);
+
+            return View(animal);
+        }
+
+        // POST: Animals/Edit/5
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco,Pagamento")] Animal animal, int? id, string[] selectedServicos)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var AnimalAtualizar = db.Animals
+
+   .Include(i => i.Servicos)
+   .Where(i => i.AnimalID == id)
+   .Single();
+            if (TryUpdateModel(AnimalAtualizar, "",
+       new string[] { "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco,Pagamento" }))
+            {
+                try
+                {
+
+                    UpdateAnimaleServicos(selectedServicos, AnimalAtualizar);
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Problema para Salvar");
+                }
+            }
+            PopulateAssignedCourseData(AnimalAtualizar);
+            return View(AnimalAtualizar);
+        }
+        // GET: Animal/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Animal animal = db.Animals.Find(id);
+            if (animal == null)
+            {
+                return HttpNotFound();
+            }
+            return View(animal);
+        }
+        [HttpPost]
+        public JsonResult DeleteCustomer(int? ID)
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+            {
+
+                var animal = db.Animals.Find(ID);
+             
+                if (ID == null)
+                    return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
+                db.Animals.Remove(animal);
+                db.SaveChanges();
+
+                return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // POST: Animal/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Animal animal = db.Animals
+
+     .Where(i => i.AnimalID == id)
+     .Single();
+
+            db.Animals.Remove(animal);
+
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private void PopulateAssignedCourseData(Animal animal)
+        {
+            var allServicos = db.Servicos;
+            var ServicosAnimal = new HashSet<int>(animal.Servicos.Select(c => c.ServicoID));
+            var viewModel = new List<ServicoAssignedData>();
+            foreach (var servico in allServicos)
+            {
+                viewModel.Add(new ServicoAssignedData
+                {
+                    ServicoID = servico.ServicoID,
+                    Nome = servico.Nome,
+                    Assigned = ServicosAnimal.Contains(servico.ServicoID)
+                });
+            }
+            ViewBag.Servicos = viewModel;
+        }
+
+        private void UpdateAnimaleServicos(string[] selectedServicos, Animal AnimalAtualizar)
+        {
+            if (selectedServicos == null)
+            {
+                AnimalAtualizar.Servicos = new List<Servicos>();
+                return;
+            }
+
+            var selectedServicosHS = new HashSet<string>(selectedServicos);
+            var AnimaleServicos = new HashSet<int>
+                (AnimalAtualizar.Servicos.Select(c => c.ServicoID));
+            foreach (var servico in db.Servicos)
+            {
+                if (selectedServicos.Contains(servico.ServicoID.ToString()))
+                {
+                    if (!AnimaleServicos.Contains(servico.ServicoID))
+                    {
+                        AnimalAtualizar.Servicos.Add(servico);
+                    }
+                }
+                else
+                {
+                    if (AnimaleServicos.Contains(servico.ServicoID))
+                    {
+                        AnimalAtualizar.Servicos.Remove(servico);
+                    }
+                }
+            }
+        }
+
+        public JsonResult DeleteAnimal(int? ID)
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+            {
+
+                var animal = db.Animals.Find(ID);
+
+                if (ID == null)
+                    return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
+                db.Animals.Remove(animal);
+                db.SaveChanges();
+
+                return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
+            }
+        }
+    }
+}

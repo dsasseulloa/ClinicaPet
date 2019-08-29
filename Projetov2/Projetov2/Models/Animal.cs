@@ -51,10 +51,11 @@ namespace Projeto.Models
         [DisplayFormat(NullDisplayText = "Outro", ApplyFormatInEditMode = true)]
         public Tipo? Tipo { get; set; }
         public int Contagem { get;set; }
-        public virtual Funcionario Funcionarios { get; set; }
+        public Funcionario Funcionarios { get; set; }
 
+        public string ClienteNome { get; set; }
         public int? ClienteID { get; set; }
-        public virtual Cliente Clientes { get; set; }
+        public Cliente Clientes { get; set; }
         public Pago? Pagamento { get; set; }
 
         [Range(10, 99999.99,ErrorMessage = "O Preço de Venda deve estar entre " + "10,00 e 99999,99.")]
@@ -62,7 +63,7 @@ namespace Projeto.Models
         [DisplayFormat(DataFormatString = "{0:C0}")]
         public decimal? Preco{ get; set; }
         private ICollection<Servicos> _servicos;
-        public virtual ICollection<Servicos> Servicos
+        public  ICollection<Servicos> Servicos
         {
             get
             {
@@ -78,7 +79,7 @@ namespace Projeto.Models
         {
 
             this.DataCadastro = DateTime.Now;
-
+            
         }
 
 
@@ -133,4 +134,5 @@ namespace Projeto.Models
         [Description("Pago")]
         Pago = 1,
     }
+
 }

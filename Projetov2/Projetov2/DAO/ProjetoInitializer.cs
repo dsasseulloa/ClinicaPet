@@ -27,7 +27,7 @@ namespace Projeto.DAO
             {
                 new Acesso{FuncionarioID=1,Usuario="admin@admin.com",Senha="123456",Ativo=Ativo.Sim, Perfil="Administrador"},
                 new Acesso{FuncionarioID=2,Usuario="Maria",Senha="123456",Ativo=Ativo.Sim, Perfil="Funcionario"},
-                new Acesso{FuncionarioID=3,Usuario="Gabriel",Senha="123456",Ativo=Ativo.Sim, Perfil="Funcionario" },
+                new Acesso{FuncionarioID=3,Usuario="Gabriel",Senha="123456",Ativo=Ativo.Sim, Perfil="Funcionario" }
                
 
             };
@@ -71,7 +71,7 @@ namespace Projeto.DAO
                 new Servicos{Nome="Homeopatia",Preco=100,Descricao="Tratamento de Homeopatia"},
                 new Servicos{Nome="Reiki",Preco=100,Descricao="Tratamento de Reiki"},
                 new Servicos{Nome="Florais",Preco=200,Descricao="Tratamento de Florais"},
-                new Servicos{Nome="Outro",Preco=100,Descricao="Outro"},
+                new Servicos{Nome="Outro",Preco=100,Descricao="Outro"}
             };
             Servicos.ForEach(s => context.Servicos.Add(s));
             context.SaveChanges();
@@ -81,11 +81,11 @@ namespace Projeto.DAO
             var animais = new List<Animal>
             {
               
-                new Animal{AnimalID=1,Nome="Toby",Sexo="Macho",Tipo=Tipo.Cachorro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
-                new Animal{AnimalID=2,Nome="Rex",Sexo="Macho",Tipo=Tipo.Outro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
-                 new Animal{AnimalID=3,Nome="Bela",Sexo="Fêmea",Tipo=Tipo.Cachorro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
-                new Animal{AnimalID=4,Nome="Mel",Sexo="Macho",Tipo=Tipo.Cachorro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
-                new Animal{AnimalID=5,Nome="Julie",Sexo="Fêmea",Tipo=Tipo.Gato,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteID=1,Preco=1000 },
+                new Animal{AnimalID=1,Nome="Toby",Sexo="Macho",Tipo=Tipo.Cachorro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Carlos Joaquim",Preco=800 },
+                new Animal{AnimalID=2,Nome="Rex",Sexo="Macho",Tipo=Tipo.Outro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Carlos Joaquim",Preco=1000 },
+                 new Animal{AnimalID=3,Nome="Bela",Sexo="Fêmea",Tipo=Tipo.Cachorro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Isabelle Silva Almeida",Preco=1000 },
+                new Animal{AnimalID=4,Nome="Mel",Sexo="Macho",Tipo=Tipo.Cachorro,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Isabelle Silva Almeida",Preco=1000 },
+                new Animal{AnimalID=5,Nome="Julie",Sexo="Fêmea",Tipo=Tipo.Gato,Sangue=Sangue.apositivo,Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Beatrice Ribeiro Cardoso",Preco=1000 }
             };
             animais.ForEach(s => context.Animals.Add(s));
             context.SaveChanges();

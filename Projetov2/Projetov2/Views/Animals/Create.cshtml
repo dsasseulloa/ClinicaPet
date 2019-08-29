@@ -18,6 +18,7 @@
                     <div class="box-header">
                         <h4 class="mb"><i class="fa fa-angle-right"></i> Cadastrar Animal</h4>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                       
                         <form>
 
                             <div class="form-group col-md-12">
@@ -102,13 +103,15 @@
 
 
 
-                            <div class="form-group col-md-3">
-                                @Html.LabelFor(model => model.ClienteID, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
 
-                                @Html.DropDownList("ClienteID", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ClienteID, "", new { @class = "text-danger" })
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.ClienteNome, "Cliente Responsável", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                @Html.DropDownList("ClienteNome", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ClienteNome, "", new { @class = "text-danger" })
 
                             </div>
+
 
 
 

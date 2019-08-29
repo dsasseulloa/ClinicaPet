@@ -56,13 +56,13 @@ namespace Projeto.Controllers
             for (int i = 1; i < AnimaisCadastrados + 1; i++)
             {
                 int[] contador = new int[i];
-                
+
                 animal = db.Animals
                .Include(j => j.Servicos)
                .Where(j => j.AnimalID == i)
                .Single();
 
-                foreach(var servico in animal.Servicos)
+                foreach (var servico in animal.Servicos)
                 {
                     serviconosanimais.Add(servico.Nome);
                     contador1.Add(1);

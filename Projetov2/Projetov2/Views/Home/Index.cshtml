@@ -131,7 +131,7 @@
             <div class="box-body">
                 <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
 
-                <ul class="todo-list" data-widget="todo-list">
+                <ul class="todo-list" data-widget="todo-lists">
                     <li>
                         <!-- drag handle -->
                         <span class="handle">
@@ -339,9 +339,6 @@
         <!-- /.box -->
 
 
-        <div id="chart_container">
-            <canvas id="doughnut-chart" width="800" height="450"></canvas>
-        </div>
 
 
 
@@ -351,12 +348,12 @@
 <!-- /.row (main row) -->
 <!-- /.content -->
 
-@ViewBag.Servicox
 
+@section Scripts{
 <script src="~/Scripts/Chart.min.js"></script>
 
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-
+<script src="~/ScriptsProjeto/ToDoList.js"></script>
 
 <script>
     var repArray = @Html.Raw(Json.Encode(ViewBag.totalservicos));
@@ -655,6 +652,6 @@
       });
 
       </script>*@
-
+    }
 
 
