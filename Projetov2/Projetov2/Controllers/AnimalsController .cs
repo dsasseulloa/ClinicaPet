@@ -105,8 +105,67 @@ namespace Projeto.Controllers
             return View(animal);
         }
         //GET: Animal/Create
+        //public JsonResult Sangues(string Tipo)
+        //{
+        //    List<string> SanguesList = new List<string>();
+        //    switch (Tipo)
+        //    {
+        //        case "Cachorro":
+        //            SanguesList.Add("DEA 1");
+        //            SanguesList.Add("DEA 3");
+        //            SanguesList.Add("DEA5");
+        //            SanguesList.Add("DEA 7");
+        //            break;
+        //        case "Gato":
+        //            SanguesList.Add("A");
+        //            SanguesList.Add("B");
+        //            SanguesList.Add("AB");       
+        //            break;
+
+        //    }
+        //    return Json(SanguesList);
+        //}
+
+
+        public JsonResult States(string Tipo)
+        {
+            List<string> StatesList = new List<string>();
+            switch (Tipo)
+            {
+                case "Cachorro":
+                    StatesList.Add("DEA 1");
+                    StatesList.Add("DEA 3");
+                    StatesList.Add("DEA 5");
+                    StatesList.Add("DEA 7");
+                    break;
+                case "Gato":
+                    StatesList.Add("A");
+                    StatesList.Add("B");
+                    StatesList.Add("AB");
+                 
+                    break;
+
+            }
+            return Json(new SelectList(StatesList, "TipoSangue", "TipoSangue"), JsonRequestBehavior.AllowGet);
+        }
+        
         public ActionResult Create()
         {
+
+            //List<string> ListItems = new List<string>();
+            //ListItems.Add("Select");
+            //ListItems.Add("Cachorro");
+            //ListItems.Add("Gato");
+            //SelectList Tipos = new SelectList(ListItems);
+            //ViewData["Tipos"] = Tipos;
+
+            List<string> ListItems = new List<string>();
+            ListItems.Add("Select");
+            ListItems.Add("Cachorro");
+            ListItems.Add("Gato");
+            SelectList TiposAnimais = new SelectList(ListItems);
+            ViewData["TiposAnimais"] = TiposAnimais;
+
             var animal = new Animal();
             animal.Servicos = new List<Servicos>();
 

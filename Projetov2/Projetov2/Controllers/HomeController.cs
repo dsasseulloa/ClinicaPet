@@ -50,27 +50,29 @@ namespace Projeto.Controllers
             List<string> listastrings = new List<string>();
             var AnimaisCadastrados = dashboard.animais_count;
             Animal animal = new Animal();
-
+            var animales = db.Animals.Include(j => j.Servicos).ToList();
             List<int> contador1 = new List<int>();
             List<string> serviconosanimais = new List<string>();
+
+
             for (int i = 1; i < AnimaisCadastrados + 1; i++)
             {
                 int[] contador = new int[i];
+                
+            }
 
-                animal = db.Animals
-               .Include(j => j.Servicos)
-               .Where(j => j.AnimalID == i)
-               .Single();
-
-                foreach (var servico in animal.Servicos)
+                    foreach (var animale in animales) {
+                    animal = animale;
+                foreach (var servico in animale.Servicos)
                 {
+
                     serviconosanimais.Add(servico.Nome);
                     contador1.Add(1);
                 }
                 ViewBag.teste1 = serviconosanimais;
                 ViewBag.Teste2 = contador1;
                 ViewBag.Teste2 = contador1.Count();
-                GetAnimalForServicos(contador);
+               
             }
             var result = serviconosanimais
                 .Zip(contador1, (f, q) => new { f, q })

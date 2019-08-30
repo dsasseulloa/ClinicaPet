@@ -46,10 +46,13 @@
                             <tr>
 
                                 <th>Nome</th>
+                                <th>Nome cliente</th>
                                 <th>Sexo</th>
                                 <th>Tipo</th>
                                 <th>Ações</th>
-                                <th>Nome cliente</th>
+                                <th>Entrada</th>
+                                <th>Pagamento</th>
+
                             </tr>
                         </thead>
 
@@ -121,7 +124,7 @@
                             "searchable": false,
                             "orderable": false
                         }, {
-                            "targets": [3],
+                            "targets": [3,4],
                             "searchable": false,
                             "orderable": false
                         }, 
@@ -131,6 +134,7 @@
                 "columns": [
                     
                     { "data": "Nome", "name": "Nome", "autoWidth": true },
+                    { "data": "ClienteNome", "title": "Cliente", "autoWidth": true },
                     { "data": "Sexo", "title": "Sexo", "autoWidth": true },
                     { "data": "Tipo", "title": "Tipo", "autoWidth": true },
                    
@@ -139,8 +143,8 @@
                     {"render": function (data, type, full, meta) {
                         return '<a href="@Url.Action("Edit","Animals")?id=' + full.AnimalID + '" class="btn btn-primary">Editar</a> | <a href="@Url.Action("Details", "Animals")?id=' + full.AnimalID + '" class="btn btn-info">Detalhes</a> | <a href="#" onclick="DeleteData(' + full.AnimalID + ')"class="btn btn-danger">Deletar</a>';
                     }
-                    },
-                    { "data": "ClienteNome", "title": "Cliente", "autoWidth": true }
+                    }
+                    
 
                 ]
             });
