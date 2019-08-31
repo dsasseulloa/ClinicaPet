@@ -5,7 +5,8 @@ using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Projetov2;
-using Projetov2.Controllers;
+
+using Projeto.Controllers;
 
 namespace Projetov2.Tests.Controllers
 {

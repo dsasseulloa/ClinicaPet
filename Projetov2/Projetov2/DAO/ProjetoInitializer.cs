@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using Projeto.Models;
+using Projeto.Models.Tipos;
+
 namespace Projeto.DAO
 {
     public class ProjetoInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<ProjetoDBContext>
@@ -81,14 +83,56 @@ namespace Projeto.DAO
             var animais = new List<Animal>
             {
               
-                new Animal{AnimalID=1,Nome="Toby",Sexo="Macho",Tipo="Cachorro",Sangue="DEA 1.2",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Carlos Joaquim",Preco=800 },
-                new Animal{AnimalID=2,Nome="Rex",Sexo="Macho",Tipo="Outro",Sangue="B+",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Carlos Joaquim",Preco=1000 },
-                 new Animal{AnimalID=3,Nome="Bela",Sexo="Fêmea",Tipo="Cachorro",Sangue="DEA 5",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Isabelle Silva Almeida",Preco=1000 },
-                new Animal{AnimalID=4,Nome="Mel",Sexo="Macho",Tipo="Cachorro",Sangue="DEA 1.1",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Isabelle Silva Almeida",Preco=1000 },
-                new Animal{AnimalID=5,Nome="Julie",Sexo="Fêmea",Tipo="Gato",Sangue="A",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Beatrice Ribeiro Cardoso",Preco=1000 }
+                new Animal{AnimalID=1,Nome="Toby",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.2",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Carlos Joaquim",Preco=800 },
+                new Animal{AnimalID=2,Nome="Rex",Sexo="Macho",Tipo="Outro",TipoSangue="B+",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Carlos Joaquim",Preco=1000 },
+                 new Animal{AnimalID=3,Nome="Bela",Sexo="Fêmea",Tipo="Cachorro",TipoSangue="DEA 5",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Isabelle Silva Almeida",Preco=1000 },
+                new Animal{AnimalID=4,Nome="Mel",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.1",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Isabelle Silva Almeida",Preco=1000 },
+                new Animal{AnimalID=5,Nome="Julie",Sexo="Fêmea",Tipo="Gato",TipoSangue="A",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Beatrice Ribeiro Cardoso",Preco=1000 }
             };
             animais.ForEach(s => context.Animals.Add(s));
             context.SaveChanges();
+
+            var TipoAnimals = new List<TipoAnimal>
+            {
+                new TipoAnimal{TipoanimalID=1,Tipoanimal="Outro"},
+               new TipoAnimal{TipoanimalID=2,Tipoanimal="Cachorro"},
+               new TipoAnimal{TipoanimalID=3,Tipoanimal="Gato"}
+
+            };
+            TipoAnimals.ForEach(s => context.TipoAnimals.Add(s));
+            context.SaveChanges();
+
+            var TipoSangues = new List<TipoSangue>
+            {
+                new TipoSangue{TipoSangueID=1,Tiposangue="DEA 1.1",TipoAnimalID=2,Tipoanimal="Cachorro"},
+               new TipoSangue{TipoSangueID=2,Tiposangue="DEA 1.2",TipoAnimalID=2,Tipoanimal="Cachorro"},
+               new TipoSangue{TipoSangueID=3,Tiposangue="DEA 1.3",TipoAnimalID=2,Tipoanimal="Cachorro"},
+                new TipoSangue{TipoSangueID=4,Tiposangue="DEA 3",TipoAnimalID=2,Tipoanimal="Cachorro"},
+                 new TipoSangue{TipoSangueID=5,Tiposangue="DEA 4",TipoAnimalID=2,Tipoanimal="Cachorro"},
+                 new TipoSangue{TipoSangueID=6,Tiposangue="DEA 5",TipoAnimalID=2,Tipoanimal="Cachorro"},
+                  new TipoSangue{TipoSangueID=7,Tiposangue="DEA 7",TipoAnimalID=2,Tipoanimal="Cachorro"},
+
+
+                new TipoSangue{TipoSangueID=8,Tiposangue="A",TipoAnimalID=3,Tipoanimal="Gato"},
+                 new TipoSangue{TipoSangueID=9,Tiposangue="B",TipoAnimalID=3,Tipoanimal="Gato"},
+                  new TipoSangue{TipoSangueID=10,Tiposangue="AB",TipoAnimalID=3,Tipoanimal="Gato"},
+
+
+                  new TipoSangue{TipoSangueID=11,Tiposangue="A",TipoAnimalID=2,Tipoanimal="Outro"},
+                  new TipoSangue{TipoSangueID=12,Tiposangue="A+",TipoAnimalID=2,Tipoanimal="Outro"},
+                  new TipoSangue{TipoSangueID=13,Tiposangue="B",TipoAnimalID=2,Tipoanimal="Outro"},
+                  new TipoSangue{TipoSangueID=14,Tiposangue="B-",TipoAnimalID=2,Tipoanimal="Outro"},
+                  new TipoSangue{TipoSangueID=15,Tiposangue="AB+",TipoAnimalID=2,Tipoanimal="Outro"},
+                  new TipoSangue{TipoSangueID=16,Tiposangue="AB-",TipoAnimalID=2,Tipoanimal="Outro"},
+                  new TipoSangue{TipoSangueID=17,Tiposangue="O+",TipoAnimalID=2,Tipoanimal="Outro"},
+                  new TipoSangue{TipoSangueID=18,Tiposangue="O-",TipoAnimalID=2,Tipoanimal="Outro"},
+                  
+
+
+            };
+            TipoSangues.ForEach(s => context.TipoSangues.Add(s));
+            context.SaveChanges();
+
 
         }
     }

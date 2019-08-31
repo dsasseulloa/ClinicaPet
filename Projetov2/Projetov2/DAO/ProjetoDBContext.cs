@@ -8,6 +8,7 @@ using System.Web;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity;
 using Projeto.DAO;
+using Projeto.Models.Tipos;
 
 namespace Projeto.DAO
 {
@@ -19,8 +20,10 @@ namespace Projeto.DAO
         public virtual DbSet<Servicos> Servicos { get; set; }
         public virtual DbSet<Acesso> Acessos { get; set; }
         public virtual DbSet<Dashview> Dashview { get; set; }
+        public virtual DbSet<TipoAnimal> TipoAnimals { get; set; }
+        public virtual DbSet<TipoSangue> TipoSangues { get; set; }
 
-        
+
 
 
 

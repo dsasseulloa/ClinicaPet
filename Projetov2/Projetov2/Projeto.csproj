@@ -171,6 +171,8 @@
     <Compile Include="Models\Dashview.cs" />
     <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Models\Roles.cs" />
+    <Compile Include="Models\Tipos\TipoAnimal.cs" />
+    <Compile Include="Models\Tipos\TipoSangue.cs" />
     <Compile Include="Models\ValidacaoCpfAttribute.cs" />
     <Compile Include="Models\ViewModel\ServicoAssigned.cs" />
     <Compile Include="Models\Servicos.cs" />
@@ -3598,7 +3600,6 @@
     <Content Include="Content\datatables.extensions\Responsive\css\dataTables.responsive.scss" />
     <Content Include="Views\Animals\Create.cshtml" />
     <Content Include="Views\Animals\Delete.cshtml" />
-    <Content Include="Views\Animals\Details.cshtml" />
     <Content Include="Views\Animals\Edit.cshtml" />
     <Content Include="Views\Animals\IndexOld.cshtml" />
     <Content Include="Views\Animals\_viewIndex.cshtml" />
@@ -3637,6 +3638,8 @@
     <Content Include="Views\Home\Novochart.cshtml" />
     <Content Include="Views\Home\encontrarservicos.cshtml" />
     <Content Include="Views\Animals\Index.cshtml" />
+    <Content Include="Views\Animals\ParcialServiços.cshtml" />
+    <Content Include="Views\Animals\Details.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

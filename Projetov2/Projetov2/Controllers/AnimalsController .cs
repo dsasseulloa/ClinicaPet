@@ -29,7 +29,6 @@ namespace Projeto.Controllers
             var animals = db.Animals.Include(a => a.Clientes).Include(a => a.Servicos);
             return View(animals.ToList());
         }
-
         [HttpGet]
         public ActionResult GetAnimals()
         {
@@ -44,53 +43,52 @@ namespace Projeto.Controllers
         {
             using (ProjetoDBContext db = new ProjetoDBContext())
                 try
-            {
-                    
-                var draw = Request.Form.GetValues("draw").FirstOrDefault();
-                var start = Request.Form.GetValues("start").FirstOrDefault();
-                var length = Request.Form.GetValues("length").FirstOrDefault();
-                var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
-                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
-                var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
+                {
+
+                    var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                    var start = Request.Form.GetValues("start").FirstOrDefault();
+                    var length = Request.Form.GetValues("length").FirstOrDefault();
+                    var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                    var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                    var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
 
 
-                //Paging Size (10,20,50,100)    
-                int pageSize = length != null ? Convert.ToInt32(length) : 0;
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = 0;
+                    //Paging Size (10,20,50,100)    
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int recordsTotal = 0;
 
                     // Getting all Customer data    
                     var animalData = (from tempcustomer in db.Animals
-                                       select tempcustomer);
-                    //var animalData = db.Animals;
+                                      select tempcustomer);
+                    
 
                     //Sorting    
-                      if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                    if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                     {
-                    animalData  = animalData.OrderBy(sortColumn + " " + sortColumnDir);
-                }
-                //Search    
-                if (!string.IsNullOrEmpty(searchValue))
-                {
-                        animalData = animalData.Where(m => m.Nome.Contains (searchValue));
-                }
+                        animalData = animalData.OrderBy(sortColumn + " " + sortColumnDir);
+                    }
+                    //Search    
+                    if (!string.IsNullOrEmpty(searchValue))
+                    {
+                        animalData = animalData.Where(m => m.Nome.Contains(searchValue));
+                    }
 
                     //total number of rows count     
-                     recordsTotal = animalData.Count();
+                    recordsTotal = animalData.Count();
                     //Paging     
-                     var data = animalData.Skip(skip).Take(pageSize).ToList();
+                    var data = animalData.Skip(skip).Take(pageSize).ToList();
                     //Returning Json Data    
 
-                   
+
                     return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
                 }
-            catch (Exception)
-            {
-                throw;
-            }
+                catch (Exception)
+                {
+                    throw;
+                }
 
         }
-        // GET: Animal/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -125,8 +123,6 @@ namespace Projeto.Controllers
         //    }
         //    return Json(SanguesList);
         //}
-
-
         public JsonResult States(string Tipo)
         {
             List<string> StatesList = new List<string>();
@@ -142,16 +138,15 @@ namespace Projeto.Controllers
                     StatesList.Add("A");
                     StatesList.Add("B");
                     StatesList.Add("AB");
-                 
+
                     break;
 
             }
             return Json(new SelectList(StatesList, "TipoSangue", "TipoSangue"), JsonRequestBehavior.AllowGet);
         }
-        
         public ActionResult Create()
         {
-
+            bindState();
             //List<string> ListItems = new List<string>();
             //ListItems.Add("Select");
             //ListItems.Add("Cachorro");
@@ -174,13 +169,9 @@ namespace Projeto.Controllers
             PopulateAssignedCourseData(animal);
             return View();
         }
-
-        // POST: Animals/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteNome,Preco,Pagamento")] Animal animal, string[] selectedServicos)
+        public ActionResult Create([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteNome,Preco,Pagamento,State,City")] Animal animal, string[] selectedServicos)
         {
             if (selectedServicos != null)
             {
@@ -204,11 +195,9 @@ namespace Projeto.Controllers
             PopulateAssignedCourseData(animal);
             return View(animal);
         }
-
-
-
         public ActionResult Edit(int? id)
         {
+            bindState();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -226,17 +215,18 @@ namespace Projeto.Controllers
                 return HttpNotFound();
             }
             ViewBag.ClienteID = new SelectList(db.Clientes, "ClienteID", "Nome", animal.ClienteID);
+            ViewBag.ClienteNome = new SelectList(db.Clientes, "Nome", "Nome");
 
             return View(animal);
         }
-
         // POST: Animals/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco,Pagamento")] Animal animal, int? id, string[] selectedServicos)
+        public ActionResult Edit([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteNome,Preco,Pagamento,State,City")] Animal animal, int? id, string[] selectedServicos)
         {
+            bindState();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -267,7 +257,6 @@ namespace Projeto.Controllers
             PopulateAssignedCourseData(AnimalAtualizar);
             return View(AnimalAtualizar);
         }
-        // GET: Animal/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -288,7 +277,7 @@ namespace Projeto.Controllers
             {
 
                 var animal = db.Animals.Find(ID);
-             
+
                 if (ID == null)
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
                 db.Animals.Remove(animal);
@@ -297,7 +286,6 @@ namespace Projeto.Controllers
                 return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
             }
         }
-
         // POST: Animal/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -386,5 +374,44 @@ namespace Projeto.Controllers
                 return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
             }
         }
-    }
-}
+
+        //[HttpGet]
+        //public ActionResult Details()
+        //{
+        //    bindState();
+        //    return View();
+        //}  
+
+public void bindState()
+        {
+            var state = db.TipoAnimals.ToList();
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "Selecionar", Value = "0" });
+
+            foreach (var m in state)
+            {
+
+
+                li.Add(new SelectListItem { Text = m.Tipoanimal, Value = m.Tipoanimal });
+                ViewBag.state = li;
+
+            }
+        }  
+
+public JsonResult getCity(string TipoAnimal)
+        {
+            var ddlCity = db.TipoSangues.Where(x => x.Tipoanimal== TipoAnimal).ToList();
+            List<SelectListItem> licities = new List<SelectListItem>();
+
+            licities.Add(new SelectListItem { Text = "Selecionar", Value = "0" });
+            if (ddlCity != null)
+            {
+                foreach (var x in ddlCity)
+                {
+                    licities.Add(new SelectListItem { Text = x.Tiposangue, Value = x.Tiposangue });
+                }
+            }
+            return Json(new SelectList(licities, "Value", "Text", JsonRequestBehavior.AllowGet));
+        }
+
+    }  }

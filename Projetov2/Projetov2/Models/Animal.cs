@@ -30,7 +30,7 @@ namespace Projeto.Models
         [Display(Name = "Observações")]
         [StringLength(300, MinimumLength = 3, ErrorMessage = "Favor inserir menos de 300 caracteres.")]
         public string Observaçoes { get; set; }
-        [Display(Name = "Tipo Sanguíneo")]
+      
         
         [DisplayFormat(NullDisplayText = "SRD", ApplyFormatInEditMode = true)]
         
@@ -62,9 +62,13 @@ namespace Projeto.Models
         [Display(Name = "Tipo de Animal")]
         [DisplayFormat(NullDisplayText = "Gato", ApplyFormatInEditMode = true)]
         public string _tipo;
-        public IEnumerable<SelectListItem> Tipo { get; set; }
-        public IEnumerable<SelectListItem> TipoSangue { get; set; }
-        
+        public string Tipo { get; set; }
+        [Display(Name = "Tipo Sanguíneo")]
+        public string TipoSangue { get; set; }
+      
+        public string State { get; set; }
+      
+        public string City { get; set; }
 
 
         [Range(10, 99999.99,ErrorMessage = "O Preço de Venda deve estar entre " + "10,00 e 99999,99.")]
