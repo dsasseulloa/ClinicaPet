@@ -15,7 +15,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.UI.DataVisualization.Charting;
 using Projeto.Models.ViewModel;
-
+using System.Globalization;
 
 namespace Projeto.Controllers
 {
@@ -28,7 +28,7 @@ namespace Projeto.Controllers
         [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Index(Funcionario login, string returnUrl)
         {
-            var animals = db.Animals.Include(a => a.Clientes).Include(a => a.Servicos);
+            var animals = db.Animals.Include(ab => ab.Clientes).Include(ab => ab.Servicos);
 
             Dashview dashboard = new Dashview();
 
@@ -38,8 +38,15 @@ namespace Projeto.Controllers
             dashboard.servicos_count = db.Servicos.Count();
 
             var Lucro = (from customer in db.Animals select customer).ToList();
-            var query = Lucro.Sum(k => k.Preco);
-            ViewBag.Precos = Math.Round(Convert.ToDecimal(query), 2).ToString();
+            var querylucro = Lucro.Sum(k => k.Preco);
+            var lucroround = Math.Round(Convert.ToDecimal(querylucro), 2).ToString();
+            ViewBag.Precos = lucroround;
+
+            var Gastos = (from gastos in db.Funcionarios select gastos).ToList();
+            var querygasto = Gastos.Sum(k => k.Salario);
+            ViewBag.Gastos = Math.Round(Convert.ToDecimal(querygasto), 2).ToString();
+
+            
             //float x = dashboard.clientes_count;
             //float y = dashboard.animais_count;
             //float resultado = (x / y);
@@ -106,9 +113,9 @@ namespace Projeto.Controllers
             var context = new ProjetoDBContext();
             var model = context.Animals
                 .GroupBy(o => new
-                {
-                    Month = o.Entrada.Month,
-                    Year = o.Entrada.Year,
+                {// entrada é o datetime com as datas dia/mes/ano
+                    Month = o.Entrada.Month,   //atribui os meses
+                    Year = o.Entrada.Year,      //atribui os anos
 
                 })
                 .Select(g => new ArchiveEntry
@@ -119,27 +126,88 @@ namespace Projeto.Controllers
                     Vendas = g.Sum(s => s.Preco)
 
                 })
-                .OrderByDescending(a => a.Year)
-                .ThenByDescending(a => a.Month)
+                //.OrderByDescending(ç => ç.Year)
+                //.ThenByDescending(ç => ç.Month)
                 .ToArray();
 
             ViewBag.testeteste = model;
 
-            var totalevendas = model.Select(x => x.Vendas).ToArray();
-            var meses = model.Select(x => x.Month).OrderBy(x=>x);
+            var totalevendas = model.Select(x => x.Vendas).ToArray(); // cria a array pra passar pro chart.js - y axis
+            var meses = model.Select(x => x.MonthName).ToArray(); // a lista pra passar pro chart.js - x axis
 
-            var resultss = from mesess in model.ToList()
-                         select new
-                         {
-                             Month = mesess.Month.ToString("MMMM")      
-                         };
+            var modelmeses = context.Animals
+    .GroupBy(o => new
+    {
+                    Month = o.Entrada.Month,   
+                    Year = o.Entrada.Year,    
 
-            var resultsx = resultss.ToArray();
+                })
+    .Select(g => new ArchiveEntry
+    {
+        Month = g.Key.Month,
+        Year = g.Key.Year,
+        Total = g.Count(),
 
+    })
+    .OrderByDescending(ç => ç.Year)
+    .ThenByDescending(ç => ç.Month)
+    .ToArray();
+
+            ViewBag.modelmeses = modelmeses;
+            var sortedMonths = meses
+    .Select(x => new { Name = x, Sort = DateTime.ParseExact(x, "MMMM", CultureInfo.CurrentCulture) })
+    .OrderBy(x => x.Sort.Month)
+    .Select(x => x.Name)
+    .ToList();
+
+        
+
+            //var grouped = from p in db.Animals
+            //  group p by new { month = p.Entrada.Month, year = p.Entrada.Year } into d
+            //  select new { dt = string.Format("{0}/{1}", d.Key.month, d.Key.year), count = d.Count() };
+  
+
+//            var sadas = db.Animals
+//// This will return the list with the most recent date first.
+//.OrderByDescending(x => x.Entrada)
+//.GroupBy(x => new { x.Entrada.Year, x.Entrada.Month })
+//// Bonus: You can use this on a drop down
+//.Select(x => new SelectListItem
+//{
+//    Value = string.Format("{0}|{1}", x.Key.Year, x.Key.Month),
+//    Text = string.Format("{0}/{1} (Count: {2})", x.Key.Year, x.Key.Month, x.Count())
+//})
+//.ToList();
+
+            List<Animal> lst = new List<Animal>();
+            var data = lst.Select(k => new { k.Entrada.Year, k.Entrada.Month, k.Preco }).GroupBy(x => new { x.Year, x.Month }, (key, group) => new
+            {
+                yr = key.Year,
+                mnth = key.Month,
+                tCharge = group.Sum(k => k.Preco)
+            }).ToList();
+
+            var meses1 = model.Select(x => x.Month).ToList();
+            var query1 = meses1.Select(d => d != null ? d.ToString("MMMM") : "Null");
+            //var mesesnome = model.Select(x => x.Month x.ToString("MMMM"));
+            //var a = query.TGetAbbreviatedMonthName();
+            //ViewBag.mesesnome = query1.ToList();
+            ViewBag.ano = DateTime.Now.Year;
             ViewBag.totalevendas = totalevendas;
-            ViewBag.meses = meses.ToArray(); //trocar tolist e tostring
-            //
-            //Getmonth();
+            ViewBag.meses = sortedMonths;
+            var meseslast = sortedMonths.Last();
+            var vendaslast = totalevendas.Last();
+            ViewBag.VendasLast = vendaslast; //ultima venda do mês
+
+            var querieslucro = (vendaslast - querygasto);
+            var querieslucroround = Math.Round(Convert.ToDecimal(querieslucro), 2).ToString();
+            ViewBag.Lucro = querieslucroround;
+
+            //calculo percentual dos dois ultimos meses
+            var penultimaVendaMes = totalevendas.Skip(totalevendas.Count() - 2).Take(1).Single();
+            var percentual = ((vendaslast - penultimaVendaMes)/(penultimaVendaMes)) * 100;
+            ViewBag.percentualVenda = Math.Round(Convert.ToDecimal(percentual), 2);
+           
             object sessao = Session["FuncionarioLogado"];
             if (sessao != null)
             {
