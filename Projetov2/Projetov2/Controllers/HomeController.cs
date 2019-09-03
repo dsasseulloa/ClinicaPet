@@ -13,7 +13,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Configuration;
-
+using System.Web.UI.DataVisualization.Charting;
 using Projeto.Models.ViewModel;
 
 
@@ -53,8 +53,9 @@ namespace Projeto.Controllers
             var animales = db.Animals.Include(j => j.Servicos).ToList();
             List<int> contador1 = new List<int>();
             List<string> serviconosanimais = new List<string>();
-
-
+            List<string> lsitanimal = new List<string>();
+            //
+            //
             for (int i = 1; i < AnimaisCadastrados + 1; i++)
             {
                 int[] contador = new int[i];
@@ -63,6 +64,19 @@ namespace Projeto.Controllers
 
                     foreach (var animale in animales) {
                     animal = animale;
+
+                //lsitanimal.Add(animale.Nome);
+                //var lista1 = db.Animals.GroupBy(r => new { r.AnimalID, r.Entrada });
+
+                //var aasda = lista1.Select(group => new Animal
+                //{
+                //    AnimalID = group.Key.AnimalID,
+
+                //    Entrada = group.Key.Entrada,
+                //    Preco = group.Sum(s => s.Preco)
+
+                //}).GroupBy(r => new { r.AnimalID, r.Entrada });
+                //ViewBag.aslda = aasda.ToArray();
                 foreach (var servico in animale.Servicos)
                 {
 
@@ -88,9 +102,44 @@ namespace Projeto.Controllers
 
             ViewBag.totalservicos = totalefruit;
             ViewBag.totalquantity = totalquantity;
+            //
+            var context = new ProjetoDBContext();
+            var model = context.Animals
+                .GroupBy(o => new
+                {
+                    Month = o.Entrada.Month,
+                    Year = o.Entrada.Year,
 
+                })
+                .Select(g => new ArchiveEntry
+                {
+                    Month = g.Key.Month,
+                    Year = g.Key.Year,
+                    Total = g.Count(),
+                    Vendas = g.Sum(s => s.Preco)
 
+                })
+                .OrderByDescending(a => a.Year)
+                .ThenByDescending(a => a.Month)
+                .ToArray();
 
+            ViewBag.testeteste = model;
+
+            var totalevendas = model.Select(x => x.Vendas).ToArray();
+            var meses = model.Select(x => x.Month).OrderBy(x=>x);
+
+            var resultss = from mesess in model.ToList()
+                         select new
+                         {
+                             Month = mesess.Month.ToString("MMMM")      
+                         };
+
+            var resultsx = resultss.ToArray();
+
+            ViewBag.totalevendas = totalevendas;
+            ViewBag.meses = meses.ToArray(); //trocar tolist e tostring
+            //
+            //Getmonth();
             object sessao = Session["FuncionarioLogado"];
             if (sessao != null)
             {
@@ -99,7 +148,63 @@ namespace Projeto.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        public ActionResult Indexteste()
+        {
+            var context = new ProjetoDBContext();
+            var model = context.Animals
+                .GroupBy(o => new
+                {
+                    Month = o.Entrada.Month,
+                    Year = o.Entrada.Year,
+                    
+                })
+                .Select(g => new ArchiveEntry
+                {
+                    Month = g.Key.Month,
+                    Year = g.Key.Year,
+                    Total = g.Count(),
+                    Vendas = g.Sum(s=>s.Preco)
+                    
+                })
+                .OrderByDescending(a => a.Year)
+                .ThenByDescending(a => a.Month)      
+                .ToArray();
 
+            ViewBag.testeteste = model;
+
+            var totalevendas = model.Select(x => x.Vendas).ToArray();
+            var meses = model.Select(x => x.MonthName).ToArray();
+
+
+
+            return View(model);
+        }
+        //public ActionResult Getmonth()
+        //{
+        //    List<int> contador1 = new List<int>();
+        //    List<string> serviconosanimais = new List<string>();
+        //    List<DateTime> dates = new List<DateTime>();
+        //    var animales = db.Animals;
+        //    Animal animal = new Animal();
+        //    using (var context = new ProjetoDBContext())
+        //    {
+        //        foreach (var animale in animales)
+        //        {
+        //            animal = animale;
+
+        //        var query = from x in db.Animals
+        //        where x.Entrada > DateTime.Now.AddMonths(-12)
+        //        orderby x.Entrada descending
+        //        select x;
+
+        //            dates.Add(query);
+        //        }
+
+        //    }
+
+
+        //    return View();
+        //}
 
         public ActionResult encontrarservicos()
         {

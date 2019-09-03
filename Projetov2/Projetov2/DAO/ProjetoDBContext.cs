@@ -22,6 +22,9 @@ namespace Projeto.DAO
         public virtual DbSet<Dashview> Dashview { get; set; }
         public virtual DbSet<TipoAnimal> TipoAnimals { get; set; }
         public virtual DbSet<TipoSangue> TipoSangues { get; set; }
+        public virtual DbSet<ExpenseReport> ExpenseReport { get; set; }
+        //public virtual DbSet<ArchiveEntry> ArchiveEntry { get; set; }
+
 
 
 

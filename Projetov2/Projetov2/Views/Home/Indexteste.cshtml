@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Projeto.Models.ArchiveEntry>
+
+
+@foreach (var group in Model.GroupBy(m => m.Year))
+{
+    <ul>
+        <li>
+            @group.Key
+            <ul>
+                @foreach (var item in group)
+                {
+                    <li>
+                        @Html.RouteLink(
+                            string.Format("{0} ({1})",item.MonthName, item.Total),
+                            "",
+                            new
+                            {
+                                controller = "Home",
+                                action = "Archive",
+                                year = item.Year,
+                                month = item.Month,
+                                vendas= item.Vendas
+                            })
+                    </li>
+                }
+            </ul>
+
+        </li>
+    </ul>
+}
