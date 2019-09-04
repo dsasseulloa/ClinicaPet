@@ -133,7 +133,15 @@ namespace Projeto.Controllers
             ViewBag.testeteste = model;
 
             var totalevendas = model.Select(x => x.Vendas).ToArray(); // cria a array pra passar pro chart.js - y axis
-            var meses = model.Select(x => x.MonthName).ToArray(); // a lista pra passar pro chart.js - x axis
+            var meses = model.Select(x => x.MonthName).ToArray();
+
+            var meses10 = model.Select(g => new ArchiveEntry
+            {
+                Month = g.Month,
+                Year = g.Year
+            }).ToArray(); // a lista pra passar pro chart.js - x axis
+            var asda = meses10.ToString()
+
 
             var modelmeses = context.Animals
     .GroupBy(o => new
@@ -152,6 +160,8 @@ namespace Projeto.Controllers
     .OrderByDescending(ç => ç.Year)
     .ThenByDescending(ç => ç.Month)
     .ToArray();
+
+          
 
             ViewBag.modelmeses = modelmeses;
             var sortedMonths = meses
