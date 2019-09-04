@@ -110,6 +110,7 @@ namespace Projeto.Controllers
             ViewBag.totalservicos = totalefruit;
             ViewBag.totalquantity = totalquantity;
             //
+            var listameses2 = new List<string>();
             var context = new ProjetoDBContext();
             var model = context.Animals
                 .GroupBy(o => new
@@ -126,14 +127,44 @@ namespace Projeto.Controllers
                     Vendas = g.Sum(s => s.Preco)
 
                 })
-                .OrderByDescending(ç => ç.Year)
-                .ThenByDescending(ç => ç.Month)
+                .OrderBy(ç => ç.Year) 
                 .ToArray();
+
+            //foreach (var Month in model)
+            //{
+                for (int i = 0; i < 7; i++)
+                {
+                var month = model;
+            listameses2.Add(Month.MonthName+Month.Year.ToString());
+                }
+                
+            //}
+            var listaordering = listameses2;
+            String[] s2 = new String[11];
+            s2 = listameses2.ToArray();
+            ViewBag.listnova3000 = s2;
+            String[] s3 = new String[11];
+
+            var listameses = new List<string>();
+            var somsas = from m in db.Animals
+                         group m.Preco by
+                         new { m.Entrada.Year, m.Entrada.Month } into d
+                         select d;
+
+            foreach(var Month in somsas)
+            {
+               listameses.Add(Month.Key + Month.Sum().ToString());
+            }
+            ViewBag.listnova2000 = listameses.ToArray();
+
 
             ViewBag.testeteste = model;
 
+            var ano = model.Select(x => x.Year).ToArray();
             var mesesorder = model.OrderBy(x=>x.Month).ToArray();
-            
+
+            //ViewBag.asdas = ano;
+            //ViewBag.asdfasok = mesesorder;
             var totalevendas = model.Select(x => x.Vendas).ToArray(); 
 
             var meses = model.Select(x => x.MonthName).ToArray();
@@ -164,23 +195,29 @@ namespace Projeto.Controllers
     })
     .OrderByDescending(ç => ç.Year)
     .ThenByDescending(ç => ç.Month)
-    .ToArray();
+    .ToList();
+            
+            foreach (var month in modelmeses)
+            {
+                listameses.Add(modelmeses.Select(x=>x.MonthName).ToString());
+                
+            }
+ ViewBag.modelmeses = listameses;
 
-            ViewBag.modelmeses = modelmeses;
 
-           //var sortedMonths = meses
-           // .Select(x => new { Name = x, Sort = DateTime.ParseExact(x, "MMMM", CultureInfo.CurrentCulture) })
-           // .OrderBy(x => x.Sort.Month)
-           // .Select(x => x.Name)
-           // .ToList();
-           // ViewBag.meses = sortedMonths;
+            //
+            var a = model.GroupBy(item => item.Month)
+                  .Select(group => new { Month = group.Key, Items = group.ToList() })
+                  .ToList();
+            //var sortedMonths = meses
+            // .Select(x => new { Name = x, Sort = DateTime.ParseExact(x, "MMMM", CultureInfo.CurrentCulture) })
+            // .OrderBy(x => x.Sort.Month)
+            // .Select(x => x.Name)
+            // .ToList();
+            // ViewBag.meses = sortedMonths;
 
-            var sortedMonths = meses
- .Select(x => new { Name = x, Sort = DateTime.ParseExact(x, "MMMM", CultureInfo.CurrentCulture) })
- .OrderBy(x => x.Sort.Month)
- .Select(x => x.Name)
- .ToList();
-            ViewBag.meses = sortedMonths;
+        
+            
 
             //var grouped = from p in db.Animals
             //  group p by new { month = p.Entrada.Month, year = p.Entrada.Year } into d
