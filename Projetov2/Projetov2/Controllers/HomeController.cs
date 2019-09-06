@@ -29,8 +29,62 @@ namespace Projeto.Controllers
         public ActionResult Index(Funcionario login, string returnUrl)
         {
             var animals = db.Animals.Include(ab => ab.Clientes).Include(ab => ab.Servicos);
-
+            List<string> animalslista = db.Animals.Select(x => x.Pagamento).ToList();
             Dashview dashboard = new Dashview();
+            //
+            var myRows = db.Animals
+    .Where(v => v.Pagamento == "Pago").ToArray();
+            var rows = myRows.Select(x => x.Pagamento).ToArray();
+            //
+
+            //var query231 = from r in db.Animals
+            //            group r by r.Pagamento into g 
+            //            select new { Count = g.Count(), Value = g.Key, g.Where(r=>r.Pagamento == "Pago" )};
+
+            //int[] valuesCounted = (from r in db.Animals
+            //                       group r by r.Pagamento
+            //                        into g
+            //                       select g.Count()).ToArray();
+            //        var ids = db.Animals
+            //.GroupBy(r => r.Preco);
+            // The following condition examines g, the group of rows with identical FruitID:
+            //.Where(g => g.Any(item => .Contains(item.BasketID))
+            //         && g.Any(item => item.Pagamento == "Pago")
+            //         && g.All(item => item.Pagamento != "Pendente"))
+            //.Select(g => g.Key);
+   
+
+            var PagamentoPago = new[] { "Pago" };
+            var ListaPagos = from order in db.Animals
+                                 where PagamentoPago.Contains(order.Pagamento)
+                                 select order.Preco;
+
+            var Pago = ListaPagos.ToList();
+            var PagosSum = Pago.Sum();
+            float PagosCount = Pago.Count();
+
+            var PagamentoPendente = new[] { "Pendente" };
+            var ListaPendentes = from order in db.Animals
+                                 where PagamentoPendente.Contains(order.Pagamento)
+                                 select order.Preco;
+
+            var Pendente = ListaPendentes.ToList();
+            var PendenteSum = Pendente.Sum();
+            float PendentesCount = Pendente.Count();
+
+            var PendenteEPagoSoma = PendenteSum + PagosSum;
+            var PendenteEPagoCount = PendentesCount + PagosCount;
+            ViewBag.Pendente = PendenteSum;
+            ViewBag.Pago = PagosSum;
+            ViewBag.PendentePago = PendenteEPagoSoma;
+
+            ViewBag.PendenteCount = PendentesCount;
+            ViewBag.PagoCount = PagosCount;
+            ViewBag.PendentePagoCount = PendenteEPagoCount;
+
+            ViewBag.PorcentagemPago = ((PagosCount / PendenteEPagoCount) * 100).ToString() + "%";
+            ViewBag.PorcentagemPendente = ((PendentesCount / PendenteEPagoCount) * 100).ToString()+"%";
+
 
             dashboard.clientes_count = db.Clientes.Count();
             dashboard.animais_count = db.Animals.Count();
@@ -40,72 +94,50 @@ namespace Projeto.Controllers
             var Lucro = (from customer in db.Animals select customer).ToList();
             var querylucro = Lucro.Sum(k => k.Preco);
             var lucroround = Math.Round(Convert.ToDecimal(querylucro), 2).ToString();
-            ViewBag.Precos = lucroround;
+            ViewBag.LucroVendas = lucroround;
 
             var Gastos = (from gastos in db.Funcionarios select gastos).ToList();
             var querygasto = Gastos.Sum(k => k.Salario);
-            ViewBag.Gastos = Math.Round(Convert.ToDecimal(querygasto), 2).ToString();
+            ViewBag.GastosSalario = Math.Round(Convert.ToDecimal(querygasto), 2).ToString();
 
-            
+
             //float x = dashboard.clientes_count;
             //float y = dashboard.animais_count;
             //float resultado = (x / y);
             //var result2 = resultado.ToString("F");
             //ViewBag.animalporservico = result2;
 
-            var allServicos = db.Servicos;
-            List<string> listastrings = new List<string>();
-            var AnimaisCadastrados = dashboard.animais_count;
             Animal animal = new Animal();
-            var animales = db.Animals.Include(j => j.Servicos).ToList();
-            List<int> contador1 = new List<int>();
+            List<int> contadorServico = new List<int>();
             List<string> serviconosanimais = new List<string>();
-            List<string> lsitanimal = new List<string>();
-            //
-            //
-            for (int i = 1; i < AnimaisCadastrados + 1; i++)
+            var animales = db.Animals.Include(j => j.Servicos).ToList();
+            for (int i = 1; i < dashboard.animais_count + 1; i++)
             {
                 int[] contador = new int[i];
                 
             }
-
                     foreach (var animale in animales) {
                     animal = animale;
-
-                //lsitanimal.Add(animale.Nome);
-                //var lista1 = db.Animals.GroupBy(r => new { r.AnimalID, r.Entrada });
-
-                //var aasda = lista1.Select(group => new Animal
-                //{
-                //    AnimalID = group.Key.AnimalID,
-
-                //    Entrada = group.Key.Entrada,
-                //    Preco = group.Sum(s => s.Preco)
-
-                //}).GroupBy(r => new { r.AnimalID, r.Entrada });
-                //ViewBag.aslda = aasda.ToArray();
                 foreach (var servico in animale.Servicos)
                 {
 
                     serviconosanimais.Add(servico.Nome);
-                    contador1.Add(1);
+                    contadorServico.Add(1);
                 }               
             }
             var result = serviconosanimais
-                .Zip(contador1, (f, q) => new { f, q })
+                .Zip(contadorServico, (f, q) => new { f, q })
                 .GroupBy(x => x.f, x => x.q)
                 .Select(x => new { serviconosanimais = x.Key, contador1 = x.Sum() })
                 .ToArray();
-
-            var totalefruit = result.Select(x => x.serviconosanimais).ToArray();
-            var totalquantity = result.Select(x => x.contador1).ToArray();
-
-            totalefruit = totalefruit.OrderByDescending(c => c).ToArray();
-            totalquantity = totalquantity.OrderByDescending(c => c).ToArray();
-
-            ViewBag.totalservicos = totalefruit;
-            ViewBag.totalquantity = totalquantity;
-            //
+            
+            var totaleservicos = result.Select(x => x.serviconosanimais).ToArray();
+            var totalquantidade = result.Select(x => x.contador1).ToArray();
+            totaleservicos = totaleservicos.OrderByDescending(c => c).ToArray();
+            totalquantidade = totalquantidade.OrderByDescending(c => c).ToArray();
+            ViewBag.totalservicos = totaleservicos;
+            ViewBag.totalquantity = totalquantidade;
+            
             var listameses = new List<string>();
             var context = new ProjetoDBContext();
             var model = context.Animals
@@ -113,7 +145,6 @@ namespace Projeto.Controllers
                 {
                     Month = o.Entrada.Month,   
                     Year = o.Entrada.Year,      
-
                 })
                 .Select(g => new ArchiveEntry
                 {
@@ -130,16 +161,24 @@ namespace Projeto.Controllers
             {
             listameses.Add(Month.MonthName+ "/" + Month.Year.ToString());
             }
-
             var totalevendas = model.Select(x => x.Vendas).ToArray(); 
 
-            var meses8meses = listameses.Skip(Math.Max(0, listameses.Count() - 8)).ToArray();
+            var OitoMesesAtras = listameses.Skip(Math.Max(0, listameses.Count() - 8)).ToArray();
             var vendas8meses = totalevendas.Skip(Math.Max(0, totalevendas.Count() - 8)).ToArray();
 
-            ViewBag.Meses = meses8meses;
+            ViewBag.Meses = OitoMesesAtras;
             ViewBag.Vendas = vendas8meses;
 
-        
+
+            //var sadas = db.Animals
+            //.OrderByDescending(x => x.Entrada)
+            //.GroupBy(x => new { x.Entrada.Year, x.Entrada.Month })
+            //.Select(x => new SelectListItem
+            //{
+            // Value = string.Format("{0}|{1}", x.Key.Year, x.Key.Month),
+            //    Text = string.Format("{0}/{1} (Count: {2})", x.Key.Year, x.Key.Month, x.Count())
+            //})
+            //.ToList();
             //var sortedMonths = meses
             // .Select(x => new { Name = x, Sort = DateTime.ParseExact(x, "MMMM", CultureInfo.CurrentCulture) })
             // .OrderBy(x => x.Sort.Month)
@@ -147,25 +186,7 @@ namespace Projeto.Controllers
             // .ToList();
             // ViewBag.meses = sortedMonths;
 
-        
-            
 
-            //var grouped = from p in db.Animals
-            //  group p by new { month = p.Entrada.Month, year = p.Entrada.Year } into d
-            //  select new { dt = string.Format("{0}/{1}", d.Key.month, d.Key.year), count = d.Count() };
-
-
-            //            var sadas = db.Animals
-            //// This will return the list with the most recent date first.
-            //.OrderByDescending(x => x.Entrada)
-            //.GroupBy(x => new { x.Entrada.Year, x.Entrada.Month })
-            //// Bonus: You can use this on a drop down
-            //.Select(x => new SelectListItem
-            //{
-            //    Value = string.Format("{0}|{1}", x.Key.Year, x.Key.Month),
-            //    Text = string.Format("{0}/{1} (Count: {2})", x.Key.Year, x.Key.Month, x.Count())
-            //})
-            //.ToList();
 
             List<Animal> lst = new List<Animal>();
             var data = lst.Select(k => new { k.Entrada.Year, k.Entrada.Month, k.Preco }).GroupBy(x => new { x.Year, x.Month }, (key, group) => new
@@ -174,15 +195,6 @@ namespace Projeto.Controllers
                 mnth = key.Month,
                 tCharge = group.Sum(k => k.Preco)
             }).ToList();
-
-           // var meses1 = model.Select(x => x.Month).ToList();
-           // var query1 = mesesorder.Select(d => d != null ? d.ToString("MMMM") : "Null");
-           ///var mesesnome = model.Select(x => x.Month x.ToString("MMMM"));
-           // var a = query.TGetAbbreviatedMonthName();
-           // ViewBag.mesesnome = query1.ToList();
-            
-
-
 
             ViewBag.ano = DateTime.Now.Year;
             ViewBag.totalevendas = totalevendas;
@@ -244,10 +256,7 @@ namespace Projeto.Controllers
                     serviconosanimais.Add(servico.Nome);
                     contador1.Add(1);
                 }
-                //ViewBag.teste1 = serviconosanimais;
-                //ViewBag.Teste2 = contador1;
-                //ViewBag.Teste2 = contador1.Count();
-                //GetAnimalForServicos(contador);
+
             }
             var result = serviconosanimais
                 .Zip(contador1, (f, q) => new { f, q })
@@ -280,78 +289,6 @@ namespace Projeto.Controllers
 
             return employees;
         }
-
-
-        public ActionResult Novochart()
-        {
-            BarChartViewModel model = new BarChartViewModel();
-
-            // Here you can your db.Student to populate it
-            var source = new Cliente();
-            var a = db.Clientes.ToList();
-            
-            
-
-            //for (int i = 1; i < 7; i++)
-            //{
-            //    int dataItemMale = a.Where(s => s.Sexo == "Masculino" && s.Dob.Month == i).Count();
-            //    model.Male.Add(dataItemMale);
-
-            //    int dataItemFemale = a.Where(s => s.Sexo == "Feminino" && s.Dob.Month == i).Count();
-            //    model.Female.Add(dataItemFemale);
-            //}
-            return View(model);
-
-
-        }
-        public ActionResult Dashboard()
-        {
-            var viewmodel = new Animal();
-            foreach (var item in db.Animals)
-            {
-                int id = item.AnimalID;
-
-                //SystemsCount 
-                int counting = db.Servicos.Where(x => x.ServicoID == id).Count();
-                item.Contagem = counting;
-            }
-            ViewBag.Count = db.Animals.Count();
-            int count1 = db.Servicos.Count();
-            ViewBag.SCount = count1;
-
-            //var animals = viewmodel.Servicos.Where(e => e.ServicoID.Any(t => animals.Contains(t.AnimalID)));
-            //var alistaa = (from e in viewmodel.AnimalID from t in e.Tags where tagsIDList.Contains(t.TagID) select e);
-
-
-            return View(db.Animals.ToList());
-        }
-        //public IQueryable<Animal> GetEmployeesForRoles2(int[] roleIds)
-        //{
-        //    var employees = db.Servicos
-        //                             .Where(r => roleIds.Contains(r.ServicoID))
-        //                             .SelectMany(x => x.Animals)
-        //                             .Distinct();
-        //    return employees;
-        //}
-        //public IQueryable<Animal> GetEmployeesForRoles(int[] roleIds)
-        //{
-          
-        //    var employees = db.Animals.Where(x => x.Servicos.Any(r => roleIds.Contains(r.ServicoID)));
-        //    var alistt = employees.ToList();
-        //    List<Servicos> systems;
-        //    var query = db.Animals.Select(c => c.Servicos).ToList();
-        //    foreach (var sid in query)
-        //    {
-        //        systems = alistt;
-        //    }
-        //    int count = systems.Count();//Here you will  get count
-
-        //    ViewBag.Counts = count;
-        //    return View();
-        //}
-
-
-    
 
 
         public ActionResult GetData()

@@ -190,8 +190,17 @@ namespace Projeto.Controllers
                 
                 Funcionario funcionario = db.Funcionarios.Find(id);
                 db.Funcionarios.Remove(funcionario);
+
+                try
+                {
                 Acesso acesso = db.Acessos.Find(id);
                 db.Acessos.Remove(acesso);
+                }
+                catch
+                {
+                    db.SaveChanges();
+                }
+                
                 db.SaveChanges();
             }
         

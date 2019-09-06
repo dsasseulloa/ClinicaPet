@@ -75,9 +75,9 @@
         <!-- small box -->
         <div class="small-box bg-red">
             <div class="inner">
-                <h3>@ViewBag.Precos</h3>
+                <h3>@ViewBag.Pago</h3>
 
-                <p>Lucro</p>
+                <p>Lucro Confirmado</p>
             </div>
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -93,7 +93,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Monthly Recap Report</h3>
+                <h3 class="box-title">Gráfico mensal de vendas</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -119,7 +119,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <p class="text-center">
-                            <strong>Lucro mensal</strong>
+                            <strong></strong>
                         </p>
 
                         <div class="chart">
@@ -135,20 +135,20 @@
                         </p>
 
                         <div class="progress-group">
-                            <span class="progress-text">Add Products to Cart</span>
-                            <span class="progress-number"><b>160</b>/200</span>
+                            <span class="progress-text">Pagamentos Aprovados</span>
+                            <span class="progress-number"><b>@ViewBag.PagoCount</b>/@Model.animais_count</span>
 
                             <div class="progress sm">
-                                <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+                                <div class="progress-bar progress-bar-aqua" style="width: @ViewBag.PorcentagemPago"></div>
                             </div>
                         </div>
                         <!-- /.progress-group -->
                         <div class="progress-group">
-                            <span class="progress-text">Complete Purchase</span>
-                            <span class="progress-number"><b>310</b>/400</span>
+                            <span class="progress-text">Pagamentos Pendentes</span>
+                            <span class="progress-number"><b>@ViewBag.PendenteCount</b>/@Model.animais_count</span>
 
                             <div class="progress sm">
-                                <div class="progress-bar progress-bar-red" style="width: 80%"></div>
+                                <div class="progress-bar progress-bar-red" style="width: @ViewBag.PorcentagemPendente"></div>
                             </div>
                         </div>
                         <!-- /.progress-group -->
@@ -206,7 +206,7 @@
                     <div class="col-sm-3 col-xs-6">
                         <div class="description-block border-right">
                             <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                            <h5 class="description-header">R$ @ViewBag.Gastos</h5>
+                            <h5 class="description-header">R$ @ViewBag.GastosSalario</h5>
                             <span class="description-text">Despesas este mês</span>
                         </div>
                         <!-- /.description-block -->
@@ -717,7 +717,7 @@
       labels: meses,
     datasets: [
       {
-        label               : 'Digital Goods',
+        label               : 'Lucro',
         backgroundColor     : 'rgba(60,141,188,0.8)',
         borderColor         : 'rgba(60,141,188,0.8)',
         pointRadius          : false,

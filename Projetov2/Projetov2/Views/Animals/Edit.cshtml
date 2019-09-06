@@ -17,7 +17,7 @@
                     <div class="box-header">
                         <h4 class="mb"><i class="fa fa-angle-right"></i> Cadastrar Animal</h4>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.Tipo)
+                      
                         @Html.HiddenFor(model => model.AnimalID)
                         <form>
 
@@ -123,7 +123,7 @@
                             <div class="form-group col-md-3">
 
                                 <label class="control-label col-md-10" for="Nome">Status de Pagamento</label>
-                                @Html.DropDownListFor(model => model.Tipo, new List<SelectListItem>
+                                @Html.DropDownListFor(model => model.Pagamento, new List<SelectListItem>
        { new SelectListItem { Text = "Pendente", Value = "Pendente"},
        new SelectListItem { Text = "Pago", Value = "Pago"}
        }, new { @class = "form-control" })
@@ -237,8 +237,8 @@
                                         <div class="form-group">
                                             <div class="row mt">
                                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                                    <button class="btn btn-theme" value="Create" type="submit">Salvar</button>
-
+                                                    <button class="btn btn-theme" value="Save" type="submit">Salvar</button>
+                                                    <input type="submit" value="Save" class="btn btn-default" />
                                                     <a href="@Url.Action("Index", "Animals")" class="btn btn-theme04">
                                                         <span>
                                                             <strong>Cancelar</strong>

@@ -206,9 +206,9 @@ namespace Projeto.Controllers
 
             Animal animal = db.Animals
 
-        .Include(i => i.Servicos)
-        .Where(i => i.AnimalID == id)
-        .Single();
+.Include(i => i.Servicos)
+.Where(i => i.AnimalID == id)
+.Single();
             PopulateAssignedCourseData(animal);
             if (animal == null)
             {
@@ -224,20 +224,21 @@ namespace Projeto.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteNome,Preco,Pagamento,State,City")] Animal animal, int? id, string[] selectedServicos)
+        public ActionResult Edit( int? id, string[] selectedServicos)
         {
             bindState();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var AnimalAtualizar = db.Animals
 
-   .Include(i => i.Servicos)
-   .Where(i => i.AnimalID == id)
-   .Single();
-            if (TryUpdateModel(AnimalAtualizar, "",
-       new string[] { "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteID,Preco,Pagamento" }))
+.Include(i => i.Servicos)
+.Where(i => i.AnimalID == id)
+.Single();
+            
+            if (TryUpdateModel(AnimalAtualizar))
             {
                 try
                 {
