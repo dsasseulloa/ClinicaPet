@@ -156,8 +156,7 @@
                     }, {
                         label: "Tipo:",
                         name: "Tipo"
-                        }
-                        , {
+                    }, {
                             label: "Preco:",
                             name: "Preco"
                         }
@@ -208,6 +207,7 @@
                         },
   ],
                 columns: [
+
                     { "data": "Nome", "name": "Nome", "autoWidth": true },
                     { "data": "ClienteNome", "title": "Cliente", "autoWidth": true },
                     { "data": "Sexo", "title": "Sexo", "autoWidth": true },
@@ -228,7 +228,7 @@
                         action: function (e, dt, node, config) {
                             // Immediately add `250` to the value of the salary and submit
                             editor
-                                .edit(demoGrid.row({ selected: true }).index(), false)
+                                .edit(table.row({ selected: true }).index(), false)
                                 .set('Preco', (editor.get('Preco') * 1) + 250)
                                 .submit();
                         }
@@ -239,6 +239,9 @@
 
         });
 
+        $('#demoGrid Nome').on('click', 'td', function () {
+            alert(table.cell(this).data());
+        });
 
     function DeleteData(AnimalID) {
         if (confirm("Tem certeza que quer deletar este cadastro? ")) {

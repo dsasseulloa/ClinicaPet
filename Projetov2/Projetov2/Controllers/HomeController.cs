@@ -31,28 +31,11 @@ namespace Projeto.Controllers
             var animals = db.Animals.Include(ab => ab.Clientes).Include(ab => ab.Servicos);
             List<string> animalslista = db.Animals.Select(x => x.Pagamento).ToList();
             Dashview dashboard = new Dashview();
-            //
+
             var myRows = db.Animals
     .Where(v => v.Pagamento == "Pago").ToArray();
             var rows = myRows.Select(x => x.Pagamento).ToArray();
-            //
 
-            //var query231 = from r in db.Animals
-            //            group r by r.Pagamento into g 
-            //            select new { Count = g.Count(), Value = g.Key, g.Where(r=>r.Pagamento == "Pago" )};
-
-            //int[] valuesCounted = (from r in db.Animals
-            //                       group r by r.Pagamento
-            //                        into g
-            //                       select g.Count()).ToArray();
-            //        var ids = db.Animals
-            //.GroupBy(r => r.Preco);
-            // The following condition examines g, the group of rows with identical FruitID:
-            //.Where(g => g.Any(item => .Contains(item.BasketID))
-            //         && g.Any(item => item.Pagamento == "Pago")
-            //         && g.All(item => item.Pagamento != "Pendente"))
-            //.Select(g => g.Key);
-   
 
             var PagamentoPago = new[] { "Pago" };
             var ListaPagos = from order in db.Animals
@@ -85,6 +68,7 @@ namespace Projeto.Controllers
             ViewBag.PorcentagemPago = Math.Round(Convert.ToDecimal(((PagosCount / PendenteEPagoCount) * 100)), 0).ToString() + "%";
             ViewBag.PorcentagemPendente = Math.Round(Convert.ToDecimal(((PendentesCount / PendenteEPagoCount) * 100)), 0).ToString() + "%";
 
+            ////
             dashboard.clientes_count = db.Clientes.Count();
             dashboard.animais_count = db.Animals.Count();
             dashboard.funcionarios_count = db.Funcionarios.Count();
@@ -167,23 +151,6 @@ namespace Projeto.Controllers
 
             ViewBag.Meses = OitoMesesAtras;
             ViewBag.Vendas = vendas8meses;
-
-
-            //var sadas = db.Animals
-            //.OrderByDescending(x => x.Entrada)
-            //.GroupBy(x => new { x.Entrada.Year, x.Entrada.Month })
-            //.Select(x => new SelectListItem
-            //{
-            // Value = string.Format("{0}|{1}", x.Key.Year, x.Key.Month),
-            //    Text = string.Format("{0}/{1} (Count: {2})", x.Key.Year, x.Key.Month, x.Count())
-            //})
-            //.ToList();
-            //var sortedMonths = meses
-            // .Select(x => new { Name = x, Sort = DateTime.ParseExact(x, "MMMM", CultureInfo.CurrentCulture) })
-            // .OrderBy(x => x.Sort.Month)
-            // .Select(x => x.Name)
-            // .ToList();
-            // ViewBag.meses = sortedMonths;
 
 
 
