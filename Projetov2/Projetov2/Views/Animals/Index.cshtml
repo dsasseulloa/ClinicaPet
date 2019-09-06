@@ -5,8 +5,9 @@
 
     ViewBag.Title = "Index";
 }
-<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<link href="~/admilte2/EditorGenerator/EditorGenerator/Web/css/editor.bootstrap4.min.css" rel="stylesheet" />
+
+
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
@@ -42,22 +43,23 @@
 
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table id="demoGrid" class="table table-striped table-bordered nowrap" style="width:100%">
+
+                        <table id="demoGrid" class="table table-striped table-bordered" style="width:100%">
                             @*<table id="demoGrid" class="table table-bordered table-striped table-hover">*@
-                                <thead>
-                                    <tr>
+                            <thead>
+                                <tr>
 
-                                        <th>Nome</th>
-                                        <th>Nome cliente</th>
-                                        <th>Sexo</th>
-                                        <th>Tipo</th>
-                                        <th>Ações</th>
+                                    <th>Nome</th>
+                                    <th>Nome cliente</th>
+                                    <th>Sexo</th>
+                                    <th>Tipo</th>
+                                    <th>Ações</th>
 
 
-                                    </tr>
-                                </thead>
+                                </tr>
+                            </thead>
 
-                            </table>
+                        </table>
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -95,7 +97,8 @@
 @section Scripts{
     <!-- JS -->
     @Scripts.Render("~/bundles/jqueryval")
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/moment-2.18.1/dt-1.10.18/b-1.5.6/sl-1.3.0/datatables.min.js"></script>
     <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
 
@@ -105,12 +108,14 @@
     <script src="~/Scripts/moment-with-locales.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
+    <script type="text/javascript" src="~/admilte2/EditorGenerator/EditorGenerator/Web/js/dataTables.editor.min.js"></script>
+    <script type="text/javascript" src="~/admilte2/EditorGenerator/EditorGenerator/Web/js/editor.bootstrap4.min.js"></script>
+    <script src="~/admilte2/Datatableditor.js"></script>
     <script>
         $('#example').on('click', 'tr', function () {
             var name = $('td', this).eq(1).text();
             $('#DescModal').modal("show");
         });
-
         //responsive: {
         //    details: {
         //        display: $.fn.dataTable.Responsive.display.modal({
@@ -124,49 +129,39 @@
         //},
     </script>
     <script>
-
-
-
-
-
         $(document).ready(function () {
             $(document).on("click", ".opencomment", function () {
                 var mycomment = $(this).data('FeedbackID');
                 $(".modal-body #commentdesc").val(mycomment);
             });
-
-
             $("#demoGrid").DataTable({
-
-                "language": {
-                    "lengthMenu": "Exibe _MENU_ Registros por página",
-                    "search": "Pesquisar por Nome",
-                    "paginate": { "previous": "Retorna", "next": "Avança" },
-                    "zeroRecords": "Nada foi encontrado",
-                    "info": "Exibindo página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Sem registros",
-                    "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+                language: {
+                    lengthMenu: "Exibe _MENU_ Registros por página",
+                    search: "Pesquisar por Nome",
+                    paginate: { "previous": "Retorna", "next": "Avança" },
+                    zeroRecords: "Nada foi encontrado",
+                    info: "Exibindo página _PAGE_ de _PAGES_",
+                    infoEmpty: "Sem registros",
+                    infoFiltered: "(filtrado de _MAX_ regitros totais)"
                 },
-
-                "processing": true, // for show progress bar
-                "serverSide": true, // for process server side
-                "filter": true, // this is for disable filter (search box)
-                "orderMulti": false, // for disable multiple column at once
-                "pageLength": 10,
-
-                "ajax": {
-                    "url": "/Animals/LoadData",
-                    "type": "POST",
-                    "datatype": "json"
+             
+         // altEditor: true,     // Enable altEditor
+               processing: true, // for show progress bar
+                serverSide: true, // for process server side
+                filter: true, // this is for disable filter (search box)
+                orderMulti: false, // for disable multiple column at once
+                pageLength: 10,
+                ajax: {
+                    url: "/Animals/LoadData",
+                    type: "POST",
+                    datatype: "json"
                 },
-
-                "columnDefs":
+                columnDefs:
                     [{
                         "targets": [1],
                         "searchable": false,
                         "orderable": false
                     },
-
                         {
                             "targets": [2],
                             "searchable": false,
@@ -176,29 +171,27 @@
                             "searchable": false,
                             "orderable": false
                         },
-
   ],
-
-                "columns": [
-
+                columns: [
                     { "data": "Nome", "name": "Nome", "autoWidth": true },
                     { "data": "ClienteNome", "title": "Cliente", "autoWidth": true },
                     { "data": "Sexo", "title": "Sexo", "autoWidth": true },
                     { "data": "Tipo", "title": "Tipo", "autoWidth": true },
-
-
-
                     {"render": function (data, type, full, meta) {
                         return '<a href="@Url.Action("Edit","Animals")?id=' + full.AnimalID + '" class="btn btn-primary">Editar</a> | <a href="@Url.Action("Details", "Animals")?id=' + full.AnimalID + '" class="btn btn-info">Detalhes</a> | <a href="#" onclick="DeleteData(' + full.AnimalID + ')"class="btn btn-danger">Deletar</a>';
                     }
                     }
-
-
                 ]
             });
+            new $.fn.dataTable.Buttons(table, [
+                { extend: "create", editor: editor },
+                { extend: "edit", editor: editor },
+                { extend: "remove", editor: editor }
+            ]);
+
+            table.buttons().container()
+                .appendTo($('.col-md-6:eq(0)', table.table().container()));
         });
-
-
 
 
     function DeleteData(AnimalID) {
@@ -209,8 +202,6 @@
             return false;
         }
     }
-
-
         function Delete(AnimalID) {
         var url = '@Url.Content("~/")' + "Animals/DeleteCustomer";
             $.post(url, { ID: AnimalID }, function (data) {

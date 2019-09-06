@@ -39,6 +39,12 @@ namespace Projeto.Controllers
                 return Json(new { data = listaAnimais }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+  
+
+
+
         public ActionResult LoadData()
         {
             using (ProjetoDBContext db = new ProjetoDBContext())

@@ -8,7 +8,7 @@ using Projeto.Models.Tipos;
 
 namespace Projeto.DAO
 {
-    public class ProjetoInitializer : System.Data.Entity.DropCreateDatabaseAlways<ProjetoDBContext>
+    public class ProjetoInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<ProjetoDBContext>
     //DropCreateDatabaseIfModelChanges
     //DropCreateDatabaseAlways
     {

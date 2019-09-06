@@ -82,7 +82,7 @@
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">Mais Detalhes<i class="fa fa-arrow-circle-right"></i></a>
+            @*<a href="#" class="small-box-footer">Mais Detalhes<i class="fa fa-arrow-circle-right"></i></a>*@
         </div>
     </div>
     <!-- ./col -->
@@ -136,7 +136,7 @@
 
                         <div class="progress-group">
                             <span class="progress-text">Pagamentos Aprovados</span>
-                            <span class="progress-number"><b>@ViewBag.PagoCount</b>/@Model.animais_count</span>
+                            <span class="progress-number"><b>@ViewBag.PagoCount</b>/@Model.animais_count Clientes</span>
 
                             <div class="progress sm">
                                 <div class="progress-bar progress-bar-aqua" style="width: @ViewBag.PorcentagemPago"></div>
@@ -144,8 +144,8 @@
                         </div>
                         <!-- /.progress-group -->
                         <div class="progress-group">
-                            <span class="progress-text">Pagamentos Pendentes</span>
-                            <span class="progress-number"><b>@ViewBag.PendenteCount</b>/@Model.animais_count</span>
+                            <span class="progress-text"><a href="#">Pagamentos Pendentes</a></span>
+                            <span class="progress-number"><b>@ViewBag.PendenteCount</b>/@Model.animais_count Clientes</span>
 
                             <div class="progress sm">
                                 <div class="progress-bar progress-bar-red" style="width: @ViewBag.PorcentagemPendente"></div>
@@ -153,20 +153,20 @@
                         </div>
                         <!-- /.progress-group -->
                         <div class="progress-group">
-                            <span class="progress-text">Visit Premium Page</span>
-                            <span class="progress-number"><b>480</b>/800</span>
+                            <span class="progress-text">Total de valores pagos</span>
+                            <span class="progress-number"><b>R$ @ViewBag.Pago</b>/ R$@ViewBag.PendentePago</span>
 
                             <div class="progress sm">
-                                <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+                                <div class="progress-bar progress-bar-green" style="width:  @ViewBag.PorcentagemPago"></div>
                             </div>
                         </div>
                         <!-- /.progress-group -->
                         <div class="progress-group">
-                            <span class="progress-text">Send Inquiries</span>
-                            <span class="progress-number"><b>250</b>/500</span>
+                            <span class="progress-text">Total de valores a serem pagos</span>
+                            <span class="progress-number"><b>R$@ViewBag.Pendente</b>/ R$@ViewBag.PendentePago</span>
 
                             <div class="progress sm">
-                                <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+                                <div class="progress-bar progress-bar-yellow" style="width: @ViewBag.PorcentagemPendente"></div>
                             </div>
                         </div>
                         <!-- /.progress-group -->
@@ -205,8 +205,8 @@
                     <!-- /.col -->
                     <div class="col-sm-3 col-xs-6">
                         <div class="description-block border-right">
-                            <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                            <h5 class="description-header">R$ @ViewBag.GastosSalario</h5>
+                            <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> </span>
+                            <h5 class="description-header"> R$ -@ViewBag.GastosSalario</h5>
                             <span class="description-text">Despesas este mês</span>
                         </div>
                         <!-- /.description-block -->
@@ -214,21 +214,14 @@
                     <!-- /.col -->
                     <div class="col-sm-3 col-xs-6">
                         <div class="description-block border-right">
-                            <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
+                            @*<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>*@
                             <h5 class="description-header">R$ @ViewBag.Lucro </h5>
-                            <span class="description-text">Total de Lucro</span>
+                            <span class="description-text">Lucro neste mês</span>
                         </div>
                         <!-- /.description-block -->
                     </div>
                     <!-- /.col -->
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="description-block">
-                            <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                            <h5 class="description-header">1200</h5>
-                            <span class="description-text">GOAL COMPLETIONS</span>
-                        </div>
-                        <!-- /.description-block -->
-                    </div>
+   
                 </div>
                 <!-- /.row -->
             </div>

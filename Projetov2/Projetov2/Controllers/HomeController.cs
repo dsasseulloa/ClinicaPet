@@ -82,9 +82,8 @@ namespace Projeto.Controllers
             ViewBag.PagoCount = PagosCount;
             ViewBag.PendentePagoCount = PendenteEPagoCount;
 
-            ViewBag.PorcentagemPago = ((PagosCount / PendenteEPagoCount) * 100).ToString() + "%";
-            ViewBag.PorcentagemPendente = ((PendentesCount / PendenteEPagoCount) * 100).ToString()+"%";
-
+            ViewBag.PorcentagemPago = Math.Round(Convert.ToDecimal(((PagosCount / PendenteEPagoCount) * 100)), 0).ToString() + "%";
+            ViewBag.PorcentagemPendente = Math.Round(Convert.ToDecimal(((PendentesCount / PendenteEPagoCount) * 100)), 0).ToString() + "%";
 
             dashboard.clientes_count = db.Clientes.Count();
             dashboard.animais_count = db.Animals.Count();
@@ -206,6 +205,7 @@ namespace Projeto.Controllers
             var querieslucro = (vendaslast - querygasto);
             var querieslucroround = Math.Round(Convert.ToDecimal(querieslucro), 2).ToString();
             ViewBag.Lucro = querieslucroround;
+            //ViewBag.PorcentagemLucro= Math.Round(Convert.ToDecimal((vendaslast - penultimaVendaMes) / (penultimaVendaMes)) * 100), 0).ToString() + "%";
 
             //calculo percentual dos dois ultimos meses
             var penultimaVendaMes = totalevendas.Skip(totalevendas.Count() - 2).Take(1).Single();
