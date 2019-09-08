@@ -9,8 +9,7 @@
 <link href="~/Plugins/DataTables/DataTables-1.10.18/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 
 <link href="~/Plugins/DataTables/Select-1.3.0/css/select.bootstrap.css" rel="stylesheet" />
-<link href="~/Plugins/DataTables/Buttons-1.5.6/css/buttons.jqueryui.min.css" rel="stylesheet" />
-
+<link href="~/Plugins/DataTables/Buttons-1.5.6/css/buttons.bootstrap.min.css" rel="stylesheet" />
 
 <section class="content">
     <div class="row">
@@ -49,23 +48,23 @@
                     <div class="table-responsive">
 
                         <table id="demoGrid" class="table table-striped table-bordered" style="width:100%">
-                    
-                                @*<table id="demoGrid" class="table table-bordered table-striped table-hover">*@
-                                <thead>
-                                    <tr>
 
-                                        <th>Nome</th>
-                                        <th>Nome cliente</th>
-                                        <th>Sexo</th>
-                                        <th>Tipo</th>
-                                        <th>Preço</th>
+                            @*<table id="demoGrid" class="table table-bordered table-striped table-hover">*@
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nome</th>
+                                    <th>Nome cliente</th>
+                                    <th>Sexo</th>
+                                    <th>Tipo</th>
+                                    <th>Preço</th>
+                                    <th>Idade</th>
+                                    <th></th>
 
+                                </tr>
+                            </thead>
 
-
-                                    </tr>
-                                </thead>
-
-                            </table>
+                        </table>
 </div>
                 </div>
                 <!-- /.box-body -->
@@ -105,8 +104,14 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/moment-2.18.1/dt-1.10.18/b-1.5.6/sl-1.3.0/datatables.min.js"></script>
-    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-
+    
+    <script src="~/Plugins/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="~/Plugins/DataTables/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Plugins/DataTables/Buttons-1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="~/Plugins/DataTables/Buttons-1.5.6/js/buttons.bootstrap.min.js"></script>
+    <script src="~/Plugins/DataTables/Select-1.3.0/js/dataTables.select.min.js"></script>
+    <script src="~/Plugins/DataTables/Editor-2019-09-14-1.9.0/js/dataTables.editor.min.js"></script>
+    <script src="~/Plugins/DataTables/Editor-2019-09-14-1.9.0/js/editor.bootstrap.js"></script>
 
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
@@ -142,10 +147,11 @@
 
             
                 editor = new $.fn.dataTable.Editor({
-                    ajax: "/Animals/GetAnimals",
+                    ajax: "/Animals/Table",
                     table: "#demoGrid",
                     idSrc: 'AnimalID',
-                    fields: [{
+                    fields: [
+                    {
                         label: "Nome:",
                         name: "Nome"
                     }, {
@@ -160,16 +166,22 @@
                     }, {
                             label: "Preco:",
                             name: "Preco"
+                        },{
+                            label: "Idade:",
+                            name: "Idade"
                         }
                     ]
                 });
 
-                $('#demoGrid').on('click', 'tbody td:not(:first-child)', function (e) {
-                    editor.inline(this);
-                });
+                //$('#demoGrid').on('click', 'tbody td:not(:first-child)', function (e) {
+                //    editor.inline(this);
+                //});
+
+    
+       
 
            var table =  $("#demoGrid").DataTable({
-                dom: "Bfrtip",
+               dom: 'lBfrtip<"actions">',
                 language: {
                     lengthMenu: "Exibe _MENU_ Registros por página",
                     search: "Pesquisar por Nome",
@@ -186,40 +198,52 @@
                 filter: true, // this is for disable filter (search box)
                 orderMulti: false, // for disable multiple column at once
                 pageLength: 10,
-                ajax: {
-                    url: "/Animals/LoadData",
-                    type: "POST",
-                    datatype: "json"
-                },
+               ajax: {
+                   url: "/Animals/LoadData",
+                   type: "POST",
+                  datatype: "json"
+               },  
+
                 columnDefs:
                     [{
-                        "targets": [1],
+                        "targets": [1,2,3,4,5,6],
                         "searchable": false,
                         "orderable": false
-                    },
-                        {
-                            "targets": [2],
-                            "searchable": false,
-                            "orderable": false
-                        }, {
-                            "targets": [3],
-                            "searchable": false,
-                            "orderable": false
-                        },
+                    }, {
+                            orderable: false,
+                            className: 'select-checkbox',
+                            targets: 0
+                        }
   ],
                 columns: [
-
+                    {
+                        data: null,
+                        defaultContent: '',
+                        className: 'select-checkbox',
+                        orderable: false
+                    },
                     { "data": "Nome", "name": "Nome", "autoWidth": true },
                     { "data": "ClienteNome", "title": "Cliente", "autoWidth": true },
                     { "data": "Sexo", "title": "Sexo", "autoWidth": true },
                     { "data": "Tipo", "title": "Tipo", "autoWidth": true },
-                    { data: "Preco", render: $.fn.dataTable.render.number(',', '.', 0, 'R$') }
+                    { data: "Preco", render: $.fn.dataTable.render.number(',', '.', 0, 'R$') },
+                    { data: "Idade" },
+                    {
+                        data: null,
+                        defaultContent: '<a href="#" class="remove">Delete</a>',
+                        orderable: false
+                    },
                     @*{"render": function (data, type, full, meta) {
                         return '<a href="@Url.Action("Edit","Animals")?id=' + full.AnimalID + '" class="btn btn-primary">Editar</a> | <a href="@Url.Action("Details", "Animals")?id=' + full.AnimalID + '" class="btn btn-info">Detalhes</a> | <a href="#" onclick="DeleteData(' + full.AnimalID + ')"class="btn btn-danger">Deletar</a>';
                     }
                     }*@
                 ],
-                select: true,
+               select: true,
+               select: {
+                   style: 'multi',
+                   selector: 'td:first-child'
+               },
+               order: [[1, 'asc']],
                 buttons: [
                     { extend: "create", editor: editor },
                     { extend: "edit", editor: editor },
@@ -234,15 +258,53 @@
                                 .submit();
                         }
                     },
-                    { extend: "remove", editor: editor }
+                    { extend: "remove", editor: editor },
+                    {
+                        text: 'My button',
+                        action: function (e, dt, node, config) {
+                            alert('Button activated');
+                        }
+                    },
                 ]
+           });
+            $('#demoGrid').on('click', 'a.remove', function (e) {
+                editor
+                    .title('Delete row')
+                    .message('Are you sure you wish to delete this row?')
+                    .buttons({ "label": "Delete", "fn": function () { editor.submit() } })
+                    .remove($(this).closest('tr'));
             });
 
+            //$('#demoGrid tbody').on('click', 'tr', function () {
+            //    $(this).toggleClass('selected');
+            //});
+
+            //$('#button').click(function () {
+            //    alert(table.rows('.selected').data().length + ' row(s) selected');
+            //});
+            //$('#demoGrid tbody').on('click', 'td', function () {
+            //    var cell = table.cell(this);
+            //    cell.data(cell.data() + 1).draw();
+            //    // note - call draw() to update the table's draw state with the new data
+            //});
+
+          
         });
 
-        $('#demoGrid Nome').on('click', 'td', function () {
-            alert(table.cell(this).data());
-        });
+        //$('#demoGrid Nome').on('click', 'td', function () {
+        //    alert(table.cell(this).data());
+        //});
+
+  
+
+        //$('#demoGrid tbody').on('click', 'td', function () {
+        //    var cell = table.cell(this);
+        //    cell.data(cell.data() + 1).draw();
+        //    // note - call draw() to update the table's draw state with the new data
+        //});
+
+      
+
 
     function DeleteData(AnimalID) {
         if (confirm("Tem certeza que quer deletar este cadastro? ")) {

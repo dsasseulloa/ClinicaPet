@@ -32,8 +32,8 @@ namespace Projetov2
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/admilte2/bootstrap/dist/css/bootstrap.css",
                       "~/admilte2/css/AdminLTE.css",
-                      "~/admilte2/css/skins/skin-black.css",
-                      "~/admilte2/datatables.net-bs/css/dataTables.bootstrap.css"
+                      "~/admilte2/css/skins/skin-black.css"
+                      //"~/admilte2/datatables.net-bs/css/dataTables.bootstrap.css"
 
                       ));
             bundles.Add(new ScriptBundle("~/admin-lte/js").Include(

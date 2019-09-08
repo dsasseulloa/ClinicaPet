@@ -1048,3 +1048,5 @@ C:\Users\stag014\Desktop\ProjetoNew\Projetov2\Projetov2\bin\pt-br\System.Web.Web
 C:\Users\stag014\Desktop\ProjetoNew\Projetov2\Projetov2\bin\pt-br\System.Web.WebPages.Razor.resources.dll
 C:\Users\stag014\Desktop\ProjetoNew\Projetov2\Projetov2\bin\pt-br\System.Web.Optimization.resources.dll
 C:\Users\stag014\Desktop\ProjetoNew\Projetov2\Projetov2\obj\Debug\Projeto.csproj.CopyComplete
+C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2\bin\DataTables-Editor-Server.dll
+C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2\bin\DataTables-Editor-Server.pdb

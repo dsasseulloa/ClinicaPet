@@ -17,6 +17,7 @@ using Projeto.Models.ViewModel;
 
 namespace Projeto.Controllers
 {
+
     [Authorize(Roles = "Administrador, Funcionario")]
     public class AnimalsController : Controller
     {
@@ -32,17 +33,58 @@ namespace Projeto.Controllers
         [HttpGet]
         public ActionResult GetAnimals()
         {
+            
             using (ProjetoDBContext db = new ProjetoDBContext())
             {
+                Animal animal = new Animal();
+               
                 var listaAnimais = db.Animals.ToList();
 
                 return Json(new { data = listaAnimais }, JsonRequestBehavior.AllowGet);
             }
         }
+        
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult Table()
+        {
+            var settings = Properties.Settings.Default;
+            var formData = HttpContext.Request.Form;
+            //db.Configuration.LazyLoadingEnabled = false;
+            using (var db = new DataTables.Database(settings.DbType, settings.DbConnection))
+            {
 
+                var response = new Editor(db, "Animal", pkey: "AnimalID")
+                    //.Model<Animal>()
+                    .Field(new Field("Nome"))
+                    .Field(new Field("ClienteNome"))
+                    .Field(new Field("Tipo"))
+                    .Field(new Field("Sexo"))
+                    .Field(new Field("Preco"))
+                    .Field(new Field("Idade"))
+                    .Field(new Field("Entrada")
+                        .Validator(Validation.DateFormat(
+                            Format.DATE_ISO_8601,
+                            new ValidationOpts { Message = "Please enter a date in the format yyyy-mm-dd" }
+                        ))
+                        .GetFormatter(Format.DateSqlToFormat(Format.DATE_ISO_8601))
+                        .SetFormatter(Format.DateFormatToSql(Format.DATE_ISO_8601))
+                    )
+                    .Process(formData)
+                    .Data();
 
-  
-
+                return Json(response, JsonRequestBehavior.AllowGet);
+            }
+        }
+    
+                public ActionResult loaddata2()
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+            {
+                // dc.Configuration.LazyLoadingEnabled = false; // if your table is relational, contain foreign key
+                var data = db.Animals.OrderBy(a => a.Nome).ToList();
+                return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
 
         public ActionResult LoadData()
@@ -67,10 +109,14 @@ namespace Projeto.Controllers
                     // Getting all Customer data    
                     var animalData = (from tempcustomer in db.Animals
                                       select tempcustomer);
-                    
+                    //db.Configuration.LazyLoadingEnabled = false;
 
-                    //Sorting    
-                    if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+
+                    
+             
+
+                        //Sorting    
+                        if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                     {
                         animalData = animalData.OrderBy(sortColumn + " " + sortColumnDir);
                     }

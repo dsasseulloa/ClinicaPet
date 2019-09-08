@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataTables;
 
 namespace Projeto.Models
 {
@@ -54,8 +55,7 @@ namespace Projeto.Models
         public int Contagem { get;set; }
 
 
-        public Funcionario Funcionarios { get; set; }
-        public Cliente Clientes { get; set; }
+      
         public string ClienteNome { get; set; }
         public int? ClienteID { get; set; }
 
@@ -76,6 +76,9 @@ namespace Projeto.Models
         [DisplayName("Preço do Serviço")]
         [DisplayFormat(DataFormatString = "{0:C0}")]
         public decimal Preco{ get; set; }
+
+  public Funcionario Funcionarios { get; set; }
+        public Cliente Clientes { get; set; }
         private ICollection<Servicos> _servicos;
         public  ICollection<Servicos> Servicos
         {
