@@ -1,7 +1,4 @@
-﻿
-
-
-@model IEnumerable<Projeto.Models.Animal>
+﻿@model IEnumerable<Projeto.Models.Animal>
 @using Projeto.App_Start
 
 @{
@@ -15,7 +12,7 @@
 @foreach (var item in Model)
 {
 
-            @{
+            {
                 foreach (var servicos in item.Servicos)
                 {
                     @servicos.Nome <br />

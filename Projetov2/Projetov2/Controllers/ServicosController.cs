@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Linq.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -9,6 +10,8 @@ using System.Web.Mvc;
 using PagedList;
 using Projeto.DAO;
 using Projeto.Models;
+using DataTables;
+using System.Threading.Tasks;
 
 namespace Projeto.Controllers
 {
@@ -18,55 +21,21 @@ namespace Projeto.Controllers
         private ProjetoDBContext db = new ProjetoDBContext();
 
         // GET: Servicos
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        [HttpGet]
+        public ActionResult Index()
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            //ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            //ViewBag.Date2SortParm = sortOrder == "Date2" ? "date_desc2" : "Date2";
-            Animal a = new Animal();
-            
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-
-            var servicos = from s in db.Servicos
-                               select s;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                servicos = servicos.Where(s => s.Nome.Contains(searchString)
-                                       || s.Nome.Contains(searchString));
-            }
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    servicos = servicos.OrderByDescending(s => s.Nome);
-                    break;
-                //case "Date":
-                //    servicos = servicos.OrderBy(s => s.DataAdmissao);
-                //    break;
-                //case "date_desc":
-                //    servicos = servicos.OrderByDescending(s => s.DataAdmissao);
-                //    break;
-                default:
-                    servicos = servicos.OrderBy(s => s.Nome);
-                    break;
-            }
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-            //funcionarios = db.Funcionarios.Include(f => f.Acesso);
-            return View(servicos.ToPagedList(pageNumber, pageSize));
-
-            // return View(clientes.ToList());
+            return View();
         }
+        [HttpGet]
+        public ActionResult GetServicos()
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+            {
+                var listaServicos = db.Servicos.ToList();
 
+                return Json(new { data = listaServicos }, JsonRequestBehavior.AllowGet);
+            }
+        }
         // GET: Servicos/Details/5
         public ActionResult Details(int? id)
         {
@@ -81,7 +50,53 @@ namespace Projeto.Controllers
             }
             return View(servicos);
         }
+        public ActionResult LoadData()
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+                try
+                {
+                    var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                    var start = Request.Form.GetValues("start").FirstOrDefault();
+                    var length = Request.Form.GetValues("length").FirstOrDefault();
+                    var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                    var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                    var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
 
+
+                    //Paging Size (10,20,50,100)    
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int recordsTotal = 0;
+
+                    // Getting all Customer data    
+                    var servicoData = (from tempcustomer in db.Servicos
+                                       select tempcustomer);
+
+                    //Sorting    
+                    if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                    {
+                        servicoData = servicoData.OrderBy(sortColumn + " " + sortColumnDir);
+                    }
+                    //Search    
+                    if (!string.IsNullOrEmpty(searchValue))
+                    {
+                        servicoData = servicoData.Where(m => m.Nome.Contains(searchValue));
+                    }
+
+                    //total number of rows count     
+                    recordsTotal = servicoData.Count();
+                    //Paging     
+                    var data = servicoData.Skip(skip).Take(pageSize).ToList();
+                    //Returning Json Data    
+                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+        }
         // GET: Servicos/Create
         public ActionResult Create()
         {
@@ -104,7 +119,22 @@ namespace Projeto.Controllers
 
             return View(servicos);
         }
+        [HttpPost]
+        public JsonResult DeleteCustomer(int? ID)
+        {
+            using (ProjetoDBContext db = new ProjetoDBContext())
+            {
 
+                var servicos = db.Servicos.Find(ID);
+
+                if (ID == null)
+                    return Json(data: "Não deletado", behavior: JsonRequestBehavior.AllowGet);
+                db.Servicos.Remove(servicos);
+                db.SaveChanges();
+
+                return Json(data: "Deletado", behavior: JsonRequestBehavior.AllowGet);
+            }
+        }
         // GET: Servicos/Edit/5
         public ActionResult Edit(int? id)
         {

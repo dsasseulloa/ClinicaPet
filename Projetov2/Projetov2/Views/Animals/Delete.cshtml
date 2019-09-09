@@ -59,13 +59,6 @@
             @Html.DisplayFor(model => model.Observaçoes)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Sangue)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sangue)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Tipo)
@@ -117,7 +110,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

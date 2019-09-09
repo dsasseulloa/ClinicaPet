@@ -45,6 +45,7 @@ namespace Projeto.Controllers
         }
         
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        [ValidateInput(false)]
         public ActionResult Table()
         {
             var settings = Properties.Settings.Default;
@@ -61,13 +62,13 @@ namespace Projeto.Controllers
                     .Field(new Field("Sexo"))
                     .Field(new Field("Preco"))
                     .Field(new Field("Idade"))
+                    .Field(new Field("Pagamento"))
                     .Field(new Field("Entrada")
+                    
                         .Validator(Validation.DateFormat(
                             Format.DATE_ISO_8601,
                             new ValidationOpts { Message = "Please enter a date in the format yyyy-mm-dd" }
                         ))
-                        .GetFormatter(Format.DateSqlToFormat(Format.DATE_ISO_8601))
-                        .SetFormatter(Format.DateFormatToSql(Format.DATE_ISO_8601))
                     )
                     .Process(formData)
                     .Data();
@@ -116,7 +117,7 @@ namespace Projeto.Controllers
              
 
                         //Sorting    
-                        if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                    if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                     {
                         animalData = animalData.OrderBy(sortColumn + " " + sortColumnDir);
                     }
@@ -143,6 +144,9 @@ namespace Projeto.Controllers
         }
         public ActionResult Details(int? id)
         {
+            var animals = db.Animals.Include(a => a.Clientes).Include(a => a.Servicos).ToList();
+            List<string> servicoscomprados = new List<string>();
+            List<string> serviconosanimaissss = new List<string>();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -152,7 +156,15 @@ namespace Projeto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(animal);
+
+            foreach (var servico in animal.Servicos)
+            {
+                servicoscomprados.Add(servico.Nome);
+                
+            }
+            ViewBag.servicoscomprados = servicoscomprados.ToList();
+            ViewBag.Nome = animal.Nome.ToString();
+            return View(animals.ToList());
         }
 
         public JsonResult States(string Tipo)

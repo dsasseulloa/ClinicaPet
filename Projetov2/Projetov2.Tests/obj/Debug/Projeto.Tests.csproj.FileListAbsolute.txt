@@ -2,3 +2,7 @@ C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2.Tests\obj\Debug\Projeto.Tes
 C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2.Tests\obj\Debug\Projeto.Tests.csproj.CoreCompileInputs.cache
 C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2.Tests\obj\Debug\Projetov2.Tests.dll
 C:\Users\dsass\Desktop\Projetov2\Projetov2\Projetov2.Tests\obj\Debug\Projetov2.Tests.pdb
+C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2.Tests\obj\Debug\Projeto.Tests.csprojAssemblyReference.cache
+C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2.Tests\obj\Debug\Projeto.Tests.csproj.CoreCompileInputs.cache
+C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2.Tests\obj\Debug\Projetov2.Tests.dll
+C:\Users\T-Gamer\Desktop\clinicav2\Projetov2\Projetov2.Tests\obj\Debug\Projetov2.Tests.pdb

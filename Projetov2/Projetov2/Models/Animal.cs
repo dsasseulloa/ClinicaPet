@@ -75,6 +75,7 @@ namespace Projeto.Models
         [Range(10, 99999.99,ErrorMessage = "O Preço de Venda deve estar entre " + "10,00 e 99999,99.")]
         [DisplayName("Preço do Serviço")]
         [DisplayFormat(DataFormatString = "{0:C0}")]
+        [AllowHtml]
         public decimal Preco{ get; set; }
 
   public Funcionario Funcionarios { get; set; }

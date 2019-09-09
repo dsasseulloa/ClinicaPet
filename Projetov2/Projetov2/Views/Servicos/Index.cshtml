@@ -1,18 +1,24 @@
 ﻿@model IEnumerable<Projeto.Models.Servicos>
 
 @{
-    ViewBag.Title = "Index";
 
+
+    ViewBag.Title = "Index";
 }
+<link href="~/DataTables/datatables.css" rel="stylesheet" />
+<link href="~/admin-lte/css/AdminLTE.min.css" rel="stylesheet" />
+
+<link href="~/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
 
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
-
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Serviços</h3>
                 </div>
+
+
                 <div class="row fileupload-buttonbar">
                     <div class="col-lg-8">
                         &nbsp;&nbsp;&nbsp;
@@ -21,70 +27,143 @@
                             <span>
                                 <strong>Cadastrar Serviço</strong>
                             </span>
+
                         </a>
 
                     </div>
-                    <br>
-                    <div class="box-body">
+                </div>
+                <br>
 
+                <div class="box-body">
 
-
-                        <table class="table table-hover">
+                    <table id="demoGrid" class="table table-bordered table-striped table-hover">
+                        <thead>
                             <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Nome)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Preco)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Descricao)
-                                </th>
+                                <th>ServicoID</th>
+                                <th>Nome</th>
+                                <th>Preço</th>
+                                <th>Descrição</th>
                                 <th>Ações</th>
                             </tr>
+                        </thead>
 
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Preco)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Descricao)
-                                    </td>
-                                    <td>
+                    </table>
 
-                                        <a href="@Url.Action("Edit", "Servicos", new { id = item.ServicoID })" class="btn btn-success btn-xs">
-
-                                            <span>
-                                                <strong>Editar</strong>
-                                            </span>
-                                        </a>
-                                        <a href="@Url.Action("Details", "Servicos", new { id = item.ServicoID })" class="btn btn-primary btn-xs">
-
-                                            <span>
-                                                <strong>Detalhes</strong>
-                                            </span>
-                                        </a>
-                                        &nbsp;&nbsp;&nbsp;
-                                        <a href="@Url.Action("Delete", "Servicos", new { id = item.ServicoID })" class="btn btn-danger btn-xs">
-
-                                            <span>
-                                                <strong>Deletar</strong>
-                                            </span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-
-                        </table>
-                    </div>
                 </div>
+                <!-- /.box-body -->
             </div>
+            <!-- /.box -->
         </div>
+        <!-- /.col -->
     </div>
+    <!-- /.row -->
 </section>
+
+<div id="modal" class="modal fade" role="dialog" />
+
+@section Scripts{
+    <!-- JS -->
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script>
+
+
+
+
+
+        $(document).ready(function () {
+            $("#demoGrid").DataTable({
+
+                "language": {
+                    "lengthMenu": "Exibe _MENU_ Registros por página",
+                    "search": "Pesquisar por Nome",
+                    "paginate": { "previous": "Retorna", "next": "Avança" },
+                    "zeroRecords": "Nada foi encontrado",
+                    "info": "Exibindo página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Sem registros",
+                    "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+                },
+
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 10,
+
+                "ajax": {
+                    "url": "/Servicos/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+
+                "columnDefs":
+                    [{
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    },
+                        {
+                            "targets": [2,3],
+                            "searchable": false,
+                            "orderable": false
+                        }, {
+                            "targets": [4],
+                            "searchable": false,
+                            "orderable": false
+                        }
+
+  ],
+
+                "columns": [
+                    {
+                        "data": "ServicoID",
+                        "name": "ServicoID",
+                        "autoWidth": true
+                    },
+                    { "data": "Nome", "name": "Nome", "autoWidth": true },
+                    { "data": "Preco", "title": "Preco", "name": "Preco", "autoWidth": true },
+                    { "data": "Descricao", "name": "Descricao", "autoWidth": true },
+
+                    {"render": function (data, type, full, meta) {
+                        return '<a href="@Url.Action("Edit","Servicos")?id=' + full.ServicoID + '" class="btn btn-primary">Editar</a> | <a href="@Url.Action("Details", "Servicos")?id=' + full.ServicoID + '" class="btn btn-info">Detalhes</a> | <a href="#" onclick="DeleteData(' + full.ServicoID + ')"class="btn btn-danger">Deletar</a>';
+                                }   }
+                ]
+            });
+        });
+
+
+
+        function DeleteData(ServicoID) {
+        if (confirm("Tem certeza que quer deletar este cadastro? Ao deletar você excluirá todos os registros de Serviços")) {
+            Delete(ServicoID);
+        }
+        else {
+            return false;
+        }
+    }
+
+
+        function Delete(ServicoID) {
+        var url = '@Url.Content("~/")' + "Servicos/DeleteCustomer";
+            $.post(url, { ID: ServicoID }, function (data) {
+            if (data == "Deleted") {
+                alert("Cadastro Deletado!");
+                oTable = $('#demoGrid').DataTable();
+                oTable.draw();
+            }
+            else {
+                alert("Algo deu Errado!");
+            }
+        });
+    }
+    </script>
+
+}
+
 

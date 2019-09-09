@@ -1,7 +1,8 @@
 ﻿<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>Equilibrare Vet</title>
+     <link href="~/img/avatar04.png" rel="shortcut icon" type="image/ico" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     @Styles.Render("~/Content/css")
@@ -306,18 +307,16 @@
         <!-- Control Sidebar -->
         <!-- Add the sidebar's background. This div must be placed
         immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
-    </div>
+  
+</body>
     <!-- ./wrapper -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/admin-lte/js")
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-    </script>
+
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/inputmask")
-    @Scripts.Render("~/bundles/jqueryui")
+    @*@Scripts.Render("~/bundles/jqueryui")*@
     @RenderSection("scripts", required: false)
 
     <!-- We would add slider scripts here -->
@@ -356,7 +355,7 @@
         <script src="~/admin-lte/js/demo.js"></script>*@
 
     <script src="~/Plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="~/admilte2/js/TodoList.js"></script>
+
 
     <script>
         $(document).ready(function () {
@@ -372,12 +371,12 @@
             $("#preco").inputmask("mask", { "mask": "999.999,99" }, { reverse: true });
             $("#valor").inputmask("mask", { "mask": "#.##9,99" }, { reverse: true });
             $("#calendario").datepicker();
-            $.datepicker.setDefaults($.datepicker.regional[lang]);
+  
         });
 
     </script>
 
 
 
-</body>
+
 

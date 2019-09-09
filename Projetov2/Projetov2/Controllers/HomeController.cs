@@ -26,7 +26,7 @@ namespace Projeto.Controllers
         private ProjetoDBContext db = new ProjetoDBContext();
 
         [Authorize(Roles = "Administrador, Funcionario")]
-        public ActionResult Index(Funcionario login, string returnUrl)
+        public ActionResult Index()
         {
             var animals = db.Animals.Include(ab => ab.Clientes).Include(ab => ab.Servicos);
             List<string> animalslista = db.Animals.Select(x => x.Pagamento).ToList();

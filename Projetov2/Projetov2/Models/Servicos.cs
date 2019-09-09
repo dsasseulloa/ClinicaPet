@@ -24,7 +24,7 @@ namespace Projeto.Models
         public DateTime? DataCadastro { get; set; }
 
 
-        public virtual ICollection<Animal> Animals { get; set; }
+        public ICollection<Animal> Animals { get; set; }
 
         public Servicos()
         {
