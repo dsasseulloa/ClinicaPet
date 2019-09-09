@@ -3,9 +3,14 @@
 
 
 @{
-    ViewBag.Title = "Index";
-}
+                /**/
 
+                ViewBag.Title = "Index";
+}
+<link href="~/DataTables/datatables.css" rel="stylesheet" />
+<link href="~/admin-lte/css/AdminLTE.min.css" rel="stylesheet" />
+
+<link href="~/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
 
 
 <section class="content">
@@ -34,93 +39,94 @@
 
 
 
-                    <table class="table table-hover">
-                        <tr>
-                            <th>
-                                Nome
-                            </th>
-                            <th>
-                                Cargo
-                            </th>
-                            <th>
-                                Salario
-                            </th>
-                            <th>
-                                Contato
-                            </th>
-                            <th>
-                                Email
-                            </th>
-
-                            <th>
-                                Data de Admissão
-                            </th>
-
-                            <th>Ações</th>
-                        </tr>
-
-                        @foreach (var item in Model)
-                        {
+                    <table id="demoGrid" class="table table-bordered table-striped table-hover">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Nome)
-                                </td>
+                                <th>
+                                    Nome
+                                </th>
+                                <th>
+                                    Cargo
+                                </th>
+                                <th>
+                                    Salario
+                                </th>
+                                <th>
+                                    Contato
+                                </th>
+                                <th>
+                                    Email
+                                </th>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cargo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Salario)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Contato)
-                                </td>
+                                <th>
+                                    Data de Admissão
+                                </th>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataAdmissao)
-                                </td>
-
-
-                                <td>
-                                    <a href="@Url.Action("Edit", "Funcionarios", new { id = item.FuncionarioID })" class="btn btn-primary btn-xs">
-
-                                        <span>
-                                            <strong>Editar</strong>
-                                        </span>
-                                    </a>
-                                    <a href="@Url.Action("Details", "Funcionarios", new { id = item.FuncionarioID })" class="btn btn-info btn-xs">
-
-                                        <span>
-                                            <strong>Detalhes</strong>
-                                        </span>
-                                    </a>
-
-                                    <a href="@Url.Action("EditAcesso", "Acessos", new { id = item.FuncionarioID })" class="btn btn-success btn-xs">
-
-                                        <span>
-                                            <strong>Acesso</strong>
-                                        </span>
-                                    </a>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <a href="@Url.Action("Delete", "Funcionarios", new { id = item.FuncionarioID })" class="btn btn-danger btn-xs">
-
-                                        <span>
-                                            <strong>Deletar</strong>
-                                        </span>
-                                    </a>
-                                </td>
+                                <th>Ações</th>
                             </tr>
-                        }
 
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nome)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cargo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Salario)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Contato)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataAdmissao)
+                                    </td>
+
+
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Funcionarios", new { id = item.FuncionarioID })" class="btn btn-primary">
+
+                                            <span>
+                                                <strong>Editar</strong>
+                                            </span>
+                                        </a>
+                                        <a href="@Url.Action("Details", "Funcionarios", new { id = item.FuncionarioID })" class="btn btn-info">
+
+                                            <span>
+                                                <strong>Detalhes</strong>
+                                            </span>
+                                        </a>
+
+                                        <a href="@Url.Action("EditAcesso", "Acessos", new { id = item.FuncionarioID })" class="btn btn-success">
+
+                                            <span>
+                                                <strong>Acesso</strong>
+                                            </span>
+                                        </a>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a href="@Url.Action("Delete", "Funcionarios", new { id = item.FuncionarioID })" class="btn btn-danger">
+
+                                            <span>
+                                                <strong>Deletar</strong>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        <thead>
                     </table>
 
                 </div>
             </div>
         </div>
     </div>
-   
+
 </section>

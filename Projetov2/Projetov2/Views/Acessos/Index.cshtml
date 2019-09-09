@@ -4,6 +4,11 @@
     ViewBag.Title = "Index";
 
 }
+<link href="~/DataTables/datatables.css" rel="stylesheet" />
+<link href="~/admin-lte/css/AdminLTE.min.css" rel="stylesheet" />
+
+<link href="~/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
@@ -20,17 +25,17 @@
                             <span>
                                 <strong>Cadastrar Acessos</strong>
                             </span>
-                            </a>
-
+                        </a>
+                    </div>
                     </div>
                     <br>
                     <div class="box-body">
 
 
 
-                        <table class="table table-hover">
+                        <table id="demoGrid" class="table table-bordered table-striped table-hover">
+                            <thead>
 
-                            
                                 <tr>
                                     <th>
                                         @Html.DisplayNameFor(model => model.Funcionario.Nome)
@@ -60,7 +65,8 @@
                                             @Html.DisplayFor(modelItem => item.Usuario)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Senha, new { @class = "form-control", placeholder = "Password", @type = "password" })
+                                            @Html.Raw("\u2022\u2022\u2022\u2022\u2022")
+
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Ativo)
@@ -69,13 +75,13 @@
                                             @Html.DisplayFor(modelItem => item.Perfil)
                                         </td>
                                         <td>
-                                            <a href="@Url.Action("Edit", "Acessos", new { id = item.FuncionarioID })" class="btn btn-success btn-xs">
+                                            <a href="@Url.Action("Edit", "Acessos", new { id = item.FuncionarioID })" class="btn btn-success">
 
                                                 <span>
                                                     <strong>Editar</strong>
                                                 </span>
                                             </a>
-                                            <a href="@Url.Action("Details", "Acessos", new { id = item.FuncionarioID })" class="btn btn-primary btn-xs">
+                                            <a href="@Url.Action("Details", "Acessos", new { id = item.FuncionarioID })" class="btn btn-primary ">
 
                                                 <span>
                                                     <strong>Detalhes</strong>
@@ -84,18 +90,19 @@
                                             &nbsp;
                                             @*<a href="@Url.Action("Delete", "Acessos", new { id = item.FuncionarioID })" class="btn btn-danger btn-xs">
 
-                                            <span>
-                                                <strong>Deletar</strong>
-                                            </span>
-                                        </a>*@
+                            <span>
+                                <strong>Deletar</strong>
+                            </span>
+                        </a>*@
 
                                         </td>
                                     </tr>
                                 }
-
-                            </table>
+                            <thead>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div></div>
+        </div>
+    
 </section>

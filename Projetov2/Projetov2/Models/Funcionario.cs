@@ -20,16 +20,22 @@ namespace Projeto.Models
         [Required(ErrorMessage = "Campo Sexo é Obrigatório ")]
         public string Sexo { get; set; }
         [Index(IsUnique = true)]
-        [StringLength(50)]
+        [StringLength(14)]
         [Display(Name = "CPF")]
         [Required(ErrorMessage = "Campo CPF é obrigatório")]
         public string CPFouRG { get; set; }
-        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
         [DataType(DataType.Currency)]
+       
+        [DisplayName("Salário")]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        [AllowHtml]
         public decimal Salario { get; set; }
         [Required(ErrorMessage = "Campo de Contato é Obrigatório ")]
+        [DataType(DataType.PhoneNumber)]
         public string Contato { get; set; }
         public string Contato2 { get; set; }
         public string Endereço { get; set; }
@@ -41,13 +47,14 @@ namespace Projeto.Models
         [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
         public string Email { get; set; }
         public Cargo? Cargo { get; set; }
-        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         [Display(Name = "Data de Admissão")]
         public DateTime DataAdmissao { get; set; }
-        
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime DiaPagamento { get; set; } = DateTime.Now;
 
 

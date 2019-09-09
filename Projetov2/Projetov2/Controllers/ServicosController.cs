@@ -12,6 +12,13 @@ using Projeto.DAO;
 using Projeto.Models;
 using DataTables;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Web.UI.DataVisualization.Charting;
+using Projeto.Models.ViewModel;
+using System.Globalization;
 
 namespace Projeto.Controllers
 {
@@ -20,7 +27,7 @@ namespace Projeto.Controllers
     {
         private ProjetoDBContext db = new ProjetoDBContext();
 
-        // GET: Servicos
+        [Authorize(Roles = "Administrador, Funcionario")]
         [HttpGet]
         public ActionResult Index()
         {

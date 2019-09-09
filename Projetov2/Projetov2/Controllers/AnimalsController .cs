@@ -24,12 +24,14 @@ namespace Projeto.Controllers
         private ProjetoDBContext db = new ProjetoDBContext();
 
         // GET: Animal
-        [HttpGet]
+        [Authorize(Roles = "Administrador, Funcionario")]
+        [HttpGet]  
         public ActionResult Index()
         {
             var animals = db.Animals.Include(a => a.Clientes).Include(a => a.Servicos);
             return View(animals.ToList());
         }
+        [Authorize(Roles = "Administrador, Funcionario")]
         [HttpGet]
         public ActionResult GetAnimals()
         {
@@ -43,7 +45,7 @@ namespace Projeto.Controllers
                 return Json(new { data = listaAnimais }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+        [Authorize(Roles = "Administrador, Funcionario")]
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         [ValidateInput(false)]
         public ActionResult Table()
@@ -76,18 +78,11 @@ namespace Projeto.Controllers
                 return Json(response, JsonRequestBehavior.AllowGet);
             }
         }
-    
-                public ActionResult loaddata2()
-        {
-            using (ProjetoDBContext db = new ProjetoDBContext())
-            {
-                // dc.Configuration.LazyLoadingEnabled = false; // if your table is relational, contain foreign key
-                var data = db.Animals.OrderBy(a => a.Nome).ToList();
-                return Json(new { data = data }, JsonRequestBehavior.AllowGet);
-            }
-        }
 
 
+
+
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult LoadData()
         {
             using (ProjetoDBContext db = new ProjetoDBContext())
@@ -142,6 +137,7 @@ namespace Projeto.Controllers
                 }
 
         }
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Details(int? id)
         {
             var animals = db.Animals.Include(a => a.Clientes).Include(a => a.Servicos).ToList();
@@ -207,6 +203,7 @@ namespace Projeto.Controllers
             PopulateAssignedCourseData(animal);
             return View();
         }
+        [Authorize(Roles = "Administrador, Funcionario")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AnimalID,Nome,Sexo,Raca,Motivo,Observaçoes,Sangue,Nascimento,Idade,Entrada,Saida,DataCadastro,ClienteNome,Preco,Pagamento,State,City")] Animal animal, string[] selectedServicos)
@@ -233,6 +230,7 @@ namespace Projeto.Controllers
             PopulateAssignedCourseData(animal);
             return View(animal);
         }
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Edit(int? id)
         {
             bindState();
@@ -260,6 +258,7 @@ namespace Projeto.Controllers
         // POST: Animals/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Administrador, Funcionario")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit( int? id, string[] selectedServicos)
@@ -296,6 +295,7 @@ namespace Projeto.Controllers
             PopulateAssignedCourseData(AnimalAtualizar);
             return View(AnimalAtualizar);
         }
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

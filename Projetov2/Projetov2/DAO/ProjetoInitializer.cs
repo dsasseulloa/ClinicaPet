@@ -16,11 +16,9 @@ namespace Projeto.DAO
         {
             var funcionarios = new List<Funcionario>
             {
-                new Funcionario{Nome="Carolina Sasse",Sexo="Feminino",Cargo=Cargo.Administrador,Salario=0,Contato="47988374041",Email="carolinasasse@gmail.com",DataAdmissao=DateTime.Parse("2017-01-01"),DataNascimento=DateTime.Parse("1980-01-01"),CPFouRG="779.320.603-04"},
-                new Funcionario{Nome="Maria Costa",Sexo="Feminino",Cargo=Cargo.Nutricionista,Salario=1700,DataAdmissao=DateTime.Parse("2019-08-09"),DataNascimento=DateTime.Parse("1987-03-07"),Contato="47988359573",CPFouRG="779.320.603-03"},
-                new Funcionario{Nome="Manuela Lima Azevedo",Sexo="Feminino",Cargo=Cargo.Fisioterapeuta,Salario=1700,DataAdmissao=DateTime.Parse("2017-01-10"),DataNascimento=DateTime.Parse("1982-01-01"),Contato="47988129573",CPFouRG="779.320.603-01"}
-                //new Funcionario{Nome="Sophia Goncalves ",Sexo="Feminino",Cargo=Cargo.Assistente,Salario=1900,DataAdmissao=DateTime.Parse("2018-08-02"),DataNascimento=DateTime.Parse("1994-01-01"),Contato="4798837534",CPFouRG="779.320.603-05"},
-                //new Funcionario{Nome="Gabriel Rocha Barros",Sexo="Masculino",Cargo=Cargo.Motorista,Salario=1900,DataAdmissao=DateTime.Parse("2017-03-07"),DataNascimento=DateTime.Parse("1991-01-01"),Contato="47988345773",CPFouRG="779.320.603-02"}
+                new Funcionario{Nome="Administrador",Sexo="Feminino",Cargo=Cargo.Administrador,Salario=0,Contato="47988374041",Email="carolinasasse@gmail.com",DataAdmissao=DateTime.Parse("2017-01-01"),DataNascimento=DateTime.Parse("1980-01-01"),CPFouRG="779.320.603-04"},
+                new Funcionario{Nome="Manuela Lima Azevedo",Sexo="Feminino",Cargo=Cargo.Fisioterapeuta,Salario=1700,DataAdmissao=DateTime.Parse("2017-01-10"),DataNascimento=DateTime.Parse("1982-01-01"),Contato="(47)98812-9573",CPFouRG="779.320.603-01"},
+                new Funcionario{Nome="Maria Costa",Sexo="Feminino",Cargo=Cargo.Nutricionista,Salario=0,DataAdmissao=DateTime.Parse("2019-08-09"),DataNascimento=DateTime.Parse("1987-03-07"),Contato="(47)98835-9573",CPFouRG="779.320.603-03"}
             };
             funcionarios.ForEach(s => context.Funcionarios.Add(s));
             context.SaveChanges();
@@ -28,8 +26,8 @@ namespace Projeto.DAO
             var Acessos = new List<Acesso>
             {
                 new Acesso{FuncionarioID=1,Usuario="admin@admin.com",Senha="123456",Ativo=Ativo.Sim, Perfil="Administrador"},
-                new Acesso{FuncionarioID=2,Usuario="Maria",Senha="123456",Ativo=Ativo.Sim, Perfil="Funcionario"},
-                new Acesso{FuncionarioID=3,Usuario="Gabriel",Senha="123456",Ativo=Ativo.Sim, Perfil="Funcionario" }
+                new Acesso{FuncionarioID=2,Usuario="Manuela",Senha="123456",Ativo=Ativo.Sim, Perfil="Funcionario"},
+               
                
 
             };
@@ -83,16 +81,26 @@ namespace Projeto.DAO
             var animais = new List<Animal>
             {
               
-                new Animal{AnimalID=1,Nome="Toby",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.2",Idade=5,Entrada=DateTime.Parse("2019-01-10"),ClienteNome="Carlos Joaquim",Preco=550,Pagamento="Pago"},
-                new Animal{AnimalID=2,Nome="Rex",Sexo="Macho",Tipo="Outro",TipoSangue="B+",Idade=5,Entrada=DateTime.Parse("2019-01-10"),ClienteNome="Carlos Joaquim",Preco=350,Pagamento="Pago"},
-                 new Animal{AnimalID=3,Nome="Bela",Sexo="Fêmea",Tipo="Cachorro",TipoSangue="DEA 5",Idade=5,Entrada=DateTime.Parse("2019-02-10"),ClienteNome="Isabelle Silva Almeida",Preco=240,Pagamento="Pago"},
-                new Animal{AnimalID=4,Nome="Mel",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.1",Idade=5,Entrada=DateTime.Parse("2019-03-10"),ClienteNome="Isabelle Silva Almeida",Preco=350,Pagamento="Pago"},
-                new Animal{AnimalID=5,Nome="Julie",Sexo="Fêmea",Tipo="Gato",TipoSangue="A",Idade=5,Entrada=DateTime.Parse("2019-04-10"),ClienteNome="Beatrice Ribeiro Cardoso",Preco=450,Pagamento="Pago"},
-                new Animal{AnimalID=6,Nome="Fubá",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.2",Idade=5,Entrada=DateTime.Parse("2019-05-10"),ClienteNome="Carlos Joaquim",Preco=500,Pagamento="Pago"},
-                new Animal{AnimalID=7,Nome="Duke",Sexo="Macho",Tipo="Outro",TipoSangue="B+",Idade=5,Entrada=DateTime.Parse("2019-05-10"),ClienteNome="Carlos Joaquim",Preco=450,Pagamento="Pendente"},
-                 new Animal{AnimalID=8,Nome="Babi",Sexo="Fêmea",Tipo="Cachorro",TipoSangue="DEA 5",Idade=5,Entrada=DateTime.Parse("2019-06-10"),ClienteNome="Isabelle Silva Almeida",Preco=600,Pagamento="Pendente"},
-                new Animal{AnimalID=9,Nome="Cacau",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.1",Idade=5,Entrada=DateTime.Parse("2019-07-10"),ClienteNome="Isabelle Silva Almeida",Preco=700,Pagamento="Pendente"},
-                new Animal{AnimalID=10,Nome="Estrela",Sexo="Fêmea",Tipo="Gato",TipoSangue="A",Idade=5,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Beatrice Ribeiro Cardoso",Preco=350,Pagamento="Pendente"}
+                new Animal{AnimalID=1,Nome="Toby",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.2",Idade=5,Entrada=DateTime.Parse("2019-01-10"),ClienteNome="Carlos Joaquim",Preco=950,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=2,Nome="Rex",Sexo="Macho",Tipo="Outro",TipoSangue="B+",Idade=2,Entrada=DateTime.Parse("2019-01-10"),ClienteNome="Otávio Cardoso Araujo",Preco=850,Pagamento="Pago",Raca="S.R.D"},
+                 new Animal{AnimalID=3,Nome="Bela",Sexo="Fêmea",Tipo="Cachorro",TipoSangue="DEA 5",Idade=3,Entrada=DateTime.Parse("2019-02-10"),ClienteNome="Gabriela Ferreira Pereira",Preco=1440,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=4,Nome="Mel",Sexo="Fêmea",Tipo="Cachorro",TipoSangue="DEA 1.1",Idade=1,Entrada=DateTime.Parse("2019-03-10"),ClienteNome="Isabelle Silva Almeida",Preco=750,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=5,Nome="Julie",Sexo="Fêmea",Tipo="Gato",TipoSangue="A",Idade=2,Entrada=DateTime.Parse("2019-04-10"),ClienteNome="Beatrice Ribeiro Cardoso",Preco=1450,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=6,Nome="Fubá",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.2",Idade=11,Entrada=DateTime.Parse("2019-05-10"),ClienteNome="Carlos Joaquim",Preco=1000,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=7,Nome="Duke",Sexo="Macho",Tipo="Outro",TipoSangue="B+",Idade=8,Entrada=DateTime.Parse("2019-05-10"),ClienteNome="Carlos Joaquim",Preco=550,Pagamento="Pendente",Raca="S.R.D"},
+                 new Animal{AnimalID=8,Nome="Babi",Sexo="Fêmea",Tipo="Cachorro",TipoSangue="DEA 5",Idade=9,Entrada=DateTime.Parse("2019-05-10"),ClienteNome="Bruna Cavalcanti Gomes",Preco=1300,Pagamento="Pendente",Raca="S.R.D"},
+                new Animal{AnimalID=9,Nome="Cacau",Sexo="Fêmea",Tipo="Cachorro",TipoSangue="DEA 1.1",Idade=7,Entrada=DateTime.Parse("2019-07-10"),ClienteNome="Bruna Cavalcanti Gomes",Preco=1250,Pagamento="Pendente",Raca="S.R.D"},
+                new Animal{AnimalID=10,Nome="Estrela",Sexo="Fêmea",Tipo="Gato",TipoSangue="A",Idade=4,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Beatrice Ribeiro Cardoso",Preco=1050,Pagamento="Pendente",Raca="S.R.D"},
+                new Animal{AnimalID=11,Nome="Elvis",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.2",Idade=7,Entrada=DateTime.Parse("2019-01-10"),ClienteNome="Carlos Joaquim",Preco=1050,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=12,Nome="Harry",Sexo="Macho",Tipo="Outro",TipoSangue="B+",Idade=5,Entrada=DateTime.Parse("2019-03-10"),ClienteNome="Carlos Joaquim",Preco=1150,Pagamento="Pago",Raca="S.R.D"},
+                 new Animal{AnimalID=13,Nome="Judy",Sexo="Fêmea",Tipo="Cachorro",TipoSangue="DEA 5",Idade=5,Entrada=DateTime.Parse("2019-02-10"),ClienteNome="Isabelle Silva Almeida",Preco=1440,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=14,Nome="Max",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.1",Idade=8,Entrada=DateTime.Parse("2019-03-10"),ClienteNome="Isabelle Silva Almeida",Preco=950,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=15,Nome="Jasmin",Sexo="Fêmea",Tipo="Gato",TipoSangue="A",Idade=5,Entrada=DateTime.Parse("2019-04-10"),ClienteNome="Beatrice Ribeiro Cardoso",Preco=1450,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=16,Nome="Oliver",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.2",Idade=9,Entrada=DateTime.Parse("2019-06-10"),ClienteNome="Carlos Joaquim",Preco=1400,Pagamento="Pago",Raca="S.R.D"},
+                new Animal{AnimalID=17,Nome="Odie",Sexo="Macho",Tipo="Outro",TipoSangue="B+",Idade=15,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Carlos Joaquim",Preco=1050,Pagamento="Pendente",Raca="S.R.D"},
+                 new Animal{AnimalID=18,Nome="Babi",Sexo="Fêmea",Tipo="Cachorro",TipoSangue="DEA 5",Idade=11,Entrada=DateTime.Parse("2019-06-10"),ClienteNome="Isabelle Silva Almeida",Preco=1400,Pagamento="Pendente",Raca="S.R.D"},
+                new Animal{AnimalID=19,Nome="Pimpolho",Sexo="Macho",Tipo="Cachorro",TipoSangue="DEA 1.1",Idade=15,Entrada=DateTime.Parse("2019-07-10"),ClienteNome="Isabelle Silva Almeida",Preco=1540,Pagamento="Pendente",Raca="S.R.D"},
+                new Animal{AnimalID=20,Nome="Sandy",Sexo="Fêmea",Tipo="Gato",TipoSangue="A",Idade=10,Entrada=DateTime.Parse("2019-08-10"),ClienteNome="Beatrice Ribeiro Cardoso",Preco=750,Pagamento="Pendente",Raca="S.R.D"}
             };
             animais.ForEach(s => context.Animals.Add(s));
             context.SaveChanges();

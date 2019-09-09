@@ -116,8 +116,8 @@ namespace Projeto.Controllers
             
             var totaleservicos = result.Select(x => x.serviconosanimais).ToArray();
             var totalquantidade = result.Select(x => x.contador1).ToArray();
-            totaleservicos = totaleservicos.OrderByDescending(c => c).ToArray();
-            totalquantidade = totalquantidade.OrderByDescending(c => c).ToArray();
+            totaleservicos = totaleservicos.ToArray();
+            totalquantidade = totalquantidade.ToArray();
             ViewBag.totalservicos = totaleservicos;
             ViewBag.totalquantity = totalquantidade;
             
@@ -231,13 +231,13 @@ namespace Projeto.Controllers
                 .Select(x => new { serviconosanimais = x.Key, contador1 = x.Sum() })
                 .ToArray();
 
-            var totalefruit = result.Select(x => x.serviconosanimais).ToArray();
+            var totaleservicos = result.Select(x => x.serviconosanimais).ToArray();
             var totalquantity = result.Select(x => x.contador1).ToArray();
 
-            totalefruit = totalefruit.OrderByDescending(c => c).ToArray();
+            totaleservicos = totaleservicos.OrderByDescending(c => c).ToArray();
             totalquantity = totalquantity.OrderByDescending(c => c).ToArray();
 
-            ViewBag.totalservicos = totalefruit;
+            ViewBag.totalservicos = totaleservicos;
             ViewBag.totalquantity = totalquantity;
 
             return View();
